@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config(); // Load environment variables
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://harrines0920:Rw8z5e00Iwug8OfK@cluster3.n2wws.mongodb.net/cb?retryWrites=true&w=majority&appName=Cluster3";
+const MONGO_URI = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
@@ -17,3 +17,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
