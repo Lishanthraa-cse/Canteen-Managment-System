@@ -1,0 +1,44 @@
+.admin-logs-container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
+  }
+  
+  .logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .logs-table th,
+  .logs-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .status-success {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-fail {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .export-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 10px;
+  }
+  
+  .export-btn:hover {
+    background-color: #0056b3;
+  }
+  

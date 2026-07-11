@@ -1,0 +1,98 @@
+.payment-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 22px;
+    color: #444;
+    margin: 15px 0;
+  }
+  
+  .qr-section {
+    margin-top: 20px;
+  }
+  
+  .qr-section h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .qr-section canvas {
+    margin: 10px auto;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .upi-button {
+    width: 100%;
+    background: #0077cc;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .upi-button:hover {
+    background: #005fa3;
+  }
+  
+  .confirm-payment-button {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .confirm-payment-button:hover {
+    background: #218838;
+  }
+  
+  .back-button {
+    width: 100%;
+    background: #ff4444;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .back-button:hover {
+    background: #cc0000;
+  }
+  
+  @media (max-width: 600px) {
+    .payment-container {
+      width: 90%;
+      padding: 15px;
+    }
+  }
+  

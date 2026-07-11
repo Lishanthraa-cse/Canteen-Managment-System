@@ -1,0 +1,211 @@
+/* 🛒 Cart Page Styling */
+.cart-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+h1 {
+  font-size: 28px;
+  color: #2c3e50;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* 🛍️ Empty Cart Message */
+.empty-cart p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* 🎨 Cart Items */
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.cart-item:hover {
+  transform: scale(1.02);
+}
+
+/* 🖼️ Item Image */
+.cart-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* 📜 Item Details */
+.cart-details {
+  flex-grow: 1;
+  text-align: left;
+  padding: 0 15px;
+}
+
+.cart-details h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.cart-details p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* 🔢 Quantity Input */
+input[type="number"] {
+  width: 50px;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+input[type="number"]:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+/* ❌ Remove Button */
+.remove-button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.remove-button:hover {
+  background: #cc0000;
+}
+
+/* 💰 Total Amount */
+h2 {
+  font-size: 22px;
+  color: #0077cc;
+  margin: 20px 0;
+}
+
+/* 📞 Phone Input */
+label {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-top: 5px;
+}
+
+input[type="text"]:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+/* 🚀 Buttons */
+.cart-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-more-button,
+.confirm-button {
+  width: 48%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.add-more-button {
+  background: linear-gradient(135deg, #f7b733, #fc4a1a);
+  color: white;
+  box-shadow: 0px 4px 8px rgba(252, 74, 26, 0.3);
+}
+
+.add-more-button:hover {
+  background: linear-gradient(135deg, #fc4a1a, #f7b733);
+  box-shadow: 0px 6px 12px rgba(252, 74, 26, 0.5);
+}
+
+.confirm-button {
+  background: linear-gradient(135deg, #1d976c, #93f9b9);
+  color: white;
+  box-shadow: 0px 4px 8px rgba(29, 151, 108, 0.3);
+}
+
+.confirm-button:hover {
+  background: linear-gradient(135deg, #93f9b9, #1d976c);
+  box-shadow: 0px 6px 12px rgba(29, 151, 108, 0.5);
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .cart-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cart-details {
+    padding: 10px 0;
+  }
+
+  .cart-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .add-more-button,
+  .confirm-button {
+    width: 100%;
+  }
+}
+
+/* 🎭 Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

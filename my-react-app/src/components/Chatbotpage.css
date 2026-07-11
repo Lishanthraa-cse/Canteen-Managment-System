@@ -1,0 +1,130 @@
+/* General Chatbot Container */
+.chatbot-container {
+    width: 350px;
+    height: 450px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Chat History */
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding-top: 10px;
+  }
+  
+  /* Individual Message */
+  .user-message, .chatbot-message {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+  }
+  
+  .user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 12px;
+    position: relative;
+  }
+  
+  .chatbot-message {
+    align-self: flex-start;
+    background-color: #e9ecef;
+    color: #343a40;
+    padding: 8px 12px;
+    border-radius: 12px;
+    position: relative;
+  }
+  
+  .message-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .chatbot-message p, .user-message p {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .chatbot-message p {
+    color: #495057;
+  }
+  
+  /* Chat Input Area */
+  .chat-input {
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-input input {
+    width: 75%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+  .chat-input button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .chat-input button:hover {
+    background-color: #218838;
+  }
+  
+  /* Scrollbar Styling */
+  .chat-history::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .chat-history::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
+  }
+  
+  .chat-history::-webkit-scrollbar-track {
+    background-color: #f8f9fa;
+  }
+  
+  /* Responsive Design for Mobile */
+  @media (max-width: 400px) {
+    .chatbot-container {
+      width: 280px;
+      height: 400px;
+    }
+  
+    .chat-input input {
+      width: 60%;
+    }
+  
+    .chat-input button {
+      width: 30%;
+    }
+  }
+  

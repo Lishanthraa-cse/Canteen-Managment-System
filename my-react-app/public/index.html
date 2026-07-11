@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>React App</title>
+  </head>
+  <body>
+    <script src="https://cdn.botpress.cloud/webchat/v2.3/webchat.js"></script>
+    <script>
+      window.botpressWebChat.init({
+        configUrl: "https://files.bpcontent.cloud/2025/02/20/14/20250220142222-BR6XH43X.json",
+        botId: "your-bot-id",
+        host: "https://cdn.botpress.cloud/webchat/v2.3",
+        showPoweredBy: false, // Optional: Remove "Powered by Botpress"
+        disableAnimations: false, // Optional: Keep animations
+        closeOnEscape: true, // Close chat on "Esc" key
+        showCloseButton: true, // Show a close button
+      });
+    </script>
+    
+    <div id="root"></div>
+  </body>
+</html>

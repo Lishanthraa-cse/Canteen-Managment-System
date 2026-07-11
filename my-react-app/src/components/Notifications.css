@@ -1,0 +1,76 @@
+.notifications-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notification {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.notification.unread {
+  background-color: #f5faff;
+}
+
+.notification.read {
+  opacity: 0.7;
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.info-icon {
+  color: #007bff;
+}
+
+.success-icon {
+  color: #28a745;
+}
+
+.warning-icon {
+  color: #ffc107;
+}
+
+.mark-read-btn {
+  margin-left: auto;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #888;
+  margin-top: 2rem;
+}

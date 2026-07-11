@@ -1,0 +1,26 @@
+.manage-roles-container {
+    padding: 2rem;
+  }
+  
+  .add-role-form input,
+  .add-permission-form input {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .add-role-form button,
+  .add-permission-form button {
+    padding: 0.5rem 1rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .role-card {
+    background: #f3f3f3;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  

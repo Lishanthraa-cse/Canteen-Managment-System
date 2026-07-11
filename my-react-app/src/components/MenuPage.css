@@ -1,0 +1,108 @@
+/* ✅ Global Styles to Allow Scrolling */
+/* Ensure body can scroll vertically */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* ← This is key for vertical scrolling */
+    overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* ✅ Menu Container */
+  .menu-container {
+    padding-bottom: 50px; /* Give space at bottom */
+  }
+  
+  /* ✅ Category Title Styling */
+  .category-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 5px;
+  }
+  
+  /* ✅ Card Styling */
+  .menu-card {
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .menu-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ✅ Card Image */
+  .menu-img {
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  /* ✅ Favorite Star Styling */
+  .favorite-star {
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .favorite-star:hover {
+    transform: scale(1.2);
+  }
+  
+  /* ✅ Search Bar */
+  .search-bar {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-input {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .search-input .search-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #aaa;
+  }
+  
+  .search-input input {
+    padding-left: 35px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* ✅ Buttons */
+  button {
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  /* ✅ Responsive */
+  @media (max-width: 768px) {
+    .category-title {
+      font-size: 1.5rem;
+    }
+  
+    .menu-card {
+      margin-bottom: 20px;
+    }
+  
+    .search-input {
+      width: 90%;
+    }
+  }
+  

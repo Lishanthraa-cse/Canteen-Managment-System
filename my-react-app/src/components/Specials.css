@@ -1,0 +1,125 @@
+.admin-specials-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form input,
+.form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form button:hover {
+  background-color: #0056b3;
+}
+
+.success, .error, .loading, .empty {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.success {
+  background-color: #e6f9ec;
+  color: #1a7f37;
+}
+
+.error {
+  background-color: #ffe6e6;
+  color: #b00020;
+}
+
+.loading {
+  color: #444;
+  font-style: italic;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
+}
+
+.specials-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.special-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 6px solid #007bff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.special-card h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #222;
+}
+
+.special-card .price {
+  font-weight: bold;
+  margin: 10px 0;
+  color: #007bff;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background-color: #b52a37;
+}

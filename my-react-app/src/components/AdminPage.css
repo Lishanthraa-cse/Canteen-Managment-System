@@ -1,0 +1,120 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.admin-home {
+  text-align: center;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+/* Admin Section Cards */
+.admin-sections {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admin-card {
+  display: block;
+  width: 280px;
+  height: 200px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: #2c3e50;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.admin-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.admin-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-card h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.admin-card p {
+  font-size: 16px;
+  color: #7f8c8d;
+  text-align: center;
+}
+
+/* Animated Background for Hover */
+.admin-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, #f39c12, #e74c3c);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 15px;
+}
+
+.admin-card:hover::before {
+  opacity: 0.2;
+}
+
+.admin-card:hover .admin-card-content h2,
+.admin-card:hover .admin-card-content p {
+  color: #fff;
+}
+
+.admin-card:hover .admin-card-content p {
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-sections {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-card {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}

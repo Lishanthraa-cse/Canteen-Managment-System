@@ -1,0 +1,76 @@
+.feedback-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.feedback-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.loading,
+.no-feedback,
+.error-message {
+  font-style: italic;
+  color: #888;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: #c0392b;
+  background-color: #fdecea;
+  padding: 1rem;
+  border-left: 4px solid #e74c3c;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feedback-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.feedback-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-left: 4px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.feedback-card:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.feedback-email {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-rating {
+  color: #f39c12;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.feedback-text {
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-date {
+  font-size: 0.9rem;
+  color: #888;
+}

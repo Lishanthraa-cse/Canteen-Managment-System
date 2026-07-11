@@ -1,0 +1,78 @@
+/* OrderResponse.css */
+
+body {
+  background: linear-gradient(to right, #f8f9fa, #e0eafc);
+  font-family: "Poppins", sans-serif;
+}
+
+.order-management-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: flex-end;
+}
+
+.search-input,
+.dropdown {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.table-wrapper {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.orders-table th {
+  background-color: #f4f6f8;
+  font-weight: 600;
+  color: #555;
+}
+
+.orders-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+}
+
+.badge-paid {
+  background-color: #28a745;
+}
+
+.badge-unpaid {
+  background-color: #dc3545;
+}
