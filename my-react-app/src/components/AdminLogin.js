@@ -1,55 +1,112 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { FaShieldAlt, FaLock, FaEnvelope, FaArrowLeft, FaKey } from "react-icons/fa";
+import { useApp } from "../context/AppContext";
 import "./AdminLogin.css";
-import logo from "../assets/collegeImage.jpg";
 
 const AdminLogin = () => {
-  const navigate = useNavigate();
+  const { setAdminSession, showToast } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      showToast("Please enter admin email and password", "error");
+      return;
+    }
 
-    // Add your login logic here
-    if (email === "admin@srec.ac.in" && password === "admin123") {
-      alert("Login Successful");
-      navigate("/admindashboard"); // redirect to admin dashboard
-    } else {
-      alert("Invalid credentials");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.token) {
+        setAdminSession(data.token);
+        showToast("✅ Welcome back, Admin!", "success");
+        navigate("/admindashboard");
+      } else {
+        showToast(data.message || "Invalid Admin Credentials", "error");
+      }
+    } catch (err) {
+      showToast("Network error during login", "error");
+    } finally {
+      setLoading(false);
     }
   };
 
+  const handleAutoFillDemo = () => {
+    setEmail("admin@srec.ac.in");
+    setPassword("admin123");
+    showToast("Filled demo admin credentials!", "info");
+  };
+
   return (
-    <div className="admin-login-container">
+    <div className="admin-login-root">
+      <div className="login-backdrop-glow"></div>
+
       <div className="admin-login-card">
-        <img src={logo} alt="SREC Logo" className="admin-logo" />
-        <h2>Admin Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>Email</label>
+        <Link to="/" className="back-home-link">
+          <FaArrowLeft /> Back to Canteen
+        </Link>
+
+        <div className="admin-login-header">
+          <div className="admin-shield-icon">
+            <FaShieldAlt />
+          </div>
+          <h1>SREC Canteen Admin</h1>
+          <p>Restricted access for canteen staff & cafeteria operations.</p>
+        </div>
+
+        {/* Demo Fast-fill banner for recruiters */}
+        <div className="demo-credentials-badge">
+          <div className="demo-text">
+            <strong>Recruiter / Demo Credentials:</strong>
+            <span>admin@srec.ac.in • admin123</span>
+          </div>
+          <button type="button" className="auto-fill-btn" onClick={handleAutoFillDemo}>
+            <FaKey /> Auto Fill
+          </button>
+        </div>
+
+        <form onSubmit={handleLogin} className="admin-login-form">
+          <div className="input-field-wrap">
+            <FaEnvelope className="input-icon" />
             <input
               type="email"
-              placeholder="admin@srec.in"
+              placeholder="Admin Email (@srec.ac.in)"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
-          <div className="form-group">
-            <label>Password</label>
+          <div className="input-field-wrap">
+            <FaLock className="input-icon" />
             <input
               type="password"
-              placeholder="********"
+              placeholder="Admin Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          <button type="submit" className="login-btn">Login</button>
+          <button type="submit" className="login-submit-btn" disabled={loading}>
+            {loading ? "Authenticating..." : "Sign In to Operations ➔"}
+          </button>
         </form>
+
+        <div className="admin-login-footer">
+          <span>Protected by SREC Department Security • JWT Encrypted</span>
+        </div>
       </div>
     </div>
   );

@@ -1,171 +1,380 @@
-import { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  FaClipboardList, FaUtensils, FaBell, FaShieldAlt, FaChartBar,
-  FaUsers, FaExclamationTriangle, FaLock, FaDatabase, FaMoon, FaSun, FaBars
+  FaClipboardList,
+  FaUtensils,
+  FaBell,
+  FaShieldAlt,
+  FaChartBar,
+  FaExclamationTriangle,
+  FaLock,
+  FaDatabase,
+  FaMoon,
+  FaSun,
+  FaBars,
+  FaRupeeSign,
+  FaClock,
+  FaCheckCircle,
+  FaSync,
+  FaSignOutAlt,
 } from "react-icons/fa";
-import "./AdminDashboard.css";
+import { Line, Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  Filler,
+} from "chart.js";
+import { useApp } from "../context/AppContext";
+import socket from "../socket";
 import notificationSound from "../assets/notification.mp3";
+import "./AdminDashboard.css";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  Filler
+);
 
 const AdminDashboard = () => {
+  const { adminToken, logoutAdmin, showToast } = useApp();
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [notifications, setNotifications] = useState([]);
-  const [newNotificationMessage, setNewNotificationMessage] = useState("");
-  const [audio] = useState(new Audio(notificationSound));
-
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [audio] = useState(() => new Audio(notificationSound));
+  const navigate = useNavigate();
 
   const menuItems = [
-    { path: "/order", icon: <FaClipboardList />, title: "Order Responses" },
+    { path: "/admindashboard", icon: <FaChartBar />, title: "Overview Dashboard" },
+    { path: "/order", icon: <FaClipboardList />, title: "Live Orders Kanban" },
     { path: "/admin", icon: <FaUtensils />, title: "Menu Management" },
     { path: "/notifications", icon: <FaBell />, title: "Notifications" },
+    { path: "/specials", icon: <FaExclamationTriangle />, title: "Daily Specials" },
+    { path: "/feedback", icon: <FaLock />, title: "Student Reviews" },
+    { path: "/adminlogs", icon: <FaClipboardList />, title: "Activity Logs" },
     { path: "/securitysettings", icon: <FaShieldAlt />, title: "Security Settings" },
-    { path: "/adminlogs", icon: <FaChartBar />, title: "Admin Logs" },
-    { path: "/manageroles", icon: <FaUsers />, title: "Manage Roles" },
-    { path: "/specials", icon: <FaExclamationTriangle />, title: "Specials" },
-    { path: "/feedback", icon: <FaLock />, title: "Feedback" },
-    { path: "/backup", icon: <FaDatabase />, title: "Backup & Restore" },
+    { path: "/backup", icon: <FaDatabase />, title: "Database Backup" },
   ];
 
-  const fetchScheduledOrders = useCallback(async () => {
+  const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch("/api/scheduleorder");
-      const data = await res.json();
-      if (data.length > notifications.length) {
-        audio.play();
-        setNewNotificationMessage("📢 New scheduled order received!");
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/admin/dashboard-stats", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setStats(data);
+      } else if (res.status === 401 || res.status === 403) {
+        // Fallback for demo if unauthenticated
+        showToast("Please login with Admin credentials", "info");
+        navigate("/adminlogin");
       }
-      setNotifications(data);
-    } catch (error) {
-      console.error("Failed to fetch scheduled orders", error);
+    } catch (err) {
+      console.error("Error fetching stats:", err);
+    } finally {
+      setLoading(false);
     }
-  }, [notifications, audio]);
+  }, [navigate, showToast]);
 
   useEffect(() => {
-    const interval = setInterval(fetchScheduledOrders, 5000);
-    return () => clearInterval(interval);
-  }, [fetchScheduledOrders]);
-
-  useEffect(() => {
-    if (newNotificationMessage) {
-      const timeout = setTimeout(() => setNewNotificationMessage(""), 5000);
-      return () => clearTimeout(timeout);
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      navigate("/adminlogin");
+      return;
     }
-  }, [newNotificationMessage]);
+
+    fetchStats();
+
+    // Socket.io room registration & live orders chime
+    socket.emit("joinAdminRoom");
+
+    const handleNewOrder = (data) => {
+      try {
+        audio.play().catch(() => {});
+      } catch {}
+      showToast(`📢 New Order #${data.order?.orderNumber} received!`, "success");
+      fetchStats();
+    };
+
+    socket.on("newOrder", handleNewOrder);
+    return () => socket.off("newOrder", handleNewOrder);
+  }, [fetchStats, audio, navigate, showToast]);
+
+  // Chart data setup
+  const salesChartData = {
+    labels: stats?.chartData?.map((d) => d.label) || ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Daily Revenue (₹)",
+        data: stats?.chartData?.map((d) => d.sales) || [1200, 1900, 3000, 2500, 3200, 4100, 3800],
+        fill: true,
+        borderColor: "#ea580c",
+        backgroundColor: "rgba(234, 88, 12, 0.1)",
+        tension: 0.35,
+        pointBackgroundColor: "#ea580c",
+      },
+    ],
+  };
+
+  const categoryChartData = {
+    labels: stats?.categoryCounts ? Object.keys(stats.categoryCounts) : ["South Indian", "Meals", "Snacks", "Beverages"],
+    datasets: [
+      {
+        data: stats?.categoryCounts ? Object.values(stats.categoryCounts) : [6, 5, 5, 5],
+        backgroundColor: ["#ea580c", "#3b82f6", "#10b981", "#8b5cf6", "#f59e0b"],
+        borderWidth: 0,
+      },
+    ],
+  };
 
   return (
-    <div className={`admin-container ${darkMode ? "dark-mode" : ""}`}>
-      <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
-        <div className="sidebar-header">
-          <button onClick={toggleSidebar} className="menu-toggle">
+    <div className={`admin-portal-root ${darkMode ? "dark-theme" : ""}`}>
+      {/* Sidebar */}
+      <aside className={`admin-sidebar ${sidebarOpen ? "open" : "collapsed"}`}>
+        <div className="admin-brand-header">
+          <div className="brand-logo-cluster">
+            <FaUtensils className="sidebar-logo-icon" />
+            {sidebarOpen && <span>SREC Admin</span>}
+          </div>
+          <button
+            className="sidebar-collapse-btn"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Toggle sidebar"
+          >
             <FaBars />
           </button>
-          {sidebarOpen && <h1 className="sidebar-title">Admin Panel</h1>}
         </div>
 
         {sidebarOpen && (
-          <>
+          <div className="sidebar-search-box">
             <input
               type="text"
-              className="search-bar"
-              placeholder="Search..."
+              placeholder="Search panel..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <nav className="sidebar-menu">
-              {menuItems.filter((item) =>
-                item.title.toLowerCase().includes(searchQuery.toLowerCase())
-              ).map((item, index) => (
-                <Link key={index} to={item.path} className="sidebar-link">
-                  <span className="icon">{item.icon}</span>
-                  <span>{item.title}</span>
-                </Link>
-              ))}
-            </nav>
-            <button onClick={toggleDarkMode} className="dark-mode-toggle" aria-label="Toggle Dark Mode">
-              {darkMode ? <FaSun /> : <FaMoon />}
-            </button>
-          </>
+          </div>
         )}
+
+        <nav className="sidebar-nav-list">
+          {menuItems
+            .filter((i) => i.title.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.path}
+                className={`sidebar-nav-link ${item.path === "/admindashboard" ? "active" : ""}`}
+                title={!sidebarOpen ? item.title : ""}
+              >
+                <span className="sidebar-icon">{item.icon}</span>
+                {sidebarOpen && <span className="sidebar-text">{item.title}</span>}
+              </Link>
+            ))}
+        </nav>
+
+        <div className="sidebar-footer-box">
+          <button
+            className="theme-toggle-btn"
+            onClick={() => setDarkMode(!darkMode)}
+            title="Toggle Dark Mode"
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
+            {sidebarOpen && <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>}
+          </button>
+
+          <button
+            className="admin-logout-btn"
+            onClick={() => {
+              logoutAdmin();
+              navigate("/adminlogin");
+            }}
+            title="Sign out of admin"
+          >
+            <FaSignOutAlt />
+            {sidebarOpen && <span>Sign Out</span>}
+          </button>
+        </div>
       </aside>
 
-      <main className="dashboard">
-        <header className="dashboard-header">
-          <h1>Welcome, Admin</h1>
-          <p>Manage your canteen operations efficiently.</p>
+      {/* Main Content Area */}
+      <main className="admin-main-viewport">
+        {/* Top bar */}
+        <header className="admin-topbar">
+          <div className="topbar-welcome">
+            <h1>Canteen Operations Overview</h1>
+            <p>Real-time orders, menu inventory, and sales analytics.</p>
+          </div>
+
+          <div className="topbar-right-actions">
+            <button className="sync-btn" onClick={fetchStats} title="Refresh live statistics">
+              <FaSync className={loading ? "spin" : ""} /> Refresh
+            </button>
+            <Link to="/order" className="view-live-orders-btn">
+              <FaClipboardList /> Live Order Board ➔
+            </Link>
+          </div>
         </header>
 
-        <section className="notifications-section">
-          <h2 className="section-title">Scheduled Orders</h2>
-          {newNotificationMessage && (
-            <div className="notification-alert animate-bounce">
-              {newNotificationMessage}
+        {/* 4 Core KPI Stat Cards */}
+        <section className="kpi-cards-grid">
+          <div className="kpi-card orange">
+            <div className="kpi-icon-wrap">
+              <FaRupeeSign />
             </div>
-          )}
-          {notifications.length === 0 ? (
-            <p>No scheduled orders yet.</p>
-          ) : (
-            <ul className="notification-list">
-              {notifications.map((order, idx) => (
-                <li key={idx} className="notification-card">
-                  <strong>Order #{order.orderId}</strong> <br />
-                  Scheduled Time: {new Date(order.scheduledTime).toLocaleTimeString()} <br />
-                  Items: {order.items.map((item) => item.name).join(", ")}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+            <div className="kpi-data">
+              <span className="kpi-label">Today's Sales</span>
+              <h2>₹{stats?.todayRevenue?.toFixed(2) || "0.00"}</h2>
+              <span className="kpi-sub">Total: ₹{stats?.totalRevenue?.toFixed(2) || "0.00"}</span>
+            </div>
+          </div>
 
-        <section className="backup-section">
-          <h2 className="section-title">Backup & Restore</h2>
-          <div className="backup-buttons">
-            <button
-              className="btn-backup"
-              onClick={async () => {
-                try {
-                  const res = await fetch("http://localhost:5000/api/backup");
-                  const data = await res.json();
-                  alert(data.message);
-                } catch (err) {
-                  alert("Backup failed.");
-                }
-              }}
-            >
-              🔄 Backup Now
-            </button>
+          <div className="kpi-card blue">
+            <div className="kpi-icon-wrap">
+              <FaClipboardList />
+            </div>
+            <div className="kpi-data">
+              <span className="kpi-label">Today's Orders</span>
+              <h2>{stats?.todayOrdersCount || 0}</h2>
+              <span className="kpi-sub">All-time: {stats?.totalOrders || 0} Orders</span>
+            </div>
+          </div>
 
-            <button
-              className="btn-restore"
-              onClick={async () => {
-                if (!window.confirm("Are you sure you want to restore?")) return;
-                try {
-                  const res = await fetch("http://localhost:5000/api/restore", { method: "POST" });
-                  const data = await res.json();
-                  alert(data.message);
-                } catch (err) {
-                  alert("Restore failed.");
-                }
-              }}
-            >
-              ♻️ Restore Backup
-            </button>
+          <div className="kpi-card amber">
+            <div className="kpi-icon-wrap">
+              <FaClock />
+            </div>
+            <div className="kpi-data">
+              <span className="kpi-label">Pending Orders</span>
+              <h2>{stats?.pendingOrdersCount || 0}</h2>
+              <span className="kpi-sub">Kitchen queue waiting</span>
+            </div>
+          </div>
+
+          <div className="kpi-card green">
+            <div className="kpi-icon-wrap">
+              <FaUtensils />
+            </div>
+            <div className="kpi-data">
+              <span className="kpi-label">Active Menu Dishes</span>
+              <h2>{stats?.totalMenuItems || 21}</h2>
+              <span className="kpi-sub">{stats?.outOfStockItems || 0} Out of Stock</span>
+            </div>
           </div>
         </section>
 
-        <section className="grid-container">
-          {menuItems.slice(0, 3).map((item, index) => (
-            <Link key={index} to={item.path} className="dashboard-card">
-              <div className="card-icon">{item.icon}</div>
-              <div className="card-content">
-                <h2>{item.title}</h2>
-                <p>Manage {item.title.toLowerCase()} efficiently.</p>
-              </div>
+        {/* Visual Charts Grid */}
+        <section className="charts-grid-section">
+          <div className="chart-panel sales-chart-panel">
+            <div className="chart-header">
+              <h3>📈 7-Day Revenue Trend</h3>
+              <span className="chart-badge">Live Trend</span>
+            </div>
+            <div className="chart-canvas-wrap">
+              <Line
+                data={salesChartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: { legend: { display: false } },
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="chart-panel category-chart-panel">
+            <div className="chart-header">
+              <h3>🍩 Menu Categories Breakdown</h3>
+            </div>
+            <div className="chart-canvas-wrap doughnut-wrap">
+              <Doughnut
+                data={categoryChartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                }}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Recent Orders Snapshot Table */}
+        <section className="recent-orders-admin-panel">
+          <div className="panel-header-row">
+            <h3>Recent Orders Placed</h3>
+            <Link to="/order" className="view-all-orders-link">
+              Manage in Live Kanban ➔
             </Link>
-          ))}
+          </div>
+
+          <div className="table-responsive-wrapper">
+            <table className="admin-orders-table">
+              <thead>
+                <tr>
+                  <th>Token / Order #</th>
+                  <th>Customer</th>
+                  <th>Dining / Table</th>
+                  <th>Dishes</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats?.recentOrders?.length > 0 ? (
+                  stats.recentOrders.map((o) => (
+                    <tr key={o._id}>
+                      <td>
+                        <strong>{o.orderNumber}</strong>
+                      </td>
+                      <td>
+                        <span>{o.customerName}</span>
+                        <small className="cell-sub">{o.email}</small>
+                      </td>
+                      <td>{o.tableNumber}</td>
+                      <td>
+                        {o.items?.map((it) => `${it.quantity}x ${it.name}`).join(", ")}
+                      </td>
+                      <td>
+                        <strong>₹{Number(o.totalAmount).toFixed(2)}</strong>
+                      </td>
+                      <td>
+                        <span className="badge-paid">{o.paymentStatus}</span>
+                      </td>
+                      <td>
+                        <span className={`status-tag ${o.status.toLowerCase()}`}>
+                          {o.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" style={{ textAlign: "center", padding: "24px" }}>
+                      No recent orders found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

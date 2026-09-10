@@ -1,0 +1,244 @@
+.schedule-page-root {
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.schedule-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.schedule-container .back-link {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.schedule-card-wrapper {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.schedule-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.cal-icon-box {
+  width: 52px;
+  height: 52px;
+  background: #ffedd5;
+  color: #ea580c;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.schedule-header h1 {
+  font-size: 1.85rem;
+  font-weight: 900;
+  margin: 0 0 6px;
+  letter-spacing: -0.5px;
+}
+
+.schedule-header p {
+  color: #64748b;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.selected-dish-pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+
+.selected-dish-pill img {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.dish-details {
+  flex: 1;
+}
+
+.dish-details h4 {
+  margin: 0 0 2px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.dish-details span {
+  font-size: 0.82rem;
+  color: #9a3412;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.qty-controls button {
+  background: none;
+  border: none;
+  color: #ea580c;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 24px;
+}
+
+.qty-controls span {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.no-item-selected-box {
+  padding: 20px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.pick-dish-link {
+  color: #ea580c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.slot-chip {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #475569;
+  transition: all 0.15s;
+}
+
+.slot-chip.active {
+  background: #ea580c;
+  color: white;
+  border-color: #ea580c;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  outline: none;
+  background: #f8fafc;
+}
+
+.input-group input:focus {
+  border-color: #ea580c;
+  background: white;
+}
+
+.schedule-total-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.total-figure {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #ea580c;
+}
+
+.confirm-schedule-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  border: none;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.3);
+}
+
+.confirm-schedule-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(234, 88, 12, 0.4);
+}
+
+.confirm-schedule-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+

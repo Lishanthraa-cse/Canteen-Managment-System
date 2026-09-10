@@ -1,116 +1,161 @@
 import React, { useEffect, useState } from "react";
-import { FaInfoCircle, FaCheckCircle, FaExclamationTriangle, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import {
+  FaInfoCircle,
+  FaCheckCircle,
+  FaExclamationTriangle,
+  FaTrash,
+  FaArrowLeft,
+  FaBell,
+  FaSync,
+} from "react-icons/fa";
+import { useApp } from "../context/AppContext";
 import "./Notifications.css";
-import notificationSound from "../assets/notification.mp3";
 
 const Notifications = () => {
+  const { showToast } = useApp();
   const [notifications, setNotifications] = useState([]);
-  const [audio] = useState(new Audio(notificationSound));
-
-  useEffect(() => {
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 10000);
-    return () => clearInterval(interval);
-  }, []);
+  const [loading, setLoading] = useState(true);
 
   const fetchNotifications = async () => {
+    setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/notifications");
-      const data = await res.json();
-      setNotifications(data);
+      const res = await fetch("/api/notifications");
+      if (res.ok) {
+        const data = await res.json();
+        setNotifications(data);
+      }
     } catch (error) {
       console.error("Error fetching notifications:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
   const markAsRead = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/notifications/${id}/read`, { method: "PUT" });
-      setNotifications(prev => prev.map(n => n._id === id ? { ...n, isRead: true } : n));
-      audio.play();
+      await fetch(`/api/notifications/${id}/read`, { method: "PUT" });
+      setNotifications((prev) =>
+        prev.map((n) => (n._id === id ? { ...n, isRead: true } : n))
+      );
+      showToast("Marked as read", "info");
     } catch (error) {
-      console.error("Error marking as read:", error);
+      console.error(error);
     }
   };
 
   const markAsDelivered = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/notifications/${id}/delivered`, { method: "PUT" });
-      setNotifications(prev => prev.map(n => n._id === id ? { ...n, isDelivered: true } : n));
-      audio.play();
+      await fetch(`/api/notifications/${id}/delivered`, { method: "PUT" });
+      setNotifications((prev) =>
+        prev.map((n) => (n._id === id ? { ...n, isDelivered: true, isRead: true } : n))
+      );
+      showToast("Order marked as delivered", "success");
     } catch (error) {
-      console.error("Error marking as delivered:", error);
+      console.error(error);
     }
   };
 
   const clearAll = async () => {
-    if (window.confirm("Are you sure you want to clear all notifications?")) {
-      try {
-        await fetch("http://localhost:5000/api/notifications", { method: "DELETE" });
-        setNotifications([]);
-      } catch (error) {
-        console.error("Error clearing notifications:", error);
-      }
-    }
-  };
-
-  const getIcon = (type) => {
-    switch (type) {
-      case "info": return <FaInfoCircle className="info-icon" />;
-      case "success": return <FaCheckCircle className="success-icon" />;
-      case "warning": return <FaExclamationTriangle className="warning-icon" />;
-      default: return <FaInfoCircle className="info-icon" />;
+    if (!window.confirm("Are you sure you want to clear all notifications?")) return;
+    try {
+      await fetch("/api/notifications", { method: "DELETE" });
+      setNotifications([]);
+      showToast("All notifications cleared", "info");
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <div className="notifications-container">
-      <div className="notifications-header">
-        <h2>Admin Notifications</h2>
-        {notifications.length > 0 && (
-          <button onClick={clearAll} className="clear-btn">
-            <FaTrash /> Clear All
+    <div className="notif-mgmt-root">
+      <div className="notif-top-nav">
+        <Link to="/admindashboard" className="back-link">
+          <FaArrowLeft /> Dashboard
+        </Link>
+        <h2>🔔 Kitchen Notifications & Alerts</h2>
+        <div className="top-actions">
+          <button className="sync-btn" onClick={fetchNotifications}>
+            <FaSync className={loading ? "spin" : ""} /> Refresh
           </button>
-        )}
+          {notifications.length > 0 && (
+            <button className="clear-all-btn" onClick={clearAll}>
+              <FaTrash /> Clear All
+            </button>
+          )}
+        </div>
       </div>
 
-      {notifications.length === 0 ? (
-        <p>No notifications available.</p>
-      ) : (
-        <ul className="notification-list">
-          {notifications.map((n) => (
-            <li key={n._id} className={`notification ${n.isRead ? "read" : "unread"}`}>
-              <div className="icon">{getIcon(n.type)}</div>
-              <div className="content">
-                <h3>{n.title}</h3>
-                <p>{n.message}</p>
-                <small>{new Date(n.timestamp).toLocaleString()}</small>
-                <p><strong>Customer:</strong> {n.customerName}</p>
-                <p><strong>Phone:</strong> {n.phone}</p>
-                <p><strong>Email:</strong> {n.email}</p>
-                <p><strong>Table:</strong> {n.tableNumber}</p>
-                <p><strong>Scheduled For:</strong> {new Date(n.scheduleTime).toLocaleString()}</p>
-                <p><strong>Total:</strong> ₹{n.totalAmount}</p>
-                {n.items?.length > 0 && (
-                  <ul>
-                    {n.items.map((item, idx) => (
-                      <li key={idx}>{item.name} - ₹{item.price}</li>
-                    ))}
-                  </ul>
-                )}
+      <main className="notif-container">
+        {loading ? (
+          <div className="loading-state">
+            <div className="spinner"></div>
+            <p>Checking incoming alerts...</p>
+          </div>
+        ) : notifications.length === 0 ? (
+          <div className="empty-notif-box">
+            <FaBell className="empty-bell" />
+            <h3>All Caught Up!</h3>
+            <p>No new order alerts or scheduled notices right now.</p>
+          </div>
+        ) : (
+          <div className="notif-list-wrap">
+            {notifications.map((n) => (
+              <div
+                key={n._id}
+                className={`notif-card ${n.isRead ? "read" : "unread"}`}
+              >
+                <div className="notif-icon-col">
+                  {n.type === "success" ? (
+                    <FaCheckCircle className="icon-success" />
+                  ) : n.type === "warning" ? (
+                    <FaExclamationTriangle className="icon-warning" />
+                  ) : (
+                    <FaInfoCircle className="icon-info" />
+                  )}
+                </div>
+
+                <div className="notif-body-col">
+                  <div className="notif-headline">
+                    <h4>{n.title}</h4>
+                    <span className="notif-time">
+                      {n.createdAt ? new Date(n.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Just now"}
+                    </span>
+                  </div>
+                  <p className="notif-msg">{n.message}</p>
+
+                  {(n.customerName || n.phone) && (
+                    <div className="notif-meta-tags">
+                      {n.customerName && <span>👤 {n.customerName}</span>}
+                      {n.phone && <span>📞 {n.phone}</span>}
+                      {n.tableNumber && <span>📍 {n.tableNumber}</span>}
+                      {n.scheduleTime && <span>⏰ {n.scheduleTime}</span>}
+                      {n.totalAmount > 0 && <span>₹{n.totalAmount}</span>}
+                    </div>
+                  )}
+
+                  <div className="notif-actions-row">
+                    {!n.isRead && (
+                      <button className="btn-read" onClick={() => markAsRead(n._id)}>
+                        Mark as Read
+                      </button>
+                    )}
+                    {!n.isDelivered && (
+                      <button className="btn-delivered" onClick={() => markAsDelivered(n._id)}>
+                        Mark Delivered
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="button-group">
-                {!n.isRead && (
-                  <button onClick={() => markAsRead(n._id)}>Mark as Read</button>
-                )}
-                {!n.isDelivered && (
-                  <button onClick={() => markAsDelivered(n._id)}>Delivered</button>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 };

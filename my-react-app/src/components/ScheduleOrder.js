@@ -1,130 +1,226 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { FaCalendarAlt, FaClock, FaArrowLeft } from "react-icons/fa";
+import { useApp } from "../context/AppContext";
+import Navbar from "./Navbar";
+import "./ScheduleOrder.css";
 
 const ScheduleOrder = () => {
+  const { currentUser, setActiveOrder, showToast } = useApp();
   const navigate = useNavigate();
-  const [order, setOrder] = useState({
-    customerName: "",
-    phone: "",
-    email: "",
-    tableNumber: "",
-    scheduleTime: "",
-    items: [],
-    totalAmount: 0,
-  });
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [customerName, setCustomerName] = useState(currentUser?.name || "");
+  const [phone, setPhone] = useState(currentUser?.phone || "");
+  const email = currentUser?.email || "student@srec.ac.in";
+  const [scheduleTime, setScheduleTime] = useState("12:30 PM");
+  const tableNumber = "Counter Pickup";
+  const [quantity, setQuantity] = useState(1);
+  const [notes, setNotes] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const selectedItem = JSON.parse(localStorage.getItem("scheduledItem"));
-    if (selectedItem) {
-      setOrder((prevOrder) => ({
-        ...prevOrder,
-        items: [selectedItem],
-        totalAmount: selectedItem.price,
-      }));
-    }
+    try {
+      const stored = localStorage.getItem("scheduledItem");
+      if (stored) {
+        setSelectedItem(JSON.parse(stored));
+      }
+    } catch {}
   }, []);
 
-  const handleChange = (e) => {
-    setOrder({ ...order, [e.target.name]: e.target.value });
-  };
+  const timeSlots = [
+    "08:30 AM",
+    "09:30 AM",
+    "10:30 AM",
+    "11:30 AM",
+    "12:00 PM",
+    "12:30 PM",
+    "01:00 PM",
+    "01:30 PM",
+    "04:00 PM",
+    "04:30 PM",
+    "05:00 PM",
+    "05:30 PM",
+  ];
 
-  const handleSchedule = async () => {
-    if (!order.customerName || !order.scheduleTime) {
-      alert("Please fill in your name and schedule time.");
+  const handleScheduleOrder = async (e) => {
+    e.preventDefault();
+    if (!selectedItem) {
+      showToast("Please choose a food item from the menu first", "error");
+      navigate("/menu");
       return;
     }
-    try {
-      const response = await fetch("http://localhost:5000/api/scheduleorder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      });
-      const data = await response.json();
-      alert(data.message);
 
-      // Create notification for the admin with full order details
-      await fetch("http://localhost:5000/api/notifications", {
+    if (!customerName || !phone) {
+      showToast("Please enter your name and phone number", "error");
+      return;
+    }
+
+    setLoading(true);
+    const totalAmount = Number(selectedItem.price) * quantity;
+
+    try {
+      const res = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: "Scheduled Order Confirmed",
-          message: `Order for ${order.customerName} scheduled at ${order.scheduleTime}.`,
-          type: "success",
-          isRead: false,
-          customerName: order.customerName,
-          phone: order.phone,
-          email: order.email,
-          tableNumber: order.tableNumber,
-          scheduleTime: order.scheduleTime,
-          items: order.items,
-          totalAmount: order.totalAmount
+          customerName,
+          email,
+          phone,
+          tableNumber,
+          items: [{ ...selectedItem, quantity }],
+          totalAmount,
+          paymentStatus: "PAID",
+          paymentMethod: "UPI",
+          orderType: "scheduled",
+          scheduleTime,
+          notes,
         }),
       });
 
-      localStorage.removeItem("scheduledItem");
-      navigate("/");
-    } catch (error) {
-      console.error("Error scheduling order:", error);
-      alert("There was an error scheduling your order. Please try again.");
+      const data = await res.json();
+
+      if (res.ok && data.order) {
+        setActiveOrder(data.order);
+        localStorage.setItem("receipt", JSON.stringify(data.order));
+        localStorage.removeItem("scheduledItem");
+        showToast("🎉 Order scheduled successfully! Pick it up at your chosen slot.", "success");
+        navigate("/receipt");
+      } else {
+        showToast(data.message || "Failed to schedule order", "error");
+      }
+    } catch (err) {
+      showToast("Network error scheduling order", "error");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="schedule-order p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-4">📅 Schedule Your Order</h1>
-      <div className="mb-4 space-y-3">
-        <input
-          type="text"
-          name="customerName"
-          placeholder="Your Name"
-          value={order.customerName}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone Number"
-          value={order.phone}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={order.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="text"
-          name="tableNumber"
-          placeholder="Table Number"
-          value={order.tableNumber}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="datetime-local"
-          name="scheduleTime"
-          value={order.scheduleTime}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-      </div>
-      <div className="mb-4">
-        <h3 className="text-xl font-semibold">
-          Selected Item: {order.items[0]?.name || "No item selected"}
-        </h3>
-        <p>Price: ₹{order.totalAmount}</p>
-      </div>
-      <button
-        onClick={handleSchedule}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        ✅ Confirm Schedule
-      </button>
+    <div className="schedule-page-root">
+      <Navbar />
+
+      <main className="schedule-container">
+        <Link to="/menu" className="back-link">
+          <FaArrowLeft /> Browse Menu
+        </Link>
+
+        <div className="schedule-card-wrapper">
+          <div className="schedule-header">
+            <div className="cal-icon-box">
+              <FaCalendarAlt />
+            </div>
+            <h1>Schedule Your Meal</h1>
+            <p>Pre-order before class and pick up steaming hot food right on time.</p>
+          </div>
+
+          <form onSubmit={handleScheduleOrder} className="schedule-form">
+            {/* Selected Item Preview */}
+            {selectedItem ? (
+              <div className="selected-dish-pill">
+                <img src={selectedItem.image} alt={selectedItem.name} />
+                <div className="dish-details">
+                  <h4>{selectedItem.name}</h4>
+                  <span>₹{selectedItem.price} each • {selectedItem.category}</span>
+                </div>
+                <div className="qty-controls">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  >
+                    -
+                  </button>
+                  <span>{quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity(quantity + 1)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="no-item-selected-box">
+                <p>No dish selected yet.</p>
+                <Link to="/menu" className="pick-dish-link">
+                  + Select a Dish from Menu
+                </Link>
+              </div>
+            )}
+
+            {/* Time Slot Picker */}
+            <div className="form-section">
+              <label className="section-label">
+                <FaClock /> Select Pickup Time Slot:
+              </label>
+              <div className="time-slots-grid">
+                {timeSlots.map((slot) => (
+                  <button
+                    type="button"
+                    key={slot}
+                    className={`slot-chip ${scheduleTime === slot ? "active" : ""}`}
+                    onClick={() => setScheduleTime(slot)}
+                  >
+                    {slot}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Student Details */}
+            <div className="form-grid-2">
+              <div className="input-group">
+                <label>Your Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Priya"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                />
+              </div>
+
+              <div className="input-group">
+                <label>Phone Number *</label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="10-digit mobile number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label>Special Instructions (Optional)</label>
+              <input
+                type="text"
+                placeholder="e.g. keep parcel packed in foil..."
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+
+            {selectedItem && (
+              <div className="schedule-total-banner">
+                <span>Total Amount:</span>
+                <strong className="total-figure">
+                  ₹{(Number(selectedItem.price) * quantity).toFixed(2)}
+                </strong>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="confirm-schedule-btn"
+              disabled={loading || !selectedItem}
+            >
+              {loading ? "Scheduling Order..." : `Confirm Schedule for ${scheduleTime} ➔`}
+            </button>
+          </form>
+        </div>
+      </main>
     </div>
   );
 };

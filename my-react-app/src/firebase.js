@@ -1,31 +1,23 @@
 // Import necessary functions from Firebase SDK
-import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
-// Firebase configuration
+// Firebase configuration object (replace with your project details)
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID",
+  apiKey: "AIzaSyAZoNT0YDuAMSFgie5QVH4_yrkGlvb4Q1I",
+  authDomain: "canteen-management-adea4.firebaseapp.com",
+  projectId: "canteen-management-adea4",
+  storageBucket: "canteen-management-adea4.firebasestorage.app",
+  messagingSenderId: "100347990683",
+  appId: "1:100347990683:web:18f2accc25f402b54cac3e",
+  measurementId: "G-3QX07ZDCDX"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Authentication
+// Initialize Auth
 const auth = getAuth(app);
 
-// Export authentication functions
-export {
-  auth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-};
+// Export the necessary functions for authentication
+export { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword };

@@ -1,119 +1,177 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import {
+  FaCheckCircle,
+  FaPrint,
+  FaUtensils,
+} from "react-icons/fa";
+import Navbar from "./Navbar";
 import "./ReceiptPage.css";
 
 const ReceiptPage = () => {
   const [receipt, setReceipt] = useState(null);
   const navigate = useNavigate();
-  const userEmail = localStorage.getItem("userEmail");
-  const storedUserData = userEmail ? localStorage.getItem(userEmail) : null;
-  const signupDataRaw = localStorage.getItem("signupData");
 
   useEffect(() => {
-    const storedReceipt = localStorage.getItem("receipt");
-    if (!storedReceipt) {
+    const stored = localStorage.getItem("receipt");
+    if (!stored) {
       navigate("/menu");
       return;
     }
-
-    const parsedReceipt = JSON.parse(storedReceipt);
-    let userPhone = "Not Provided";
-    const orderDate = new Date().toLocaleString();
-
-    if (storedUserData) {
-      try {
-        const userData = JSON.parse(storedUserData);
-        if (userData.phone) userPhone = userData.phone;
-      } catch (err) {
-        console.error("Error parsing stored user data:", err);
-      }
+    try {
+      setReceipt(JSON.parse(stored));
+    } catch {
+      navigate("/menu");
     }
+  }, [navigate]);
 
-    if (signupDataRaw) {
-      try {
-        const signupData = JSON.parse(signupDataRaw);
-        if (Array.isArray(signupData)) {
-          const matchedUser = signupData.find(user => user.email === userEmail);
-          if (matchedUser && matchedUser.phone) {
-            userPhone = matchedUser.phone;
-          }
-        } else if (signupData.phone && signupData.email === userEmail) {
-          userPhone = signupData.phone;
-        }
-      } catch (err) {
-        console.error("Error parsing signup data:", err);
-      }
-    }
+  if (!receipt) return null;
 
-    const completedReceipt = {
-      email: userEmail || "Not Provided",
-      phoneNumber: userPhone || "Not Provided",
-      orderDate: orderDate,
-      tableNumber: parsedReceipt.tableNumber || "N/A",
-      items: parsedReceipt.items || [],
-      totalAmount: parsedReceipt.totalAmount || 0,
-      address: "N/A", // optional if you want to add later
-      paymentStatus: "PAID",
-      status: "Pending", // for admin side tracking
-    };
+  const handlePrint = () => {
+    window.print();
+  };
 
-    setReceipt(completedReceipt);
-
-    // Save to backend
-    fetch("http://localhost:5000/api/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(completedReceipt),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log("✅ Order saved:", data))
-      .catch((error) => console.error("❌ Error saving order:", error));
-  }, [navigate, userEmail, storedUserData, signupDataRaw]);
-
-  const handlePrint = () => window.print();
+  const formattedDate = receipt.createdAt
+    ? new Date(receipt.createdAt).toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      })
+    : new Date().toLocaleString();
 
   return (
-    <div className="receipt-container">
-      <h1>🧾 Order Receipt</h1>
+    <div className="receipt-page-root">
+      <div className="no-print">
+        <Navbar />
+      </div>
 
-      {receipt ? (
-        <div className="receipt-details">
-          <h2>📜 Bill Summary</h2>
-          <p><strong>Order Date:</strong> {receipt.orderDate}</p>
-          <p><strong>Phone:</strong> {receipt.phoneNumber}</p>
-          <p><strong>Email:</strong> {receipt.email}</p>
-          <p><strong>Table/Token:</strong> {receipt.tableNumber}</p>
+      <main className="receipt-container">
+        {/* Success Banner */}
+        <div className="receipt-success-banner no-print">
+          <FaCheckCircle className="success-banner-icon" />
+          <div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Your order token has been transmitted directly to the canteen kitchen.</p>
+          </div>
+        </div>
 
-          <table className="receipt-table">
+        {/* The Printable Invoice / Bill Paper Card */}
+        <div className="invoice-paper" id="printable-receipt">
+          {/* Header */}
+          <div className="invoice-header">
+            <div className="invoice-brand">
+              <FaUtensils className="brand-fork" />
+              <div>
+                <h2>SREC SMART CANTEEN</h2>
+                <p>Sri Ramakrishna Engineering College, Coimbatore</p>
+                <span>FSSAI License: 12421008000192 • GSTIN: 33AAAAA0000A1Z5</span>
+              </div>
+            </div>
+
+            <div className="invoice-token-box">
+              <span className="token-label">TOKEN / ORDER #</span>
+              <span className="token-number">{receipt.orderNumber || "ORD-001"}</span>
+              <span className="payment-stamp">PAID • {receipt.paymentMethod || "UPI"}</span>
+            </div>
+          </div>
+
+          <hr className="invoice-divider" />
+
+          {/* Metadata Grid */}
+          <div className="invoice-meta-grid">
+            <div className="meta-item">
+              <span className="meta-label">Customer Name:</span>
+              <strong className="meta-val">{receipt.customerName || "Student"}</strong>
+            </div>
+            <div className="meta-item">
+              <span className="meta-label">Order Date & Time:</span>
+              <strong className="meta-val">{formattedDate}</strong>
+            </div>
+            <div className="meta-item">
+              <span className="meta-label">Delivery / Dining:</span>
+              <strong className="meta-val">{receipt.tableNumber || "Counter Pickup"}</strong>
+            </div>
+            <div className="meta-item">
+              <span className="meta-label">Phone / Contact:</span>
+              <strong className="meta-val">{receipt.phone || "Not Provided"}</strong>
+            </div>
+          </div>
+
+          <hr className="invoice-divider" />
+
+          {/* Itemized Table */}
+          <table className="invoice-table">
             <thead>
               <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Rate (₹)</th>
-                <th>Total (₹)</th>
+                <th style={{ width: "40px" }}>#</th>
+                <th>Dish Description</th>
+                <th style={{ textAlign: "center", width: "70px" }}>Qty</th>
+                <th style={{ textAlign: "right", width: "100px" }}>Rate (₹)</th>
+                <th style={{ textAlign: "right", width: "110px" }}>Amount (₹)</th>
               </tr>
             </thead>
             <tbody>
-              {receipt.items.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.quantity}</td>
-                  <td>₹{Number(item.price).toFixed(2)}</td>
-                  <td>₹{(Number(item.price) * item.quantity).toFixed(2)}</td>
+              {receipt.items?.map((item, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>
+                    <strong>{item.name}</strong>
+                  </td>
+                  <td style={{ textAlign: "center" }}>{item.quantity}</td>
+                  <td style={{ textAlign: "right" }}>₹{Number(item.price).toFixed(2)}</td>
+                  <td style={{ textAlign: "right" }}>
+                    ₹{(Number(item.price) * item.quantity).toFixed(2)}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <h2>💰 Grand Total: ₹{receipt.totalAmount}</h2>
-          <h3 style={{ color: "green" }}>✅ Payment Status: PAID</h3>
+          <hr className="invoice-divider" />
 
-          <button className="print-button" onClick={handlePrint}>🖨️ Print Receipt</button>
-          <button className="back-button" onClick={() => navigate("/menu")}>🔙 Back to Menu</button>
+          {/* Bill Totals */}
+          <div className="invoice-totals-box">
+            <div className="totals-row">
+              <span>Subtotal:</span>
+              <span>
+                ₹
+                {(
+                  Number(receipt.totalAmount) -
+                  Number(receipt.totalAmount) * 0.05
+                ).toFixed(2)}
+              </span>
+            </div>
+            <div className="totals-row">
+              <span>GST & Packaging (5%):</span>
+              <span>₹{(Number(receipt.totalAmount) * 0.05).toFixed(2)}</span>
+            </div>
+            <div className="totals-row grand-total">
+              <span>Grand Total Paid:</span>
+              <span>₹{Number(receipt.totalAmount).toFixed(2)}</span>
+            </div>
+          </div>
+
+          {/* Footer message */}
+          <div className="invoice-footer">
+            <p className="thank-you-msg">Thank you for dining at SREC Canteen! 🍽️</p>
+            <p className="footer-sub">
+              Please present your Token <strong>{receipt.orderNumber}</strong> at the counter window when your order is called.
+            </p>
+          </div>
         </div>
-      ) : (
-        <p>Loading receipt...</p>
-      )}
+
+        {/* Action Buttons */}
+        <div className="receipt-actions-row no-print">
+          <button className="print-receipt-btn" onClick={handlePrint}>
+            <FaPrint /> Print Receipt / Save PDF
+          </button>
+          <Link to="/viewmyorder" className="track-order-btn">
+            Track Live Order Status ➔
+          </Link>
+          <Link to="/menu" className="return-menu-btn">
+            Back to Menu
+          </Link>
+        </div>
+      </main>
     </div>
   );
 };

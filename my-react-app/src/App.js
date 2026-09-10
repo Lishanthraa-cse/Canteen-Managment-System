@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom"; 
+import { Routes, Route, useLocation } from "react-router-dom"; 
 import HomePage from "./components/HomePage.js";
 import AdminPage from "./components/AdminPage.js";
 import MenuPage from "./components/MenuPage.js";
@@ -10,8 +10,8 @@ import PaymentPage from "./components/PaymentPage.js";
 import ReceiptPage from "./components/ReceiptPage.js";
 import RegisterPage from "./components/RegisterPage.js";
 import SignUp from "./components/SignUp.js";
-import UsersHomepage from "./components/UsersHomepage.js"
-import Favorites from "./components/Favorites.js"
+import UsersHomepage from "./components/UsersHomepage.js";
+import Favorites from "./components/Favorites.js";
 import Chatbotpage from "./components/Chatbotpage.js";
 import ForgotPassword from "./components/ForgotPassword.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,39 +32,62 @@ import Sidebar from "./components/Sidebar.js";
 import ViewMyOrder from "./components/ViewMyOrder.js";
 
 const App = () => {
-  return (
-    <Routes>
-      <Route path="/chatbot" element={<Chatbotpage />} />
-      <Route path="/" element={<HomePage />} />
-      <Route path="/admin" element={<AdminPage />} />
-      <Route path="/menu" element={<MenuPage/>} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/Payment" element={<PaymentPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/Signup" element={<SignUp />} />
-      <Route path="/receipt" element={<ReceiptPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/usershomepage" element={<UsersHomepage />} />
-     <Route path="/orderconfirmation" element={<OrderConfirmation />} />
-     <Route path="/favorites" element={<Favorites />} />
-     <Route path="/forgotpassword" element={<ForgotPassword />} />
-     <Route path="/admindashboard" element={<AdminDashboard />} />
-     <Route path="/adminlogs" element={<AdminLogs />} />
-     <Route path="/notifications" element={<Notifications/>} />
-     <Route path="/order" element={<OrderResponse/>} />
-     <Route path="/scheduleorder" element={<ScheduleOrder />} />
-     <Route path="/securitysettings" element={<SecuritySettings />} />  
-     <Route path="/adminlogin" element={<AdminLogin />}/>
-     <Route path="/manageroles" element={<ManageRoles />}/>
-     <Route path="/specials" element={<Specials />}/>
-     <Route path="/feedback" element={<Feedback />}/>
-     <Route path="/settingd" element={<SettingsPage />} />
-     <Route path="/logout" element={<Logout />} />
-<Route path="/recentorders" element={<RecentOrders />} />
-<Route path="/sidebar" element={<Sidebar />} />
-<Route path="/viewmyorder" element={<ViewMyOrder />} />
+  const location = useLocation();
+  const isAdminRoute =
+    location.pathname.startsWith("/admin") ||
+    location.pathname === "/order" ||
+    location.pathname === "/kitchen" ||
+    location.pathname === "/specials" ||
+    location.pathname === "/securitysettings" ||
+    location.pathname === "/manageroles" ||
+    location.pathname === "/adminlogs" ||
+    location.pathname === "/notifications";
 
-    </Routes>
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/Payment" element={<PaymentPage />} />
+        <Route path="/receipt" element={<ReceiptPage />} />
+        <Route path="/usershomepage" element={<UsersHomepage />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/viewmyorder" element={<ViewMyOrder />} />
+        <Route path="/track" element={<ViewMyOrder />} />
+        <Route path="/scheduleorder" element={<ScheduleOrder />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/recentorders" element={<RecentOrders />} />
+        <Route path="/orderconfirmation" element={<OrderConfirmation />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/Signup" element={<SignUp />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/chatbot" element={<Chatbotpage />} />
+        <Route path="/sidebar" element={<Sidebar />} />
+
+        {/* Admin & Kitchen Routes */}
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/adminlogs" element={<AdminLogs />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/order" element={<OrderResponse />} />
+        <Route path="/kitchen" element={<OrderResponse />} />
+        <Route path="/specials" element={<Specials />} />
+        <Route path="/securitysettings" element={<SecuritySettings />} />
+        <Route path="/manageroles" element={<ManageRoles />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/settingd" element={<SettingsPage />} />
+      </Routes>
+
+      {/* Floating AI Canteen Concierge available on customer facing pages */}
+      {!isAdminRoute && location.pathname !== "/chatbot" && <Chatbotpage />}
+    </>
   );
 };
 

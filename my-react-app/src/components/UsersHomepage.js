@@ -1,185 +1,292 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
+  FaUtensils,
+  FaFire,
+  FaClock,
+  FaStar,
+  FaArrowRight,
   FaShoppingCart,
-  FaHeart,
-  FaBars,
-  FaRobot,
-  FaUserCircle,
   FaHistory,
 } from "react-icons/fa";
-import axios from "axios";
-import { auth } from "../firebase.js"; // Make sure this is correctly configured
-import "./Chatbotpage.js";
+import { useApp } from "../context/AppContext";
+import Navbar from "./Navbar";
 import "./UsersHomepage.css";
 
 const UsersHomepage = () => {
-  const [userEmail, setUserEmail] = useState("Guest");
+  const { currentUser, addToCart, activeOrder, showToast } = useApp();
   const [specials, setSpecials] = useState([]);
-  const [feedback, setFeedback] = useState("");
-  const [rating, setRating] = useState("");
+  const [recentItems, setRecentItems] = useState([]);
+  const [feedbackRating, setFeedbackRating] = useState(5);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [submittingFeedback, setSubmittingFeedback] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserEmail(user.email);
-        localStorage.setItem("userEmail", user.email); // optional
-      } else {
-        setUserEmail("Guest");
-        localStorage.removeItem("userEmail");
+  const fetchSpecials = useCallback(async () => {
+    try {
+      const res = await fetch("/api/specials");
+      if (res.ok) {
+        const data = await res.json();
+        setSpecials(data);
       }
-    });
-
-    fetchSpecials();
-    const interval = setInterval(fetchSpecials, 5000);
-
-    return () => {
-      clearInterval(interval);
-      unsubscribe();
-    };
+    } catch (err) {
+      console.warn("Could not fetch specials:", err);
+    }
   }, []);
 
-  const fetchSpecials = async () => {
+  const fetchRecentOrders = useCallback(async () => {
+    if (!currentUser?.email) return;
     try {
-      const response = await axios.get("http://localhost:5000/api/specials");
-      setSpecials(response.data);
-    } catch (error) {
-      console.error("Error fetching special offers:", error);
+      const res = await fetch(`/api/order/my-orders?email=${encodeURIComponent(currentUser.email)}`);
+      if (res.ok) {
+        const orders = await res.json();
+        // Extract unique items from last orders for fast 1-click reordering
+        const itemsMap = new Map();
+        orders.slice(0, 4).forEach((o) => {
+          o.items?.forEach((it) => {
+            if (!itemsMap.has(it.name)) itemsMap.set(it.name, it);
+          });
+        });
+        setRecentItems(Array.from(itemsMap.values()).slice(0, 4));
+      }
+    } catch (err) {
+      console.warn("Could not fetch recent orders:", err);
     }
-  };
+  }, [currentUser?.email]);
 
-  const handleSubmitFeedback = async (e) => {
+  useEffect(() => {
+    fetchSpecials();
+    fetchRecentOrders();
+  }, [fetchSpecials, fetchRecentOrders]);
+
+  const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
-    if (!feedback.trim() || !rating) {
-      alert("Please select a rating and enter feedback.");
+    if (!feedbackText.trim()) {
+      showToast("Please write a few words about your canteen experience", "error");
       return;
     }
 
+    setSubmittingFeedback(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/feedback", {
-        email: userEmail,
-        rating,
-        feedback,
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: currentUser?.email || "student@srec.ac.in",
+          customerName: currentUser?.name || "Student",
+          rating: feedbackRating,
+          feedback: feedbackText.trim(),
+        }),
       });
-      alert("🎉 Thank you for your valuable feedback!");
-      setFeedback("");
-      setRating("");
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      alert("Something went wrong. Please try again.");
+
+      if (res.ok) {
+        showToast("🎉 Thank you! Your feedback helps us improve the canteen.", "success");
+        setFeedbackText("");
+        setFeedbackRating(5);
+      } else {
+        showToast("Could not submit feedback. Try again.", "error");
+      }
+    } catch (err) {
+      showToast("Network error submitting feedback", "error");
+    } finally {
+      setSubmittingFeedback(false);
     }
   };
 
+  const categories = [
+    { title: "South Indian", emoji: "🥞", count: "Dosa, Idli, Vada", path: "/menu?cat=South%20Indian" },
+    { title: "Meals", emoji: "🍱", count: "Thali, Rice, Combos", path: "/menu?cat=Meals" },
+    { title: "Snacks", emoji: "🍟", count: "Samosa, Fries, Burger", path: "/menu?cat=Snacks" },
+    { title: "Beverages", emoji: "☕", count: "Filter Coffee, Juices", path: "/menu?cat=Beverages" },
+  ];
+
   return (
-    <div className="users-homepage">
-      {/* Navbar */}
-      <nav className="navbar">
-        <h1 className="logo">🍽️ SREC Canteen</h1>
-        <ul className="nav-links">
-          <li>
-            <Link to="/menu"><FaBars /><span>Menu</span></Link>
-          </li>
-          <li>
-            <Link to="/cart"><FaShoppingCart /><span>Cart</span></Link>
-          </li>
-          <li>
-            <Link to="/favorites"><FaHeart /><span>Favorites</span></Link>
-          </li>
-          <li>
-            <Link to="/chatbot"><FaRobot /><span>Chatbot</span></Link>
-          </li>
-          <li>
-            <Link to="/viewmyorder"><FaHistory /><span>Orders</span></Link>
-          </li>
-        </ul>
+    <div className="users-home-root">
+      <Navbar />
 
-        {/* Profile Dropdown */}
-        <div className="profile-dropdown">
-          <FaUserCircle className="profile-icon" />
-          <div className="dropdown-content">
-            <Link to="/settingd">⚙️ Settings</Link>
-            <Link to="/help">🆘 Help</Link>
-            <Link to="/logout">🚪 Logout</Link>
-            <Link to="/profile">👤 Profile</Link>
+      <main className="users-home-content">
+        {/* Welcome Greeting Banner */}
+        <section className="welcome-banner">
+          <div className="welcome-text-col">
+            <span className="campus-badge">SREC SMART CAMPUS</span>
+            <h1>
+              Welcome back, <span className="highlight-name">{currentUser?.name || "Student"}!</span> 👋
+            </h1>
+            <p>Craving something hot & delicious? Order now and pick up fresh from the counter with zero queue wait.</p>
+            <div className="banner-actions">
+              <Link to="/menu" className="banner-btn primary">
+                Explore Full Menu <FaArrowRight />
+              </Link>
+              <Link to="/scheduleorder" className="banner-btn secondary">
+                <FaClock /> Schedule Order
+              </Link>
+            </div>
           </div>
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-      <div className="hero-section">
-        <h1>Welcome, {userEmail} 👋</h1>
-        <p>🍕 Craving something delicious? Explore our freshly prepared meals now!</p>
-        <button className="explore-menu-btn">
-          <Link to="/menu">🚀 Explore Menu</Link>
-        </button>
-      </div>
+          <div className="banner-badge-col">
+            <div className="quick-token-card">
+              <FaUtensils className="token-icon" />
+              <h4>Instant Food Tokens</h4>
+              <p>Scan UPI QR ➔ Instant Digital Bill with token number.</p>
+            </div>
+          </div>
+        </section>
 
-      {/* Specials */}
-      <div className="special-section">
-        <h2 className="special-title">✨ Today's Specials</h2>
-        {specials.length === 0 ? (
-          <p className="special-empty">
-            No specials available at the moment. Please check back later!
-          </p>
-        ) : (
-          <div className="special-cards-container">
-            {specials.map((item) => (
-              <div className="special-card-simple" key={item._id}>
-                <div className="special-card-header">
-                  <h3>{item.name}</h3>
-                  <span className="special-price">₹{item.price}</span>
-                </div>
-                <p className="special-description">{item.description}</p>
+        {/* Live Active Order Alert (if order is in progress) */}
+        {activeOrder && activeOrder.status !== "Completed" && activeOrder.status !== "Cancelled" && (
+          <section className="active-order-banner">
+            <div className="banner-status-left">
+              <span className="live-badge">LIVE TRACKER</span>
+              <h3>
+                Order #{activeOrder.orderNumber}: <span className="status-highlight">{activeOrder.status}</span>
+              </h3>
+              <p>Total: ₹{activeOrder.totalAmount} • {activeOrder.items?.length || 1} Item(s)</p>
+            </div>
+            <Link to="/viewmyorder" className="track-status-btn">
+              Track Order Progress ➔
+            </Link>
+          </section>
+        )}
+
+        {/* Categories Quick Nav */}
+        <section className="categories-strip-section">
+          <div className="section-title-row">
+            <h2>Explore Categories</h2>
+            <Link to="/menu" className="view-all-link">View All Menu</Link>
+          </div>
+
+          <div className="categories-cards-grid">
+            {categories.map((c, i) => (
+              <div
+                key={i}
+                className="category-card"
+                onClick={() => navigate(c.path)}
+              >
+                <div className="cat-emoji">{c.emoji}</div>
+                <h3>{c.title}</h3>
+                <p>{c.count}</p>
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Daily Specials Section */}
+        {specials.length > 0 && (
+          <section className="specials-section">
+            <div className="section-title-row">
+              <div className="title-with-icon">
+                <FaFire className="fire-icon" />
+                <h2>Today's Chef Specials & Deals</h2>
+              </div>
+              <span className="limited-tag">Limited Quantity Today</span>
+            </div>
+
+            <div className="specials-grid">
+              {specials.map((sp) => (
+                <div key={sp._id} className="special-item-card">
+                  <div className="special-img-wrap">
+                    <img src={sp.image} alt={sp.name} />
+                    <span className="special-chip">Special Deal</span>
+                  </div>
+                  <div className="special-card-body">
+                    <h3>{sp.name}</h3>
+                    <p className="special-desc">{sp.description}</p>
+                    <div className="special-price-row">
+                      <div className="price-tags">
+                        <span className="special-price">₹{sp.price}</span>
+                        {sp.discountPrice && (
+                          <span className="original-price">₹{sp.discountPrice}</span>
+                        )}
+                      </div>
+                      <button
+                        className="add-special-btn"
+                        onClick={() => addToCart(sp, 1)}
+                      >
+                        <FaShoppingCart /> Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         )}
-      </div>
 
-      {/* Feedback */}
-      <div className="feedback-section-pro">
-        <div className="feedback-header">
-          <h2>💬 Share Your Experience</h2>
-          <p className="feedback-subtext">
-            Your feedback helps us serve you better.
-          </p>
-        </div>
+        {/* Quick Reorder (if student has ordered before) */}
+        {recentItems.length > 0 && (
+          <section className="quick-reorder-section">
+            <div className="section-title-row">
+              <div className="title-with-icon">
+                <FaHistory className="history-icon" />
+                <h2>Order Again</h2>
+              </div>
+              <Link to="/viewmyorder" className="view-all-link">Full Order History</Link>
+            </div>
 
-        <form onSubmit={handleSubmitFeedback} className="feedback-form-pro">
-          <div className="feedback-stars">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={`feedback-star ${rating >= star ? "filled" : ""}`}
-                onClick={() => setRating(star)}
+            <div className="reorder-items-grid">
+              {recentItems.map((item, idx) => (
+                <div key={idx} className="reorder-card">
+                  <div className="reorder-info">
+                    <h4>{item.name}</h4>
+                    <span className="reorder-price">₹{item.price}</span>
+                  </div>
+                  <button
+                    className="reorder-fast-btn"
+                    onClick={() => addToCart(item, 1)}
+                  >
+                    + Add Again
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Feedback Section */}
+        <section className="feedback-section">
+          <div className="feedback-card">
+            <div className="feedback-header">
+              <FaStar className="star-highlight" />
+              <h3>How was your canteen meal today?</h3>
+              <p>We read every review to make food taste better and service faster.</p>
+            </div>
+
+            <form onSubmit={handleFeedbackSubmit} className="feedback-form">
+              <div className="rating-select-group">
+                <span>Select Rating:</span>
+                <div className="stars-row">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      type="button"
+                      key={star}
+                      className={`star-btn ${star <= feedbackRating ? "selected" : ""}`}
+                      onClick={() => setFeedbackRating(star)}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <textarea
+                placeholder="Share your experience (e.g. food quality, service speed, suggestions)..."
+                value={feedbackText}
+                onChange={(e) => setFeedbackText(e.target.value)}
+                rows={3}
+                className="feedback-textarea"
+              />
+
+              <button
+                type="submit"
+                disabled={submittingFeedback}
+                className="submit-feedback-btn"
               >
-                ★
-              </span>
-            ))}
+                {submittingFeedback ? "Submitting..." : "Submit Review"}
+              </button>
+            </form>
           </div>
-
-          <textarea
-            className="feedback-textarea-pro"
-            rows="4"
-            placeholder="Write your feedback..."
-            value={feedback}
-            onChange={(e) => setFeedback(e.target.value)}
-            required
-          />
-
-          <button type="submit" className="feedback-submit-btn">
-            🚀 Submit Feedback
-          </button>
-        </form>
-      </div>
-
-      {/* Loyalty / Rewards */}
-      <div className="rewards-section">
-        <h2>🏅 Loyalty Badges</h2>
-        <div className="badge">
-          🥇 <strong>Canteen Explorer</strong> – Ordered 10 meals!
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 };

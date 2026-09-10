@@ -1,78 +1,393 @@
-/* OrderResponse.css */
-
-body {
-  background: linear-gradient(to right, #f8f9fa, #e0eafc);
-  font-family: "Poppins", sans-serif;
+.admin-orders-manager-root {
+  min-height: 100vh;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
-.order-management-container {
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.page-title {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.controls {
+.orders-top-nav {
+  background: #0f172a;
+  color: white;
+  padding: 16px 32px;
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  justify-content: flex-end;
-}
-
-.search-input,
-.dropdown {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-}
-
-.table-wrapper {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 15px;
+  align-items: center;
+  justify-content: space-between;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
 }
 
-.orders-table {
+.back-dashboard-btn {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-dashboard-btn:hover {
+  color: #f97316;
+}
+
+.top-nav-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-nav-title h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.live-pulse-badge {
+  background: #10b981;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+}
+
+.manager-body-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+/* Filters Bar */
+.orders-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 10px 16px;
+  min-width: 320px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
   width: 100%;
-  border-collapse: collapse;
+  outline: none;
+  font-size: 0.92rem;
 }
 
-.orders-table th,
-.orders-table td {
-  padding: 12px 15px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
+.status-filter-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.orders-table th {
-  background-color: #f4f6f8;
-  font-weight: 600;
-  color: #555;
+.filter-pill {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
 }
 
-.orders-table tr:hover {
-  background-color: #f9f9f9;
+.filter-pill:hover {
+  border-color: #ea580c;
+  color: #ea580c;
 }
 
-.badge {
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 12px;
+.filter-pill.active {
+  background: #ea580c;
+  color: white;
+  border-color: #ea580c;
+}
+
+.pill-count {
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 9999px;
+}
+
+.filter-pill.active .pill-count {
+  background: rgba(255, 255, 255, 0.3);
   color: white;
 }
 
-.badge-paid {
-  background-color: #28a745;
+/* Empty State */
+.empty-orders-state {
+  background: white;
+  border-radius: 20px;
+  padding: 64px 20px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
 }
 
-.badge-unpaid {
-  background-color: #dc3545;
+.empty-icon {
+  font-size: 3rem;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+}
+
+/* Kanban Grid */
+.kanban-orders-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.kanban-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+}
+
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.kanban-card.pending {
+  border-left: 6px solid #f59e0b;
+}
+
+.kanban-card.confirmed {
+  border-left: 6px solid #0284c7;
+}
+
+.kanban-card.preparing {
+  border-left: 6px solid #ea580c;
+}
+
+.kanban-card.ready {
+  border-left: 6px solid #10b981;
+}
+
+.kanban-card.completed {
+  border-left: 6px solid #94a3b8;
+  opacity: 0.8;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.token-col {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.token-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #0f172a;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.token-col h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.status-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.status-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.status-badge.pending { background: #fef3c7; color: #b45309; }
+.status-badge.confirmed { background: #e0f2fe; color: #0284c7; }
+.status-badge.preparing { background: #ffedd5; color: #ea580c; }
+.status-badge.ready { background: #dcfce7; color: #15803d; }
+.status-badge.completed { background: #f1f5f9; color: #64748b; }
+
+.time-ago {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Customer Info */
+.customer-info-box {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.cust-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.contact-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.phone {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.payment-pill {
+  font-weight: 700;
+  color: #10b981;
+}
+
+.notes-box {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: #ea580c;
+  font-weight: 600;
+}
+
+/* Dishes List */
+.dishes-list-box {
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.dishes-list-box h4 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.dishes-list-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dishes-list-box li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 4px;
+}
+
+.order-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 8px;
+}
+
+.total-val {
+  color: #ea580c;
+  font-size: 1.1rem;
+}
+
+/* Status Action Buttons */
+.status-action-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-action {
+  border: none;
+  font-weight: 700;
+  font-size: 0.86rem;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.btn-action.confirm {
+  background: #0284c7;
+  color: white;
+}
+
+.btn-action.cook {
+  background: #ea580c;
+  color: white;
+}
+
+.btn-action.ready {
+  background: #10b981;
+  color: white;
+}
+
+.btn-action.complete {
+  background: #0f172a;
+  color: white;
+}
+
+.btn-action.cancel {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  font-size: 0.78rem;
+}
+
+.btn-action:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1100px) {
+  .kanban-orders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .kanban-orders-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -3,12 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "description": "Smart Canteen Management System Backend",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
+    "start": "node server.js",
+    "seed": "node scripts/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
+  "keywords": ["canteen", "management", "express", "mongodb", "socket.io"],
+  "author": "Lishanthraa",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -24,5 +31,6 @@
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
+    "socket.io": "^4.8.1"
   }
 }

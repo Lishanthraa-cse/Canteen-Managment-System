@@ -1,68 +1,118 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { FaStar, FaExclamationTriangle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaStar, FaArrowLeft, FaTrash, FaSync } from "react-icons/fa";
+import { useApp } from "../context/AppContext";
+import "./Feedback.css";
 
 const Feedback = () => {
+  const { showToast } = useApp();
   const [feedbackList, setFeedbackList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetchFeedback();
-  }, []);
 
   const fetchFeedback = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/feedback");
-      setFeedbackList(response.data);
+      const res = await fetch("/api/feedback");
+      if (res.ok) {
+        const data = await res.json();
+        setFeedbackList(data);
+      }
     } catch (err) {
-      console.error("Error fetching feedback:", err);
-      setError("Failed to load feedback. Please try again later.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleString("en-IN", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
+  useEffect(() => {
+    fetchFeedback();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/feedback/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        setFeedbackList((prev) => prev.filter((f) => f._id !== id));
+        showToast("Review deleted", "info");
+      }
+    } catch (err) {
+      showToast("Could not delete review", "error");
+    }
   };
 
-  return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">📢 User Feedback</h1>
+  const avgRating =
+    feedbackList.length > 0
+      ? (
+          feedbackList.reduce((sum, f) => sum + (Number(f.rating) || 0), 0) /
+          feedbackList.length
+        ).toFixed(1)
+      : "5.0";
 
-      {loading ? (
-        <p className="text-gray-600 italic">Loading feedback...</p>
-      ) : error ? (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 flex items-center gap-2">
-          <FaExclamationTriangle />
-          <span>{error}</span>
+  return (
+    <div className="feedback-mgmt-root">
+      <div className="feedback-top-nav">
+        <Link to="/admindashboard" className="back-link">
+          <FaArrowLeft /> Dashboard
+        </Link>
+        <h2>💬 Student Reviews & Ratings</h2>
+        <button className="sync-btn" onClick={fetchFeedback}>
+          <FaSync className={loading ? "spin" : ""} /> Refresh
+        </button>
+      </div>
+
+      <main className="feedback-container">
+        {/* Metric Summary Card */}
+        <div className="feedback-summary-banner">
+          <div className="score-col">
+            <span className="big-rating-number">{avgRating}</span>
+            <div className="stars-render">
+              {"★".repeat(Math.round(Number(avgRating)))}
+            </div>
+            <p>Overall Campus Satisfaction Score</p>
+          </div>
+
+          <div className="meta-col">
+            <h3>{feedbackList.length} Total Student Reviews</h3>
+            <p>Feedback submitted via student portal after enjoying their canteen orders.</p>
+          </div>
         </div>
-      ) : feedbackList.length === 0 ? (
-        <p className="text-gray-500 italic">No feedback submitted yet.</p>
-      ) : (
-        <div className="grid gap-6">
+
+        {/* Reviews Grid */}
+        <div className="reviews-cards-grid">
           {feedbackList.map((fb) => (
-            <div
-              key={fb._id}
-              className="border-l-4 border-blue-500 bg-white p-5 shadow-md rounded-lg transition hover:shadow-lg"
-            >
-              <h2 className="text-lg font-semibold text-gray-800 mb-1">📧 {fb.email}</h2>
-              <p className="flex items-center gap-2 text-yellow-600 font-medium">
-                <FaStar className="text-yellow-500" />
-                {fb.rating}/5
-              </p>
-              <p className="text-gray-700 mt-2 mb-2">{fb.feedback}</p>
-              <p className="text-sm text-gray-500">
-                🕒 Submitted on: {formatDate(fb.createdAt)}
-              </p>
+            <div key={fb._id} className="review-card">
+              <div className="review-card-top">
+                <div>
+                  <h4>{fb.customerName || "Student"}</h4>
+                  <span className="email-tag">{fb.email}</span>
+                </div>
+                <div className="rating-pill">
+                  <FaStar className="star-icon" /> {fb.rating} / 5
+                </div>
+              </div>
+
+              <p className="review-text-content">"{fb.feedback}"</p>
+
+              <div className="review-card-bottom">
+                <span className="review-date">
+                  {fb.createdAt ? new Date(fb.createdAt).toLocaleDateString("en-IN", { dateStyle: "medium" }) : "Recent"}
+                </span>
+                <button
+                  className="delete-review-btn"
+                  onClick={() => handleDelete(fb._id)}
+                  title="Remove review"
+                >
+                  <FaTrash />
+                </button>
+              </div>
             </div>
           ))}
         </div>
-      )}
+      </main>
     </div>
   );
 };
