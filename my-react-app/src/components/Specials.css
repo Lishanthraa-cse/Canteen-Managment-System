@@ -278,3 +278,48 @@
   background: #ef4444;
   color: white;
 }
+
+/* ==========================================================================
+   Dark Theme Specials Overrides
+   ========================================================================== */
+body.dark-theme .specials-mgmt-root,
+.admin-portal-root.dark-theme .specials-mgmt-root,
+.specials-mgmt-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .specials-top-nav,
+.admin-portal-root.dark-theme .specials-top-nav {
+  background: #151d2f !important;
+  border-bottom: 1px solid #2a3754 !important;
+}
+
+body.dark-theme .specials-form-card,
+.admin-portal-root.dark-theme .specials-form-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .form-header h3,
+.admin-portal-root.dark-theme .form-header h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .special-item-card,
+.admin-portal-root.dark-theme .special-item-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .card-body h4,
+.admin-portal-root.dark-theme .card-body h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .card-body p,
+.admin-portal-root.dark-theme .card-body p {
+  color: #94a3b8 !important;
+}

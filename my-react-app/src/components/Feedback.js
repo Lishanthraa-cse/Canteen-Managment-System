@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FaStar, FaArrowLeft, FaTrash, FaSync } from "react-icons/fa";
+import { FaStar, FaTrash, FaSync } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import AdminSidebar from "./AdminSidebar";
 import "./Feedback.css";
@@ -59,9 +58,6 @@ const Feedback = () => {
       <div className="admin-main-viewport" style={{ padding: 0 }}>
         <div className="feedback-mgmt-root">
       <div className="feedback-top-nav">
-        <Link to="/admindashboard" className="back-link">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <h2>💬 Student Reviews & Ratings</h2>
         <button className="sync-btn" onClick={fetchFeedback}>
           <FaSync className={loading ? "spin" : ""} /> Refresh

@@ -189,3 +189,49 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Dark Theme Favorites Page Overrides
+   ========================================================================== */
+body.dark-theme .favorites-page-root,
+.favorites-page-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .favorites-header h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .favorites-header p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .empty-fav-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .empty-fav-card h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .dish-fav-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .fav-card-body h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .fav-card-body p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .fav-price {
+  color: #f8fafc !important;
+}

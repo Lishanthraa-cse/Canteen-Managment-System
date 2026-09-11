@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { FaArrowLeft, FaDownload, FaSync } from "react-icons/fa";
+import { FaDownload, FaSync } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import AdminSidebar from "./AdminSidebar";
 import "./AdminLogs.css";
@@ -79,9 +78,6 @@ const AdminLogs = () => {
       <div className="admin-main-viewport" style={{ padding: 0 }}>
         <div className="admin-logs-root">
       <div className="logs-top-nav">
-        <Link to="/admindashboard" className="back-link">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <h2>🛡️ System Audit & Activity Logs</h2>
         <div className="nav-actions">
           <button className="sync-btn" onClick={fetchLogs}>

@@ -85,3 +85,27 @@
   font-weight: 700;
   text-decoration: none;
 }
+
+/* ==========================================================================
+   Dark Theme SignUp Page Overrides
+   ========================================================================== */
+body.dark-theme .signup-page-root,
+.signup-page-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .signup-card-box {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .signup-card-header h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .signup-card-header p {
+  color: #94a3b8 !important;
+}

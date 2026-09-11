@@ -290,3 +290,58 @@
 .btn-delivered:hover {
   background: #059669;
 }
+
+/* ==========================================================================
+   Dark Theme Notifications Overrides
+   ========================================================================== */
+body.dark-theme .notif-mgmt-root,
+.admin-portal-root.dark-theme .notif-mgmt-root,
+.notif-mgmt-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .notif-top-nav,
+.admin-portal-root.dark-theme .notif-top-nav {
+  background: #151d2f !important;
+  border-bottom: 1px solid #2a3754 !important;
+}
+
+body.dark-theme .empty-notif-box,
+.admin-portal-root.dark-theme .empty-notif-box {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .notif-card,
+.admin-portal-root.dark-theme .notif-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .notif-title,
+.admin-portal-root.dark-theme .notif-title {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .notif-desc,
+.admin-portal-root.dark-theme .notif-desc {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .notif-tag,
+.admin-portal-root.dark-theme .notif-tag {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .btn-read,
+.admin-portal-root.dark-theme .btn-read {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}

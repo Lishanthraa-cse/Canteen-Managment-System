@@ -199,3 +199,64 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(20px);
 }
+
+/* ==========================================================================
+   Dark Theme Security Settings Overrides
+   ========================================================================== */
+body.dark-theme .security-mgmt-root,
+.admin-portal-root.dark-theme .security-mgmt-root,
+.security-mgmt-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .security-top-nav,
+.admin-portal-root.dark-theme .security-top-nav {
+  background: #151d2f !important;
+  border-bottom: 1px solid #2a3754 !important;
+}
+
+body.dark-theme .security-card,
+.admin-portal-root.dark-theme .security-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .card-header h3,
+.admin-portal-root.dark-theme .card-header h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .setting-text h4,
+.admin-portal-root.dark-theme .setting-text h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .setting-text p,
+.admin-portal-root.dark-theme .setting-text p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .security-setting-item,
+.admin-portal-root.dark-theme .security-setting-item {
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .timeout-select,
+.admin-portal-root.dark-theme .timeout-select {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .slider,
+.admin-portal-root.dark-theme .slider {
+  background-color: #334155 !important;
+}
+
+body.dark-theme input:checked + .slider,
+.admin-portal-root.dark-theme input:checked + .slider {
+  background-color: #ea580c !important;
+}

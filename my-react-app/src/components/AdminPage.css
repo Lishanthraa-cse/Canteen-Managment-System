@@ -408,3 +408,125 @@
 .btn-save:hover {
   background: #c2410c;
 }
+
+/* ==========================================================================
+   Dark Theme Admin Menu Manager Overrides
+   ========================================================================== */
+body.dark-theme .admin-menu-manager-root,
+.admin-portal-root.dark-theme .admin-menu-manager-root,
+.admin-menu-manager-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .menu-mgmt-top-nav,
+.admin-portal-root.dark-theme .menu-mgmt-top-nav {
+  background: #151d2f !important;
+  border-bottom: 1px solid #2a3754 !important;
+}
+
+body.dark-theme .mgmt-controls-card,
+.admin-portal-root.dark-theme .mgmt-controls-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .mgmt-search-box,
+.admin-portal-root.dark-theme .mgmt-search-box {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .mgmt-search-box input,
+.admin-portal-root.dark-theme .mgmt-search-box input {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .mgmt-tab,
+.admin-portal-root.dark-theme .mgmt-tab {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .mgmt-tab.active,
+.admin-portal-root.dark-theme .mgmt-tab.active {
+  background: #ea580c !important;
+  border-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .dish-admin-card,
+.admin-portal-root.dark-theme .dish-admin-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .dish-details h4,
+.admin-portal-root.dark-theme .dish-details h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .dish-desc,
+.admin-portal-root.dark-theme .dish-desc {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .dish-price-tag,
+.admin-portal-root.dark-theme .dish-price-tag {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .btn-edit-dish,
+.admin-portal-root.dark-theme .btn-edit-dish {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .modal-card,
+.admin-portal-root.dark-theme .modal-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .modal-header,
+.admin-portal-root.dark-theme .modal-header {
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .modal-header h3,
+.admin-portal-root.dark-theme .modal-header h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .form-group label,
+.admin-portal-root.dark-theme .form-group label {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group select,
+body.dark-theme .form-group textarea,
+.admin-portal-root.dark-theme .form-group input,
+.admin-portal-root.dark-theme .form-group select,
+.admin-portal-root.dark-theme .form-group textarea {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .modal-footer-btns,
+.admin-portal-root.dark-theme .modal-footer-btns {
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .btn-cancel,
+.admin-portal-root.dark-theme .btn-cancel {
+  background: #1c263d !important;
+  color: #94a3b8 !important;
+}

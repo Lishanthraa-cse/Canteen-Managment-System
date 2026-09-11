@@ -211,11 +211,3 @@ Frictionless 1-click login buttons are embedded directly on both login pages for
 | **Authentication** | Pure JSON Web Tokens (JWT), Bcrypt.js | Stateless signed claims with encrypted credentials and password protection |
 
 ---
-
-## 👨‍💻 Author & Engineering Attribution
-
-- **Developer**: Lishanthraa
-- **Repository**: [https://github.com/Lishanthraa-cse/Canteen-Managment-System](https://github.com/Lishanthraa-cse/Canteen-Managment-System)
-- **Institution**: Sri Ramakrishna Engineering College (SREC)
-
-⭐ **If you find this project impressive or helpful for your technical evaluation, please consider starring the repository!**

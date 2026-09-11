@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
 import {
   FaPlus,
   FaEdit,
   FaTrash,
-  FaArrowLeft,
   FaSearch,
   FaSync,
 } from "react-icons/fa";
@@ -169,9 +167,6 @@ const AdminPage = () => {
         <div className="admin-menu-manager-root">
       {/* Top Header */}
       <div className="menu-mgmt-top-nav">
-        <Link to="/admindashboard" className="back-dashboard-btn">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <h2>📋 Menu & Inventory Management</h2>
         <button className="add-new-dish-btn" onClick={handleOpenAdd}>
           <FaPlus /> Add New Dish

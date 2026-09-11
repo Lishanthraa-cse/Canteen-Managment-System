@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   FaInfoCircle,
   FaCheckCircle,
   FaExclamationTriangle,
   FaTrash,
-  FaArrowLeft,
   FaBell,
   FaSync,
 } from "react-icons/fa";
@@ -78,9 +76,6 @@ const Notifications = () => {
       <div className="admin-main-viewport" style={{ padding: 0 }}>
         <div className="notif-mgmt-root">
       <div className="notif-top-nav">
-        <Link to="/admindashboard" className="back-link">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <h2>🔔 Kitchen Notifications & Alerts</h2>
         <div className="top-actions">
           <button className="sync-btn" onClick={fetchNotifications}>

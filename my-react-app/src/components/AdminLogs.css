@@ -133,3 +133,46 @@
   background: #fee2e2;
   color: #b91c1c;
 }
+
+/* ==========================================================================
+   Dark Theme Admin Logs Overrides
+   ========================================================================== */
+body.dark-theme .admin-logs-root,
+.admin-portal-root.dark-theme .admin-logs-root,
+.admin-logs-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .logs-top-nav,
+.admin-portal-root.dark-theme .logs-top-nav {
+  background: #151d2f !important;
+  border-bottom: 1px solid #2a3754 !important;
+}
+
+body.dark-theme .table-card,
+.admin-portal-root.dark-theme .table-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .logs-table th,
+.admin-portal-root.dark-theme .logs-table th {
+  background: #1c263d !important;
+  color: #94a3b8 !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .logs-table td,
+.admin-portal-root.dark-theme .logs-table td {
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .logs-table code,
+.admin-portal-root.dark-theme .logs-table code {
+  background: #1c263d !important;
+  color: #38bdf8 !important;
+}

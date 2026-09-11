@@ -23,4 +23,26 @@
     padding: 1rem;
     border-radius: 8px;
   }
+
+/* Dark theme overrides */
+body.dark-theme .manage-roles-container,
+.admin-portal-root.dark-theme .manage-roles-container {
+  color: #f8fafc;
+}
+
+body.dark-theme .role-card,
+.admin-portal-root.dark-theme .role-card {
+  background: #151d2f;
+  color: #f8fafc;
+  border: 1px solid #2a3754;
+}
+
+body.dark-theme .add-role-form input,
+body.dark-theme .add-permission-form input,
+.admin-portal-root.dark-theme .add-role-form input,
+.admin-portal-root.dark-theme .add-permission-form input {
+  background: #1c263d;
+  color: #f8fafc;
+  border: 1px solid #2a3754;
+}
   

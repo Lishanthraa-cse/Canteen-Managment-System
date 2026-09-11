@@ -628,3 +628,101 @@
     transform: scale(1);
   }
 }
+
+/* ==========================================================================
+   Dark Theme Payment Page Overrides
+   ========================================================================== */
+body.dark-theme .payment-page-root,
+.payment-page-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .payment-card-wrap {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .payment-header h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .payment-header p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .order-summary-snippet {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .snippet-amount {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .snippet-label,
+body.dark-theme .snippet-sub {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .method-tab {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .method-tab.active {
+  background: #ea580c !important;
+  border-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .tab-name {
+  color: inherit !important;
+}
+
+body.dark-theme .upi-qr-card,
+body.dark-theme .card-form-box {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .qr-instruction h3,
+body.dark-theme .vpa-row label {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .vpa-row input,
+body.dark-theme .card-input-row input {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .bank-card {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .bank-card:hover,
+body.dark-theme .bank-card.active {
+  border-color: #ea580c !important;
+}
+
+body.dark-theme .upi-modal-box {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .sim-modal-header h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .sim-cancel-btn {
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}

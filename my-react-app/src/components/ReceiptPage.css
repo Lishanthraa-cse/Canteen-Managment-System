@@ -301,3 +301,53 @@
     padding: 0;
   }
 }
+
+/* ==========================================================================
+   Dark Theme Receipt Page Overrides
+   ========================================================================== */
+body.dark-theme .receipt-page-root,
+.receipt-page-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .invoice-paper {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .invoice-title {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .invoice-meta-card {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .meta-item span {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .meta-item strong {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .receipt-table th {
+  background: #1c263d !important;
+  color: #94a3b8 !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .receipt-table td {
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .return-menu-btn {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaKey, FaArrowLeft } from "react-icons/fa";
+import { FaKey } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import AdminSidebar from "./AdminSidebar";
 import "./SecuritySettings.css";
@@ -61,9 +60,6 @@ const SecuritySettings = () => {
       <div className="admin-main-viewport" style={{ padding: 0 }}>
         <div className="security-mgmt-root">
       <div className="security-top-nav">
-        <Link to="/admindashboard" className="back-link">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <h2>🔒 Security & Access Preferences</h2>
         <div></div>
       </div>

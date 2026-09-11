@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { FaTrashAlt, FaPlus, FaArrowLeft, FaFire } from "react-icons/fa";
+import { FaTrashAlt, FaPlus, FaFire } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import AdminSidebar from "./AdminSidebar";
 import "./Specials.css";
@@ -87,9 +86,6 @@ const Specials = () => {
       <div className="admin-main-viewport" style={{ padding: 0 }}>
         <div className="specials-mgmt-root">
       <div className="specials-top-nav">
-        <Link to="/admindashboard" className="back-link">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <h2>🔥 Manage Daily Specials & Deals</h2>
         <div></div>
       </div>

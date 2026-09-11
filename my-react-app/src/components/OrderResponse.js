@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
 import {
   FaSearch,
   FaCheck,
@@ -8,7 +7,6 @@ import {
   FaCheckCircle,
   FaTimes,
   FaSync,
-  FaArrowLeft,
   FaReceipt,
   FaPhone,
 } from "react-icons/fa";
@@ -101,9 +99,6 @@ const OrderResponse = () => {
       <div className="admin-main-viewport" style={{ padding: 0 }}>
         <div className="admin-orders-manager-root">
       <div className="orders-top-nav">
-        <Link to="/admindashboard" className="back-dashboard-btn">
-          <FaArrowLeft /> Dashboard
-        </Link>
         <div className="top-nav-title">
           <h2>🍳 Kitchen Live Orders Kanban</h2>
           <span className="live-pulse-badge">● LIVE SYNC</span>
