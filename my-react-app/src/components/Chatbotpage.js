@@ -60,6 +60,7 @@ const Chatbotpage = () => {
         body: JSON.stringify({ message: query }),
       });
 
+      if (!res.ok) throw new Error(`Server returned status ${res.status}`);
       const data = await res.json();
       const botReply = data.response || "Here is what I found for you!";
 
@@ -76,13 +77,43 @@ const Chatbotpage = () => {
       speakText(botReply);
     } catch (error) {
       console.error("Chatbot request failed:", error);
+      console.warn("Chatbot backend offline or slow, using smart offline fallback:", error.message);
+      
+      const q = query.toLowerCase();
+      let offlineReply = "";
+      let offlineSuggestions = ["What's under ₹50?", "Show Specials", "Pure Veg Items"];
+
+      if (q.includes("50") || q.includes("budget") || q.includes("under")) {
+        offlineReply = "Here are popular budget items under ₹50:\n• Masala Dosa (₹50)\n• Idli Vada Combo (₹40)\n• Pongal (₹45)\n• Samosa (₹25)\n• Filter Coffee (₹20)\n• Masala Chai (₹15)";
+        offlineSuggestions = ["Masala Dosa", "Idli Vada Combo", "Filter Coffee"];
+      } else if (q.includes("special") || q.includes("offer") || q.includes("deal")) {
+        offlineReply = "⭐ Today's Specials:\n• South Indian Thali Special - ₹80\n• Crispy Ghee Roast Dosa - ₹60\n• Fresh Lime Soda - ₹30";
+      } else if (q.includes("veg") && !q.includes("non")) {
+        offlineReply = "🌱 Pure Veg Favorites:\n• Masala Dosa (₹50)\n• Idli Vada Combo (₹40)\n• South Indian Thali (₹80)\n• Veg Fried Rice (₹75)";
+      } else if (q.includes("non-veg") || q.includes("chicken")) {
+        offlineReply = "🍗 Non-Veg Selections:\n• Chicken Biryani (₹140)\n• Egg Puffs (₹25)\n• Chicken 65 Roll (₹90)";
+      } else if (q.includes("timing") || q.includes("hours") || q.includes("open")) {
+        offlineReply = "⏰ SREC Canteen is open Monday to Saturday, 7:30 AM to 7:00 PM!\nBreakfast: 7:30 AM - 11:00 AM\nLunch: 11:30 AM - 3:00 PM\nSnacks: 3:30 PM - 6:30 PM";
+      } else if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
+        offlineReply = "👋 Hello! Welcome to SREC Smart Canteen! I can help you find dishes under your budget, show specials, or check canteen timings.";
+      } else if (q.includes("dosa")) {
+        offlineReply = "Masala Dosa is freshly made and costs ₹50! Crispy fermented crepe served with hot sambar and coconut chutney.";
+        offlineSuggestions = ["Add Masala Dosa to Cart", "Filter Coffee"];
+      } else if (q.includes("coffee") || q.includes("tea")) {
+        offlineReply = "☕ Fresh Filter Coffee is ₹20 and Hot Masala Chai is ₹15! Perfect boost for your study day.";
+      } else {
+        offlineReply = `I can help you browse today's menu and prices! Popular items right now:\n• Masala Dosa (₹50)\n• South Indian Thali (₹80)\n• Veg Fried Rice (₹75)\n• Filter Coffee (₹20)`;
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           from: "bot",
-          text: "I'm having trouble connecting to the kitchen right now. Please browse the menu directly!",
+          text: offlineReply,
+          suggestions: offlineSuggestions,
         },
       ]);
+      speakText(offlineReply);
     } finally {
       setLoading(false);
     }

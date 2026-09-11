@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { auth } from "../firebase";
 import socket from "../socket";
 
 export const AppContext = createContext();
@@ -26,6 +25,7 @@ export const AppProvider = ({ children }) => {
   });
 
   // User State
+  // User State (JWT Session)
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const saved = localStorage.getItem("canteen_user");
@@ -34,6 +34,8 @@ export const AppProvider = ({ children }) => {
       return null;
     }
   });
+
+  const [userToken, setUserToken] = useState(() => localStorage.getItem("userToken") || null);
 
   // Admin State
   const [adminToken, setAdminToken] = useState(() => localStorage.getItem("adminToken") || null);
@@ -83,23 +85,12 @@ export const AppProvider = ({ children }) => {
     }
   }, [activeOrder]);
 
-  // Listen for Firebase Auth changes
+  // Connect socket room when user is active
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const userData = {
-          email: user.email,
-          name: user.displayName || user.email.split("@")[0],
-          uid: user.uid,
-        };
-        setCurrentUser(userData);
-        localStorage.setItem("canteen_user", JSON.stringify(userData));
-        localStorage.setItem("userEmail", user.email);
-        socket.emit("joinUserRoom", user.email);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+    if (currentUser?.email) {
+      socket.emit("joinUserRoom", currentUser.email);
+    }
+  }, [currentUser]);
 
   // Listen to Real-Time Socket Events for Order Status
   useEffect(() => {
@@ -170,11 +161,26 @@ export const AppProvider = ({ children }) => {
 
   const isFavorite = (itemId) => favorites.some((f) => f._id === itemId);
 
+  // User Login Session Helper
+  const setUserSession = (userData, token = null) => {
+    setCurrentUser(userData);
+    localStorage.setItem("canteen_user", JSON.stringify(userData));
+    if (token) {
+      setUserToken(token);
+      localStorage.setItem("userToken", token);
+    }
+    if (userData?.email) {
+      localStorage.setItem("userEmail", userData.email);
+      socket.emit("joinUserRoom", userData.email);
+    }
+  };
+
   // User Logout
   const logout = () => {
-    auth.signOut();
     setCurrentUser(null);
+    setUserToken(null);
     localStorage.removeItem("canteen_user");
+    localStorage.removeItem("userToken");
     localStorage.removeItem("userEmail");
     showToast("Logged out successfully", "info");
   };
@@ -206,6 +212,8 @@ export const AppProvider = ({ children }) => {
         isFavorite,
         currentUser,
         setCurrentUser,
+        userToken,
+        setUserSession,
         logout,
         adminToken,
         setAdminSession,

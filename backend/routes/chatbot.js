@@ -13,11 +13,34 @@ router.post("/", async (req, res) => {
 
     const query = message.trim().toLowerCase();
 
-    // Fetch live menu and specials from database
-    const [menuItems, specials] = await Promise.all([
-      MenuItem.find({ availability: true }),
-      Special.find({ active: true }),
-    ]);
+    // Default catalog fallback in case DB is warming up or empty
+    const defaultCatalog = [
+      { name: "Masala Dosa", price: 50, category: "South Indian", isVeg: true, prepTime: "10 mins", description: "Crispy fermented crepe filled with spiced potato masala" },
+      { name: "Idli Vada Combo", price: 40, category: "South Indian", isVeg: true, prepTime: "5 mins", description: "2 Steamed fluffy idlis + 1 crispy medu vada with sambar & chutney" },
+      { name: "Pongal", price: 45, category: "South Indian", isVeg: true, prepTime: "5 mins", description: "Ghee-rich rice & moong dal tempered with cumin, pepper & cashews" },
+      { name: "South Indian Thali", price: 80, category: "Meals", isVeg: true, prepTime: "12 mins", description: "Complete meal with rice, sambar, rasam, kootu, poriyal, curd & appalam" },
+      { name: "Veg Fried Rice", price: 75, category: "Chinese", isVeg: true, prepTime: "12 mins", description: "Wok-tossed basmati rice with crunchy garden vegetables" },
+      { name: "Samosa (2 pcs)", price: 25, category: "Snacks", isVeg: true, prepTime: "3 mins", description: "Golden fried pastry stuffed with spiced potatoes & peas" },
+      { name: "Filter Coffee", price: 20, category: "Beverages", isVeg: true, prepTime: "3 mins", description: "Authentic Kumbakonam degree filter coffee with rich froth" },
+      { name: "Masala Chai", price: 15, category: "Beverages", isVeg: true, prepTime: "3 mins", description: "Brewed tea infused with ginger, cardamom, and fresh spices" },
+      { name: "Chicken Biryani", price: 140, category: "Non-Veg", isVeg: false, prepTime: "15 mins", description: "Fragrant basmati rice slow-cooked with tender chicken and aromatic spices" },
+      { name: "Egg Puffs", price: 25, category: "Snacks", isVeg: false, prepTime: "3 mins", description: "Flaky puff pastry stuffed with spiced boiled egg" },
+    ];
+
+    let menuItems = [];
+    let specials = [];
+    try {
+      [menuItems, specials] = await Promise.all([
+        MenuItem.find({ availability: true }).lean(),
+        Special.find({ active: true }).lean(),
+      ]);
+    } catch (dbErr) {
+      console.warn("Chatbot DB lookup fallback to catalog:", dbErr.message);
+    }
+
+    if (!menuItems || menuItems.length === 0) {
+      menuItems = defaultCatalog;
+    }
 
     let reply = "";
 

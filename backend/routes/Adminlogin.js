@@ -1,10 +1,5 @@
-// routes/adminRoutes.js
-const express = require('express');
 const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const Admin = require('../models/Admin');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Admin = require("../models/Admin");
@@ -13,7 +8,6 @@ const MenuItem = require("../models/MenuItem");
 const ActivityLog = require("../models/ActivityLog");
 const authenticateAdmin = require("../middleware/authenticateAdmin");
 
-router.post('/login', async (req, res) => {
 // Helper to log admin actions
 const logAction = async (action, details, ip = "127.0.0.1", adminEmail = "admin@srec.ac.in", status = "Success") => {
   try {
@@ -29,32 +23,26 @@ const handleAdminLogin = async (req, res) => {
   const ip = req.ip || req.connection?.remoteAddress || "127.0.0.1";
 
   try {
-    const admin = await Admin.findOne({ email });
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password are required" });
     }
 
-    // Must be college admin domain or admin email
     const trimmedEmail = email.trim().toLowerCase();
     const admin = await Admin.findOne({ email: trimmedEmail });
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid email' });
       await logAction("Failed Login", `Unknown email: ${trimmedEmail}`, ip, trimmedEmail, "Failed");
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid password' });
       await logAction("Failed Login", `Incorrect password for: ${trimmedEmail}`, ip, trimmedEmail, "Failed");
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    const token = jwt.sign({ adminId: admin._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.json({ token });
     const token = jwt.sign(
       { adminId: admin._id, email: admin.email, role: admin.role || "admin" },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "srec_super_secure_jwt_secret_2025",
       { expiresIn: "1d" }
     );
 
@@ -66,8 +54,6 @@ const handleAdminLogin = async (req, res) => {
       admin: { id: admin._id, email: admin.email, name: admin.name || "Admin", role: admin.role },
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
     console.error("Admin login error:", err);
     res.status(500).json({ message: "Server error during admin login", details: err.message });
   }

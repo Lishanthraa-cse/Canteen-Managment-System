@@ -14,7 +14,6 @@ const MenuItemSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "",
       default: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60",
     },
     availability: {
@@ -23,18 +22,14 @@ const MenuItemSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      default: "",
       required: true,
       trim: true,
-      default: "Snacks",
+      default: "South Indian",
     },
     description: {
       type: String,
       default: "",
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
     isVeg: {
       type: Boolean,
       default: true,

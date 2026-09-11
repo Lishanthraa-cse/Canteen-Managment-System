@@ -10,11 +10,20 @@
     "start": "node server.js"
     "start": "node server.js",
     "seed": "node scripts/seed.js",
+    "create-admin": "node createAdmin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "keywords": ["canteen", "management", "express", "mongodb", "socket.io"],
+  "keywords": [
+    "canteen",
+    "management",
+    "express",
+    "mongodb",
+    "socket.io",
+    "jwt"
+  ],
   "author": "Lishanthraa",
   "license": "ISC",
   "type": "commonjs",

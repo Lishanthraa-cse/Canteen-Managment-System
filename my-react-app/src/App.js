@@ -1,14 +1,12 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom"; 
+import { Routes, Route, useLocation, Navigate } from "react-router-dom"; 
 import HomePage from "./components/HomePage.js";
 import AdminPage from "./components/AdminPage.js";
 import MenuPage from "./components/MenuPage.js";
 import CartPage from "./components/CartPage.js";
-import OrderConfirmation from "./components/OrderConfirmation.js";
 import LoginPage from "./components/LoginPage.js";
 import PaymentPage from "./components/PaymentPage.js";
 import ReceiptPage from "./components/ReceiptPage.js";
-import RegisterPage from "./components/RegisterPage.js";
 import SignUp from "./components/SignUp.js";
 import UsersHomepage from "./components/UsersHomepage.js";
 import Favorites from "./components/Favorites.js";
@@ -25,10 +23,7 @@ import AdminLogin from "./components/AdminLogin.js";
 import ManageRoles from "./components/ManageRoles.js";
 import Specials from "./components/Specials.js";
 import Feedback from "./components/Feedback.js";
-import SettingsPage from "./components/SettingsPage.js";
 import Logout from "./components/Logout.js";
-import RecentOrders from "./components/RecentOrders.js";
-import Sidebar from "./components/Sidebar.js";
 import ViewMyOrder from "./components/ViewMyOrder.js";
 
 const App = () => {
@@ -53,22 +48,22 @@ const App = () => {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/Payment" element={<PaymentPage />} />
         <Route path="/receipt" element={<ReceiptPage />} />
+        <Route path="/orderconfirmation" element={<Navigate to="/receipt" replace />} />
         <Route path="/usershomepage" element={<UsersHomepage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/viewmyorder" element={<ViewMyOrder />} />
         <Route path="/track" element={<ViewMyOrder />} />
+        <Route path="/recentorders" element={<ViewMyOrder />} />
         <Route path="/scheduleorder" element={<ScheduleOrder />} />
         <Route path="/feedback" element={<Feedback />} />
-        <Route path="/recentorders" element={<RecentOrders />} />
-        <Route path="/orderconfirmation" element={<OrderConfirmation />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Signup" element={<SignUp />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register" element={<SignUp />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/chatbot" element={<Chatbotpage />} />
-        <Route path="/sidebar" element={<Sidebar />} />
+        <Route path="/settings" element={<Navigate to="/usershomepage" replace />} />
 
         {/* Admin & Kitchen Routes */}
         <Route path="/admin" element={<AdminPage />} />
@@ -81,8 +76,6 @@ const App = () => {
         <Route path="/specials" element={<Specials />} />
         <Route path="/securitysettings" element={<SecuritySettings />} />
         <Route path="/manageroles" element={<ManageRoles />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/settingd" element={<SettingsPage />} />
       </Routes>
 
       {/* Floating AI Canteen Concierge available on customer facing pages */}
@@ -92,3 +85,4 @@ const App = () => {
 };
 
 export default App;
+

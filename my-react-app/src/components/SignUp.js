@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.js";
 import { useNavigate, Link } from "react-router-dom";
 import { FaUser, FaEnvelope, FaLock, FaPhone, FaArrowLeft, FaUtensils } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import "./SignUp.css";
 
 const SignUp = () => {
-  const { setCurrentUser, showToast } = useApp();
+  const { setUserSession, showToast } = useApp();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -29,14 +27,6 @@ const SignUp = () => {
 
     setLoading(true);
 
-    // 1. Try Firebase Auth
-    try {
-      await createUserWithEmailAndPassword(auth, email.trim(), password);
-    } catch (fbErr) {
-      console.warn("Firebase signup error:", fbErr.message);
-    }
-
-    // 2. Also register in Backend MongoDB
     try {
       const res = await fetch("/api/register", {
         method: "POST",
@@ -50,21 +40,15 @@ const SignUp = () => {
       });
 
       const data = await res.json();
-      if (res.ok) {
-        setCurrentUser({
-          name: name.trim() || email.split("@")[0],
-          email: email.trim(),
-          phone: phone.trim() || "Not Provided",
-        });
+      if (res.ok && data.user) {
+        setUserSession(data.user, data.token);
         showToast("🎉 Registration successful! Welcome to SREC Canteen.", "success");
         navigate("/usershomepage");
       } else {
-        showToast(data.message || "Registration completed. Please login.", "info");
-        navigate("/login");
+        showToast(data.message || "Registration failed. Please try again.", "error");
       }
     } catch (err) {
-      showToast("Registered successfully! Please login.", "success");
-      navigate("/login");
+      showToast("Network error connecting to backend. Please try again.", "error");
     } finally {
       setLoading(false);
     }

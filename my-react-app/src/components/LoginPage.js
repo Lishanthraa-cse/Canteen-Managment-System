@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.js";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEnvelope, FaLock, FaUtensils, FaArrowLeft } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const { setCurrentUser, showToast } = useApp();
+  const { setCurrentUser, setUserSession, showToast } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,25 +20,6 @@ const LoginPage = () => {
 
     setLoading(true);
 
-    // Try Firebase Authentication first
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
-      const user = userCredential.user;
-      const userData = {
-        email: user.email,
-        name: user.displayName || user.email.split("@")[0],
-        uid: user.uid,
-      };
-      setCurrentUser(userData);
-      localStorage.setItem("userEmail", user.email);
-      showToast("🎉 Welcome to SREC Smart Canteen!", "success");
-      navigate("/usershomepage");
-      return;
-    } catch (fbError) {
-      console.warn("Firebase sign-in failed, trying backend auth fallback:", fbError.message);
-    }
-
-    // Backend Auth Fallback
     try {
       const res = await fetch("/api/login", {
         method: "POST",
@@ -52,13 +31,14 @@ const LoginPage = () => {
       if (res.ok && data.user) {
         setCurrentUser(data.user);
         localStorage.setItem("userEmail", data.user.email);
+        setUserSession(data.user, data.token);
         showToast("🎉 Welcome back to SREC Canteen!", "success");
         navigate("/usershomepage");
       } else {
         showToast(data.message || "Invalid credentials. Please verify your email & password.", "error");
       }
     } catch (err) {
-      showToast("Network error during login", "error");
+      showToast("Network error connecting to backend. Please check server.", "error");
     } finally {
       setLoading(false);
     }
@@ -66,12 +46,14 @@ const LoginPage = () => {
 
   const handleDemoLogin = () => {
     const demoUser = {
+      id: "demo_student_id",
       email: "student@srec.ac.in",
       name: "Priya (Demo Student)",
       phone: "9876543210",
     };
     setCurrentUser(demoUser);
     localStorage.setItem("userEmail", demoUser.email);
+    setUserSession(demoUser, "demo_jwt_token_srec");
     showToast("Logged in as Demo Student!", "success");
     navigate("/usershomepage");
   };
