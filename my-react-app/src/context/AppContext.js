@@ -147,15 +147,100 @@ export const AppProvider = ({ children }) => {
   const cartTotal = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * item.quantity, 0);
   const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
 
-  // Favorites Functions
-  const toggleFavorite = (item) => {
-    const exists = favorites.some((f) => f._id === item._id);
-    if (exists) {
-      setFavorites((prev) => prev.filter((f) => f._id !== item._id));
-      showToast(`Removed ${item.name} from favorites`, "info");
+  // Theme State (Global Dark Mode)
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem("canteen_theme") === "dark";
+  });
+
+  const toggleDarkMode = useCallback(() => {
+    setIsDarkMode((prev) => {
+      const next = !prev;
+      localStorage.setItem("canteen_theme", next ? "dark" : "light");
+      if (next) {
+        document.body.classList.add("dark-theme");
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        document.body.classList.remove("dark-theme");
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add("dark-theme");
+      document.documentElement.setAttribute("data-theme", "dark");
     } else {
-      setFavorites((prev) => [...prev, item]);
-      showToast(`Added ${item.name} to favorites ❤️`, "success");
+      document.body.classList.remove("dark-theme");
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  }, [isDarkMode]);
+
+  // Fetch personal favorites from backend whenever user logs in
+  const fetchUserFavorites = useCallback(async (userEmail, token) => {
+    try {
+      const headers = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+      const url = userEmail ? `/api/favorites?email=${encodeURIComponent(userEmail)}` : "/api/favorites";
+      const res = await fetch(url, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.favorites)) {
+          setFavorites(data.favorites);
+          localStorage.setItem(`canteen_favs_${userEmail || "guest"}`, JSON.stringify(data.favorites));
+        }
+      }
+    } catch (e) {
+      console.warn("Could not sync favorites with backend:", e);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      fetchUserFavorites(currentUser.email, userToken);
+    } else {
+      try {
+        const saved = localStorage.getItem("canteen_favs_guest");
+        setFavorites(saved ? JSON.parse(saved) : []);
+      } catch {
+        setFavorites([]);
+      }
+    }
+  }, [currentUser, userToken, fetchUserFavorites]);
+
+  // Favorites Functions
+  const toggleFavorite = async (item) => {
+    const exists = favorites.some((f) => f._id === item._id);
+    const updated = exists
+      ? favorites.filter((f) => f._id !== item._id)
+      : [...favorites, item];
+
+    setFavorites(updated);
+
+    if (currentUser?.email) {
+      localStorage.setItem(`canteen_favs_${currentUser.email}`, JSON.stringify(updated));
+      showToast(
+        exists ? `Removed ${item.name} from favorites` : `Added ${item.name} to favorites ❤️`,
+        exists ? "info" : "success"
+      );
+      try {
+        const headers = { "Content-Type": "application/json" };
+        if (userToken) headers.Authorization = `Bearer ${userToken}`;
+        await fetch("/api/favorites/toggle", {
+          method: "POST",
+          headers,
+          body: JSON.stringify({ itemId: item._id, email: currentUser.email }),
+        });
+      } catch (err) {
+        console.warn("Error updating favorite on server:", err);
+      }
+    } else {
+      localStorage.setItem("canteen_favs_guest", JSON.stringify(updated));
+      showToast(
+        exists ? `Removed ${item.name} from favorites` : `Added ${item.name} to favorites ❤️ (Sign in to sync)`,
+        exists ? "info" : "success"
+      );
     }
   };
 
@@ -172,6 +257,7 @@ export const AppProvider = ({ children }) => {
     if (userData?.email) {
       localStorage.setItem("userEmail", userData.email);
       socket.emit("joinUserRoom", userData.email);
+      fetchUserFavorites(userData.email, token);
     }
   };
 
@@ -179,6 +265,7 @@ export const AppProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     setUserToken(null);
+    setFavorites([]);
     localStorage.removeItem("canteen_user");
     localStorage.removeItem("userToken");
     localStorage.removeItem("userEmail");
@@ -210,6 +297,7 @@ export const AppProvider = ({ children }) => {
         favorites,
         toggleFavorite,
         isFavorite,
+        fetchUserFavorites,
         currentUser,
         setCurrentUser,
         userToken,
@@ -223,6 +311,8 @@ export const AppProvider = ({ children }) => {
         toasts,
         showToast,
         removeToast,
+        isDarkMode,
+        toggleDarkMode,
       }}
     >
       {children}

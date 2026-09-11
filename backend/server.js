@@ -66,6 +66,7 @@ const adminRoutes = require("./routes/Adminlogin");
 const securityRoutes = require("./routes/Security");
 const chatbotRoutes = require("./routes/chatbot");
 const backupRoutes = require("./routes/backup");
+const favoritesRoutes = require("./routes/favorites");
 
 // API Endpoints
 app.use("/api/menu", menuRoutes);
@@ -78,6 +79,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/security", securityRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/backup", backupRoutes);
+app.use("/api/favorites", favoritesRoutes);
 
 // Direct Chatbot root POST fallback (for backwards compatibility)
 app.post("/", (req, res, next) => {

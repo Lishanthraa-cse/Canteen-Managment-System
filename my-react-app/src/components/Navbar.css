@@ -173,6 +173,41 @@
   gap: 12px;
 }
 
+.navbar-theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #f59e0b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.05rem;
+}
+
+.navbar-theme-toggle-btn:hover {
+  transform: scale(1.08);
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.theme-moon-icon {
+  color: #6366f1;
+}
+
+body.dark-theme .navbar-theme-toggle-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f59e0b;
+}
+
+body.dark-theme .navbar-theme-toggle-btn:hover {
+  background: #334155;
+}
+
 .user-profile-menu {
   position: relative;
 }

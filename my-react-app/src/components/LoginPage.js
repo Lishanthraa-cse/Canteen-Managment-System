@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaEnvelope, FaLock, FaUtensils, FaArrowLeft } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUtensils, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import "./LoginPage.css";
 
@@ -8,8 +8,20 @@ const LoginPage = () => {
   const { setCurrentUser, setUserSession, showToast } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(() => localStorage.getItem("canteen_remember_me") === "true");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isRemembered = localStorage.getItem("canteen_remember_me") === "true";
+    if (isRemembered) {
+      const savedEmail = localStorage.getItem("canteen_saved_email") || "";
+      const savedPass = localStorage.getItem("canteen_saved_pass") || "";
+      if (savedEmail) setEmail(savedEmail);
+      if (savedPass) setPassword(savedPass);
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,6 +44,18 @@ const LoginPage = () => {
         setCurrentUser(data.user);
         localStorage.setItem("userEmail", data.user.email);
         setUserSession(data.user, data.token);
+
+        // Save password if Remember Me is checked
+        if (rememberMe) {
+          localStorage.setItem("canteen_remember_me", "true");
+          localStorage.setItem("canteen_saved_email", email.trim());
+          localStorage.setItem("canteen_saved_pass", password);
+        } else {
+          localStorage.removeItem("canteen_remember_me");
+          localStorage.removeItem("canteen_saved_email");
+          localStorage.removeItem("canteen_saved_pass");
+        }
+
         showToast("🎉 Welcome back to SREC Canteen!", "success");
         navigate("/usershomepage");
       } else {
@@ -96,15 +120,35 @@ const LoginPage = () => {
             />
           </div>
 
-          <div className="form-input-box">
+          <div className="form-input-box password-input-box">
             <FaLock className="icon" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              type="button"
+              className="pwd-toggle-btn"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              title={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+
+          <div className="remember-me-container">
+            <label className="remember-checkbox-label">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <span>Remember me & save password</span>
+            </label>
           </div>
 
           <button type="submit" className="login-cta-btn" disabled={loading}>

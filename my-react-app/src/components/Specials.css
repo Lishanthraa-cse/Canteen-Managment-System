@@ -1,125 +1,280 @@
-.admin-specials-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 30px;
-  border-radius: 12px;
-  background: #f9f9f9;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+/* ==========================================================================
+   Daily Specials & Promotional Deals Styles
+   ========================================================================== */
+
+.specials-mgmt-root {
+  min-height: 100vh;
+  background-color: var(--bg-main, #f8fafc);
+  color: var(--text-main, #0f172a);
+  padding-bottom: 60px;
 }
 
-.title {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #333;
+.specials-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  background: var(--nav-bg, rgba(255, 255, 255, 0.95));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
-.form {
+.specials-top-nav h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.specials-top-nav .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ea580c;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(234, 88, 12, 0.08);
+  transition: all 0.2s ease;
+}
+
+.specials-top-nav .back-link:hover {
+  background: rgba(234, 88, 12, 0.16);
+  transform: translateX(-2px);
+}
+
+.specials-container {
+  max-width: 1040px;
+  margin: 32px auto;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 36px;
 }
 
-.form input,
-.form textarea {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+/* Create Special Form Card */
+.specials-form-card {
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: var(--card-shadow, 0 10px 25px -5px rgba(0, 0, 0, 0.05));
 }
 
-.form textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.form button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
+.form-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: #ea580c;
 }
 
-.form button:hover {
-  background-color: #0056b3;
+.form-title h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main, #0f172a);
+  margin: 0;
 }
 
-.success, .error, .loading, .empty {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 6px;
-  font-weight: 500;
+.special-form {
   display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.success {
-  background-color: #e6f9ec;
-  color: #1a7f37;
-}
-
-.error {
-  background-color: #ffe6e6;
-  color: #b00020;
-}
-
-.loading {
-  color: #444;
-  font-style: italic;
-}
-
-.empty {
-  text-align: center;
-  color: #999;
-}
-
-.specials-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  flex-direction: column;
   gap: 20px;
 }
 
-.special-card {
-  background: white;
-  padding: 20px;
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-item label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted, #475569);
+}
+
+.form-item input,
+.form-item textarea {
+  padding: 11px 14px;
   border-radius: 10px;
-  border-left: 6px solid #007bff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color, #cbd5e1);
+  background: var(--bg-card, #ffffff);
+  color: var(--text-main, #0f172a);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
 }
 
-.special-card h3 {
-  margin-top: 0;
-  font-size: 20px;
-  color: #222;
+.form-item input:focus,
+.form-item textarea:focus {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
 }
 
-.special-card .price {
-  font-weight: bold;
-  margin: 10px 0;
-  color: #007bff;
-}
-
-.delete-btn {
-  background-color: #dc3545;
+.submit-special-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ea580c, #f97316);
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 10px;
+  padding: 13px 24px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+  transition: all 0.2s ease;
+  align-self: flex-start;
 }
 
-.delete-btn:hover {
-  background-color: #b52a37;
+.submit-special-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45);
+}
+
+.submit-special-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Existing Specials Grid */
+.specials-list-wrap h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-main, #0f172a);
+}
+
+.specials-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.admin-special-card {
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow, 0 4px 12px rgba(0, 0, 0, 0.04));
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-special-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-media {
+  height: 160px;
+  position: relative;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.deal-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ea580c;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-body h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: var(--text-main, #0f172a);
+}
+
+.card-body p {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color, #f1f5f9);
+}
+
+.deal-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ea580c;
+  margin-right: 8px;
+}
+
+.cut-price {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.delete-special-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-special-btn:hover {
+  background: #ef4444;
+  color: white;
 }

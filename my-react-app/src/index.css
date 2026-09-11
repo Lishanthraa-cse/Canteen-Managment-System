@@ -1,3 +1,101 @@
 html {
-    background: #ffffff; /* ✅ Ensures white background */
+  background: #ffffff;
+}
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f1f5f9;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --nav-bg: rgba(255, 255, 255, 0.94);
+  --primary-accent: #ea580c;
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+html, body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  min-height: 100vh;
+}
+
+/* Global Dark Mode Overrides */
+body.dark-theme,
+[data-theme="dark"] {
+  --bg-main: #0b0f19;
+  --bg-card: #151d2f;
+  --bg-card-alt: #1c263d;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #2a3754;
+  --nav-bg: rgba(15, 23, 42, 0.96);
+  --primary-accent: #f97316;
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.55);
+  background-color: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .navbar,
+body.dark-theme .custom-navbar,
+body.dark-theme .admin-sidebar,
+body.dark-theme .admin-main-content,
+body.dark-theme .food-card,
+body.dark-theme .stat-card,
+body.dark-theme .chart-card,
+body.dark-theme .table-card,
+body.dark-theme .cart-item-row,
+body.dark-theme .cart-summary-box,
+body.dark-theme .order-history-card,
+body.dark-theme .payment-card-wrap,
+body.dark-theme .receipt-card,
+body.dark-theme .notif-card,
+body.dark-theme .specials-form-card,
+body.dark-theme .special-item-card,
+body.dark-theme .feedback-card-item,
+body.dark-theme .settings-box,
+body.dark-theme .database-backup-card,
+body.dark-theme .backup-card,
+body.dark-theme .login-card-box,
+body.dark-theme .signup-card-box,
+body.dark-theme .admin-login-card,
+body.dark-theme .user-menu-dropdown,
+body.dark-theme .category-chip {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.dark-theme .category-chip.active {
+  background: #ea580c !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme input,
+body.dark-theme select,
+body.dark-theme textarea {
+  background-color: #1a233a !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+  color: #64748b !important;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .text-muted,
+body.dark-theme .sub-label,
+body.dark-theme .price-tag del {
+  color: #94a3b8 !important;
 }

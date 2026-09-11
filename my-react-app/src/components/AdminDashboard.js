@@ -49,8 +49,7 @@ ChartJS.register(
 );
 
 const AdminDashboard = () => {
-  const { adminToken, logoutAdmin, showToast } = useApp();
-  const [darkMode, setDarkMode] = useState(false);
+  const { adminToken, logoutAdmin, showToast, isDarkMode, toggleDarkMode } = useApp();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [stats, setStats] = useState(null);
@@ -146,7 +145,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className={`admin-portal-root ${darkMode ? "dark-theme" : ""}`}>
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
       {/* Sidebar */}
       <aside className={`admin-sidebar ${sidebarOpen ? "open" : "collapsed"}`}>
         <div className="admin-brand-header">
@@ -193,11 +192,11 @@ const AdminDashboard = () => {
         <div className="sidebar-footer-box">
           <button
             className="theme-toggle-btn"
-            onClick={() => setDarkMode(!darkMode)}
+            onClick={toggleDarkMode}
             title="Toggle Dark Mode"
           >
-            {darkMode ? <FaSun /> : <FaMoon />}
-            {sidebarOpen && <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>}
+            {isDarkMode ? <FaSun /> : <FaMoon />}
+            {sidebarOpen && <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>}
           </button>
 
           <button

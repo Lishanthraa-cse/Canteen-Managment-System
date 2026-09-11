@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaShieldAlt, FaLock, FaEnvelope, FaArrowLeft, FaKey } from "react-icons/fa";
+import { FaShieldAlt, FaLock, FaEnvelope, FaArrowLeft, FaKey, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import "./AdminLogin.css";
 
@@ -8,6 +8,7 @@ const AdminLogin = () => {
   const { setAdminSession, showToast } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -88,15 +89,24 @@ const AdminLogin = () => {
             />
           </div>
 
-          <div className="input-field-wrap">
+          <div className="input-field-wrap password-wrap">
             <FaLock className="input-icon" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Admin Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              type="button"
+              className="admin-pwd-toggle-btn"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              title={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
 
           <button type="submit" className="login-submit-btn" disabled={loading}>

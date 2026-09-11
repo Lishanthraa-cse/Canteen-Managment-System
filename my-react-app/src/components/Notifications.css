@@ -1,76 +1,292 @@
-.notifications-container {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
+/* ==========================================================================
+   Kitchen Notifications & Order Alerts Styles
+   ========================================================================== */
+
+.notif-mgmt-root {
+  min-height: 100vh;
+  background-color: var(--bg-main, #f8fafc);
+  color: var(--text-main, #0f172a);
+  padding-bottom: 60px;
 }
 
-.notifications-header {
+.notif-top-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 18px 32px;
+  background: var(--nav-bg, rgba(255, 255, 255, 0.95));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
-.clear-btn {
-  background: #dc3545;
+.notif-top-nav h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notif-top-nav .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ea580c;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(234, 88, 12, 0.08);
+  transition: all 0.2s ease;
+}
+
+.notif-top-nav .back-link:hover {
+  background: rgba(234, 88, 12, 0.16);
+  transform: translateX(-2px);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  border: 1px solid var(--border-color, #cbd5e1);
+  color: var(--text-main, #334155);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sync-btn:hover {
+  background: #e2e8f0;
+}
+
+.sync-btn .spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.clear-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ef4444;
   color: white;
   border: none;
-  padding: 8px 12px;
-  cursor: pointer;
+  padding: 8px 16px;
   border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.notification-list {
-  list-style: none;
-  padding: 0;
+.clear-all-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
 }
 
-.notification {
+.notif-container {
+  max-width: 960px;
+  margin: 32px auto;
+  padding: 0 20px;
+}
+
+/* Loading & Empty States */
+.loading-state,
+.empty-notif-box {
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 16px;
+  padding: 48px 24px;
+  text-align: center;
+  box-shadow: var(--card-shadow, 0 10px 25px -5px rgba(0, 0, 0, 0.05));
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(234, 88, 12, 0.2);
+  border-top-color: #ea580c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+.empty-bell {
+  font-size: 3.5rem;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+.empty-notif-box h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.empty-notif-box p {
+  color: var(--text-muted, #64748b);
+}
+
+/* Notification List & Cards */
+.notif-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notif-card {
+  display: flex;
+  gap: 18px;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: var(--card-shadow, 0 4px 12px rgba(0, 0, 0, 0.04));
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.notif-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.notif-card.unread {
+  border-left: 5px solid #ea580c;
+  background: linear-gradient(to right, rgba(234, 88, 12, 0.03), var(--bg-card, #ffffff));
+}
+
+.notif-card.read {
+  opacity: 0.82;
+  border-left: 5px solid #94a3b8;
+}
+
+.notif-icon-col {
   display: flex;
   align-items: flex-start;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  padding-top: 4px;
+  font-size: 1.7rem;
 }
 
-.notification.unread {
-  background-color: #f5faff;
+.icon-success {
+  color: #10b981;
 }
 
-.notification.read {
-  opacity: 0.7;
+.icon-warning {
+  color: #f59e0b;
 }
 
-.icon {
-  font-size: 1.5rem;
-  margin-right: 1rem;
+.icon-info {
+  color: #3b82f6;
 }
 
-.info-icon {
-  color: #007bff;
+.notif-body-col {
+  flex: 1;
 }
 
-.success-icon {
-  color: #28a745;
+.notif-headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
 }
 
-.warning-icon {
-  color: #ffc107;
+.notif-headline h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-main, #0f172a);
 }
 
-.mark-read-btn {
-  margin-left: auto;
-  background: #007bff;
+.notif-time {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+  background: var(--bg-card-alt, #f1f5f9);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.notif-msg {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted, #475569);
+  margin-bottom: 12px;
+}
+
+.notif-meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.notif-meta-tags span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--bg-card-alt, #f1f5f9);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  color: var(--text-main, #1e293b);
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.notif-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-read {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-read:hover {
+  background: #e2e8f0;
+}
+
+.btn-delivered {
+  background: #10b981;
   color: white;
   border: none;
-  padding: 6px 10px;
+  padding: 6px 14px;
   border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.empty-msg {
-  text-align: center;
-  color: #888;
-  margin-top: 2rem;
+.btn-delivered:hover {
+  background: #059669;
 }

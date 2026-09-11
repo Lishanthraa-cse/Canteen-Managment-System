@@ -10,12 +10,14 @@ import {
   FaSignOutAlt,
   FaBars,
   FaTimes,
+  FaSun,
+  FaMoon,
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { cartCount, favorites, currentUser, logout, activeOrder } = useApp();
+  const { cartCount, favorites, currentUser, logout, activeOrder, isDarkMode, toggleDarkMode } = useApp();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -104,7 +106,19 @@ const Navbar = () => {
         </div>
 
         {/* Right Section: User Dropdown / Login */}
+        {/* Right Section: Theme Toggle & User Dropdown / Login */}
         <div className="nav-right">
+          {/* Theme Toggle Button for all student & customer pages */}
+          <button
+            type="button"
+            className="navbar-theme-toggle-btn"
+            onClick={toggleDarkMode}
+            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle Theme"
+          >
+            {isDarkMode ? <FaSun className="theme-sun-icon" /> : <FaMoon className="theme-moon-icon" />}
+          </button>
+
           {currentUser ? (
             <div className="user-profile-menu">
               <button
@@ -138,7 +152,7 @@ const Navbar = () => {
                     <FaHeart /> My Favorites
                   </Link>
                   <Link
-                    to="/settingd"
+                    to="/settings"
                     className="dropdown-link"
                     onClick={() => setDropdownOpen(false)}
                   >

@@ -142,6 +142,7 @@ const sampleMenuItems = [
     rating: 4.6,
     description: "Cool tempered yogurt rice with mustard seeds, curry leaves, green chilies, and sweet pomegranate seeds.",
     image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&auto=format&fit=crop&q=80",
     availability: true,
   },
 

@@ -140,6 +140,52 @@
   box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
 }
 
+.password-input-box input {
+  padding-right: 44px;
+}
+
+.pwd-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.pwd-toggle-btn:hover {
+  color: #ea580c;
+}
+
+.remember-me-container {
+  display: flex;
+  align-items: center;
+  margin: -4px 0 4px;
+}
+
+.remember-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #64748b;
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #ea580c;
+  cursor: pointer;
+}
+
 .login-cta-btn {
   background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   color: white;

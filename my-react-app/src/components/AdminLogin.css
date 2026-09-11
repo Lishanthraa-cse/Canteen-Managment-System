@@ -163,6 +163,29 @@
   background: rgba(15, 23, 42, 0.8);
 }
 
+.password-wrap input {
+  padding-right: 44px;
+}
+
+.admin-pwd-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.admin-pwd-toggle-btn:hover {
+  color: #ea580c;
+}
+
 .login-submit-btn {
   background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   color: white;
