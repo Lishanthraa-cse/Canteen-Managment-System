@@ -14,10 +14,11 @@ import {
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import socket from "../socket";
+import AdminSidebar from "./AdminSidebar";
 import "./OrderResponse.css";
 
 const OrderResponse = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -95,7 +96,10 @@ const OrderResponse = () => {
   });
 
   return (
-    <div className="admin-orders-manager-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="admin-orders-manager-root">
       <div className="orders-top-nav">
         <Link to="/admindashboard" className="back-dashboard-btn">
           <FaArrowLeft /> Dashboard
@@ -266,6 +270,8 @@ const OrderResponse = () => {
             ))}
           </div>
         )}
+      </div>
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowLeft, FaDownload, FaSync, FaShieldAlt } from "react-icons/fa";
+import { FaArrowLeft, FaDownload, FaSync } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./AdminLogs.css";
 
 const AdminLogs = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,7 +74,10 @@ const AdminLogs = () => {
   };
 
   return (
-    <div className="admin-logs-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="admin-logs-root">
       <div className="logs-top-nav">
         <Link to="/admindashboard" className="back-link">
           <FaArrowLeft /> Dashboard
@@ -140,6 +144,8 @@ const AdminLogs = () => {
           </div>
         </div>
       </main>
+        </div>
+      </div>
     </div>
   );
 };

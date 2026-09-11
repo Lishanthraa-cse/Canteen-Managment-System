@@ -293,3 +293,63 @@
   border-color: #dc2626;
 }
 
+/* ==========================================================================
+   Dark Theme Settings Overrides
+   ========================================================================== */
+body.dark-theme .settings-page-root,
+.settings-page-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .settings-header h1,
+.settings-page-root.dark-theme .settings-header h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .settings-card,
+.settings-page-root.dark-theme .settings-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .settings-card .card-header,
+.settings-page-root.dark-theme .settings-card .card-header {
+  border-bottom-color: #2a3754 !important;
+}
+
+body.dark-theme .profile-details h4,
+.settings-page-root.dark-theme .profile-details h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .pref-row,
+.settings-page-root.dark-theme .pref-row {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .pref-meta strong,
+.settings-page-root.dark-theme .pref-meta strong {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .shortcut-item,
+.settings-page-root.dark-theme .shortcut-item {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .shortcut-item strong,
+.settings-page-root.dark-theme .shortcut-item strong {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .logout-section,
+.settings-page-root.dark-theme .logout-section {
+  border-top-color: #2a3754 !important;
+}
+

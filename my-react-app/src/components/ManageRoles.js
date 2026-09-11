@@ -1,8 +1,11 @@
 // src/pages/ManageRoles.js
 import React, { useState } from "react";
+import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./ManageRoles.css"; // optional: for styling
 
 const ManageRoles = () => {
+  const { isDarkMode } = useApp();
   const [roles, setRoles] = useState([
     { id: 1, name: "Admin", permissions: ["Manage Users", "Edit Menu"] },
     { id: 2, name: "Staff", permissions: ["View Orders"] },
@@ -31,8 +34,11 @@ const ManageRoles = () => {
   };
 
   return (
-    <div className="manage-roles-container">
-      <h2>Manage Roles</h2>
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport">
+        <div className="manage-roles-container">
+          <h2>Manage Roles</h2>
 
       <div className="add-role-form">
         <input
@@ -64,6 +70,8 @@ const ManageRoles = () => {
             </div>
           </div>
         ))}
+      </div>
+        </div>
       </div>
     </div>
   );

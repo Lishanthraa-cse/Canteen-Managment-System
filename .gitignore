@@ -11,6 +11,11 @@ my-react-app/.env
 # Build folders
 build/
 dist/
+my-react-app/build/
+
+# Backups and uploads
+backend/backups/
+backups/
 
 # Logs
 *.log

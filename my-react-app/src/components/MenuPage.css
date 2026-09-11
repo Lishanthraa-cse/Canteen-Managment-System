@@ -1,7 +1,8 @@
 .menu-page-root {
   min-height: 100vh;
-  background: #f8fafc;
-  color: #0f172a;
+  background: var(--bg-main, #f8fafc);
+  color: var(--text-main, #0f172a);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .menu-container {
@@ -615,4 +616,100 @@
   .filter-sort-group {
     justify-content: space-between;
   }
+}
+
+/* ==========================================================================
+   Dark Theme Menu Page Overrides
+   ========================================================================== */
+body.dark-theme .menu-page-root,
+.menu-page-root.dark-theme {
+  background: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .menu-header-text h1,
+.menu-page-root.dark-theme .menu-header-text h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .menu-header-text p,
+.menu-page-root.dark-theme .menu-header-text p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .menu-search-box,
+.menu-page-root.dark-theme .menu-search-box {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .menu-search-box input,
+.menu-page-root.dark-theme .menu-search-box input {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .sort-select,
+.menu-page-root.dark-theme .sort-select {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .category-pill,
+.menu-page-root.dark-theme .category-pill {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .category-pill.active,
+.menu-page-root.dark-theme .category-pill.active {
+  background: #ea580c !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .food-card,
+.menu-page-root.dark-theme .food-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .food-card-body h3,
+.menu-page-root.dark-theme .food-card-body h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .food-desc,
+.menu-page-root.dark-theme .food-desc {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .meta-pill,
+.menu-page-root.dark-theme .meta-pill {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .quantity-controller,
+.menu-page-root.dark-theme .quantity-controller {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .qty-btn,
+.menu-page-root.dark-theme .qty-btn {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .qty-display,
+.menu-page-root.dark-theme .qty-display {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .fav-btn,
+.menu-page-root.dark-theme .fav-btn {
+  background: rgba(15, 23, 42, 0.8) !important;
 }

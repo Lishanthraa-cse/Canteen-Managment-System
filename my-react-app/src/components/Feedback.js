@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaArrowLeft, FaTrash, FaSync } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./Feedback.css";
 
 const Feedback = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [feedbackList, setFeedbackList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,7 +54,10 @@ const Feedback = () => {
       : "5.0";
 
   return (
-    <div className="feedback-mgmt-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="feedback-mgmt-root">
       <div className="feedback-top-nav">
         <Link to="/admindashboard" className="back-link">
           <FaArrowLeft /> Dashboard
@@ -113,6 +117,8 @@ const Feedback = () => {
           ))}
         </div>
       </main>
+        </div>
+      </div>
     </div>
   );
 };

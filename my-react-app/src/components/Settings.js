@@ -50,7 +50,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="settings-page-root">
+    <div className={`settings-page-root ${isDarkMode ? "dark-theme" : ""}`}>
       <Navbar />
 
       <main className="settings-container">

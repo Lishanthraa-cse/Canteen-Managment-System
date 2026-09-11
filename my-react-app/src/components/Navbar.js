@@ -32,7 +32,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="modern-navbar-container">
+    <header className={`modern-navbar-container ${isDarkMode ? "dark-theme" : ""}`}>
       <nav className="modern-navbar">
         {/* Brand */}
         <Link to="/usershomepage" className="brand-logo">
@@ -137,20 +137,6 @@ const Navbar = () => {
                     <span className="role-badge">Student</span>
                   </div>
                   <hr className="dropdown-divider" />
-                  <Link
-                    to="/viewmyorder"
-                    className="dropdown-link"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    <FaHistory /> Order History
-                  </Link>
-                  <Link
-                    to="/favorites"
-                    className="dropdown-link"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    <FaHeart /> My Favorites
-                  </Link>
                   <Link
                     to="/settings"
                     className="dropdown-link"

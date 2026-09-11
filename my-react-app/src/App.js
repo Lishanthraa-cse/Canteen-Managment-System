@@ -25,7 +25,6 @@ import Specials from "./components/Specials.js";
 import Feedback from "./components/Feedback.js";
 import Logout from "./components/Logout.js";
 import ViewMyOrder from "./components/ViewMyOrder.js";
-import DatabaseBackup from "./components/DatabaseBackup.js";
 import Settings from "./components/Settings.js";
 
 const App = () => {
@@ -38,8 +37,7 @@ const App = () => {
     location.pathname === "/securitysettings" ||
     location.pathname === "/manageroles" ||
     location.pathname === "/adminlogs" ||
-    location.pathname === "/notifications" ||
-    location.pathname === "/backup";
+    location.pathname === "/notifications";
 
   return (
     <>
@@ -66,7 +64,6 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/chatbot" element={<Chatbotpage />} />
-        <Route path="/settings" element={<Navigate to="/usershomepage" replace />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/settingd" element={<Navigate to="/settings" replace />} />
 
@@ -81,7 +78,6 @@ const App = () => {
         <Route path="/specials" element={<Specials />} />
         <Route path="/securitysettings" element={<SecuritySettings />} />
         <Route path="/manageroles" element={<ManageRoles />} />
-        <Route path="/backup" element={<DatabaseBackup />} />
       </Routes>
 
       {/* Floating AI Canteen Concierge available on customer facing pages */}
@@ -91,4 +87,3 @@ const App = () => {
 };
 
 export default App;
-

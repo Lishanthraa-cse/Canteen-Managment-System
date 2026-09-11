@@ -14,7 +14,7 @@ import Navbar from "./Navbar";
 import "./UsersHomepage.css";
 
 const UsersHomepage = () => {
-  const { currentUser, addToCart, activeOrder, showToast } = useApp();
+  const { currentUser, addToCart, activeOrder, showToast, isDarkMode } = useApp();
   const [specials, setSpecials] = useState([]);
   const [recentItems, setRecentItems] = useState([]);
   const [feedbackRating, setFeedbackRating] = useState(5);
@@ -101,7 +101,7 @@ const UsersHomepage = () => {
   ];
 
   return (
-    <div className="users-home-root">
+    <div className={`users-home-root ${isDarkMode ? "dark-theme" : ""}`}>
       <Navbar />
 
       <main className="users-home-content">

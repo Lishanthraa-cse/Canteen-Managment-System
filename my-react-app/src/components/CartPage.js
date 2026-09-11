@@ -5,7 +5,6 @@ import {
   FaPlus,
   FaMinus,
   FaArrowRight,
-  FaUtensils,
   FaShoppingBag,
   FaReceipt,
   FaChair,

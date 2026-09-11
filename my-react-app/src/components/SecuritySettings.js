@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaKey, FaArrowLeft } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./SecuritySettings.css";
 
 const SecuritySettings = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -55,7 +56,10 @@ const SecuritySettings = () => {
   };
 
   return (
-    <div className="security-mgmt-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="security-mgmt-root">
       <div className="security-top-nav">
         <Link to="/admindashboard" className="back-link">
           <FaArrowLeft /> Dashboard
@@ -170,6 +174,8 @@ const SecuritySettings = () => {
           </div>
         </div>
       </main>
+        </div>
+      </div>
     </div>
   );
 };

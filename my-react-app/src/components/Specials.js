@@ -2,10 +2,11 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { FaTrashAlt, FaPlus, FaArrowLeft, FaFire } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./Specials.css";
 
 const Specials = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [specials, setSpecials] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -81,7 +82,10 @@ const Specials = () => {
   };
 
   return (
-    <div className="specials-mgmt-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="specials-mgmt-root">
       <div className="specials-top-nav">
         <Link to="/admindashboard" className="back-link">
           <FaArrowLeft /> Dashboard
@@ -196,6 +200,8 @@ const Specials = () => {
           </div>
         </div>
       </main>
+        </div>
+      </div>
     </div>
   );
 };

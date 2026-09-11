@@ -6,16 +6,14 @@ import {
   FaTrash,
   FaArrowLeft,
   FaSearch,
-  FaUtensils,
-  FaCheck,
-  FaTimes,
   FaSync,
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./AdminPage.css";
 
 const AdminPage = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -165,7 +163,10 @@ const AdminPage = () => {
   const categories = ["All", "South Indian", "Meals", "Snacks", "Beverages", "Desserts"];
 
   return (
-    <div className="admin-menu-manager-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="admin-menu-manager-root">
       {/* Top Header */}
       <div className="menu-mgmt-top-nav">
         <Link to="/admindashboard" className="back-dashboard-btn">
@@ -403,6 +404,8 @@ const AdminPage = () => {
           </div>
         </div>
       )}
+        </div>
+      </div>
     </div>
   );
 };

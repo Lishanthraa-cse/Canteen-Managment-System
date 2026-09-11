@@ -10,10 +10,11 @@ import {
   FaSync,
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import AdminSidebar from "./AdminSidebar";
 import "./Notifications.css";
 
 const Notifications = () => {
-  const { showToast } = useApp();
+  const { showToast, isDarkMode } = useApp();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -72,7 +73,10 @@ const Notifications = () => {
   };
 
   return (
-    <div className="notif-mgmt-root">
+    <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
+      <AdminSidebar />
+      <div className="admin-main-viewport" style={{ padding: 0 }}>
+        <div className="notif-mgmt-root">
       <div className="notif-top-nav">
         <Link to="/admindashboard" className="back-link">
           <FaArrowLeft /> Dashboard
@@ -156,6 +160,8 @@ const Notifications = () => {
           </div>
         )}
       </main>
+        </div>
+      </div>
     </div>
   );
 };

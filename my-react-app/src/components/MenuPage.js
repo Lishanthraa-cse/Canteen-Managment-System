@@ -25,6 +25,7 @@ const MenuPage = () => {
     toggleFavorite,
     isFavorite,
     showToast,
+    isDarkMode,
   } = useApp();
 
   const [searchParams] = useSearchParams();
@@ -97,7 +98,7 @@ const MenuPage = () => {
   };
 
   return (
-    <div className="menu-page-root">
+    <div className={`menu-page-root ${isDarkMode ? "dark-theme" : ""}`}>
       <Navbar />
 
       <main className="menu-container">

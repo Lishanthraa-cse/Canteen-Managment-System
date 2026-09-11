@@ -383,3 +383,79 @@ body.dark-theme .navbar-theme-toggle-btn:hover {
   }
 }
 
+/* ==========================================================================
+   Dark Theme Navbar Styles
+   ========================================================================== */
+body.dark-theme .modern-navbar-container,
+.modern-navbar-container.dark-theme {
+  background: rgba(15, 23, 42, 0.96);
+  border-bottom: 1px solid #1e293b;
+}
+
+body.dark-theme .brand-title,
+.modern-navbar-container.dark-theme .brand-title {
+  color: #f8fafc;
+}
+
+body.dark-theme .nav-link,
+.modern-navbar-container.dark-theme .nav-link {
+  color: #94a3b8;
+}
+
+body.dark-theme .nav-link:hover,
+.modern-navbar-container.dark-theme .nav-link:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .nav-link.active,
+.modern-navbar-container.dark-theme .nav-link.active {
+  color: #f97316;
+  background: rgba(234, 88, 12, 0.15);
+}
+
+body.dark-theme .dropdown-menu-box,
+.modern-navbar-container.dark-theme .dropdown-menu-box {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .dropdown-header,
+.modern-navbar-container.dark-theme .dropdown-header {
+  border-bottom: 1px solid #334155;
+}
+
+body.dark-theme .user-email-tag,
+.modern-navbar-container.dark-theme .user-email-tag {
+  color: #cbd5e1;
+}
+
+body.dark-theme .dropdown-link,
+.modern-navbar-container.dark-theme .dropdown-link {
+  color: #cbd5e1;
+}
+
+body.dark-theme .dropdown-link:hover,
+.modern-navbar-container.dark-theme .dropdown-link:hover {
+  background: #334155;
+  color: #ffffff;
+}
+
+body.dark-theme .dropdown-divider,
+.modern-navbar-container.dark-theme .dropdown-divider {
+  border-top-color: #334155;
+}
+
+body.dark-theme .nav-icon-btn,
+.modern-navbar-container.dark-theme .nav-icon-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+body.dark-theme .mobile-toggle-btn,
+.modern-navbar-container.dark-theme .mobile-toggle-btn {
+  color: #f8fafc;
+}
+

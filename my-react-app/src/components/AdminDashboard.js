@@ -2,21 +2,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaClipboardList,
-  FaUtensils,
-  FaBell,
-  FaShieldAlt,
-  FaChartBar,
-  FaExclamationTriangle,
-  FaLock,
-  FaDatabase,
-  FaMoon,
-  FaSun,
-  FaBars,
   FaRupeeSign,
   FaClock,
-  FaCheckCircle,
   FaSync,
-  FaSignOutAlt,
+  FaUtensils,
 } from "react-icons/fa";
 import { Line, Doughnut } from "react-chartjs-2";
 import {
@@ -34,6 +23,7 @@ import {
 import { useApp } from "../context/AppContext";
 import socket from "../socket";
 import notificationSound from "../assets/notification.mp3";
+import AdminSidebar from "./AdminSidebar";
 import "./AdminDashboard.css";
 
 ChartJS.register(
@@ -49,25 +39,11 @@ ChartJS.register(
 );
 
 const AdminDashboard = () => {
-  const { adminToken, logoutAdmin, showToast, isDarkMode, toggleDarkMode } = useApp();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { showToast, isDarkMode } = useApp();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [audio] = useState(() => new Audio(notificationSound));
   const navigate = useNavigate();
-
-  const menuItems = [
-    { path: "/admindashboard", icon: <FaChartBar />, title: "Overview Dashboard" },
-    { path: "/order", icon: <FaClipboardList />, title: "Live Orders Kanban" },
-    { path: "/admin", icon: <FaUtensils />, title: "Menu Management" },
-    { path: "/notifications", icon: <FaBell />, title: "Notifications" },
-    { path: "/specials", icon: <FaExclamationTriangle />, title: "Daily Specials" },
-    { path: "/feedback", icon: <FaLock />, title: "Student Reviews" },
-    { path: "/adminlogs", icon: <FaClipboardList />, title: "Activity Logs" },
-    { path: "/securitysettings", icon: <FaShieldAlt />, title: "Security Settings" },
-    { path: "/backup", icon: <FaDatabase />, title: "Database Backup" },
-  ];
 
   const fetchStats = useCallback(async () => {
     try {
@@ -146,72 +122,8 @@ const AdminDashboard = () => {
 
   return (
     <div className={`admin-portal-root ${isDarkMode ? "dark-theme" : ""}`}>
-      {/* Sidebar */}
-      <aside className={`admin-sidebar ${sidebarOpen ? "open" : "collapsed"}`}>
-        <div className="admin-brand-header">
-          <div className="brand-logo-cluster">
-            <FaUtensils className="sidebar-logo-icon" />
-            {sidebarOpen && <span>SREC Admin</span>}
-          </div>
-          <button
-            className="sidebar-collapse-btn"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label="Toggle sidebar"
-          >
-            <FaBars />
-          </button>
-        </div>
-
-        {sidebarOpen && (
-          <div className="sidebar-search-box">
-            <input
-              type="text"
-              placeholder="Search panel..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        )}
-
-        <nav className="sidebar-nav-list">
-          {menuItems
-            .filter((i) => i.title.toLowerCase().includes(searchQuery.toLowerCase()))
-            .map((item, idx) => (
-              <Link
-                key={idx}
-                to={item.path}
-                className={`sidebar-nav-link ${item.path === "/admindashboard" ? "active" : ""}`}
-                title={!sidebarOpen ? item.title : ""}
-              >
-                <span className="sidebar-icon">{item.icon}</span>
-                {sidebarOpen && <span className="sidebar-text">{item.title}</span>}
-              </Link>
-            ))}
-        </nav>
-
-        <div className="sidebar-footer-box">
-          <button
-            className="theme-toggle-btn"
-            onClick={toggleDarkMode}
-            title="Toggle Dark Mode"
-          >
-            {isDarkMode ? <FaSun /> : <FaMoon />}
-            {sidebarOpen && <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>}
-          </button>
-
-          <button
-            className="admin-logout-btn"
-            onClick={() => {
-              logoutAdmin();
-              navigate("/adminlogin");
-            }}
-            title="Sign out of admin"
-          >
-            <FaSignOutAlt />
-            {sidebarOpen && <span>Sign Out</span>}
-          </button>
-        </div>
-      </aside>
+      {/* Unified Admin Sidebar */}
+      <AdminSidebar />
 
       {/* Main Content Area */}
       <main className="admin-main-viewport">
