@@ -20,7 +20,12 @@ const createAdmin = async () => {
 
     const existingAdmin = await Admin.findOne({ email: 'admin@srec.ac.in' });
     if (existingAdmin) {
-      console.log('⚠️ Admin already exists (admin@srec.ac.in)');
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      existingAdmin.password = hashedPassword;
+      existingAdmin.role = existingAdmin.role || 'admin';
+      existingAdmin.name = existingAdmin.name || 'SREC Canteen Admin';
+      await existingAdmin.save();
+      console.log('✅ Existing admin found. Password successfully re-hashed to bcrypt (admin123)');
       await mongoose.disconnect();
       process.exit(0);
     }

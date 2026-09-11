@@ -34,7 +34,20 @@ const handleAdminLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    const isMatch = await bcrypt.compare(password, admin.password);
+    let isMatch = false;
+    try {
+      isMatch = await bcrypt.compare(password, admin.password);
+    } catch (e) {
+      isMatch = false;
+    }
+
+    // Graceful fallback for legacy plain text passwords
+    if (!isMatch && password === admin.password) {
+      isMatch = true;
+      admin.password = await bcrypt.hash(password, 10);
+      await admin.save();
+    }
+
     if (!isMatch) {
       await logAction("Failed Login", `Incorrect password for: ${trimmedEmail}`, ip, trimmedEmail, "Failed");
       return res.status(401).json({ message: "Invalid email or password" });
