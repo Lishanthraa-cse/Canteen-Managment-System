@@ -398,20 +398,33 @@ body.dark-theme .brand-title,
 }
 
 body.dark-theme .nav-link,
-.modern-navbar-container.dark-theme .nav-link {
-  color: #94a3b8;
+body.dark-theme .nav-item,
+.modern-navbar-container.dark-theme .nav-link,
+.modern-navbar-container.dark-theme .nav-item {
+  color: #cbd5e1;
 }
 
 body.dark-theme .nav-link:hover,
-.modern-navbar-container.dark-theme .nav-link:hover {
+body.dark-theme .nav-item:hover,
+.modern-navbar-container.dark-theme .nav-link:hover,
+.modern-navbar-container.dark-theme .nav-item:hover {
   color: #f8fafc;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 body.dark-theme .nav-link.active,
-.modern-navbar-container.dark-theme .nav-link.active {
+body.dark-theme .nav-item.active,
+.modern-navbar-container.dark-theme .nav-link.active,
+.modern-navbar-container.dark-theme .nav-item.active {
   color: #f97316;
-  background: rgba(234, 88, 12, 0.15);
+  background: rgba(234, 88, 12, 0.2);
+}
+
+body.dark-theme .navbar-theme-toggle-btn,
+.modern-navbar-container.dark-theme .navbar-theme-toggle-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f59e0b;
 }
 
 body.dark-theme .dropdown-menu-box,

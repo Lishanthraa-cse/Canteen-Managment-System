@@ -128,6 +128,7 @@ body.dark-theme textarea::placeholder {
   color: #64748b !important;
 }
 
+body.dark-theme,
 body.dark-theme h1,
 body.dark-theme h2,
 body.dark-theme h3,
@@ -137,8 +138,67 @@ body.dark-theme h6 {
   color: #f8fafc !important;
 }
 
+body.dark-theme p,
+body.dark-theme li,
+body.dark-theme label,
+body.dark-theme dt,
+body.dark-theme dd,
+body.dark-theme td,
+body.dark-theme th {
+  color: #e2e8f0 !important;
+}
+
+body.dark-theme strong,
+body.dark-theme b {
+  color: #f8fafc !important;
+}
+
+body.dark-theme span:not(.badge):not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not([class*="count"]):not([class*="icon"]):not(.pulse-indicator) {
+  color: #cbd5e1;
+}
+
 body.dark-theme .text-muted,
 body.dark-theme .sub-label,
+body.dark-theme .cell-sub,
+body.dark-theme .order-time,
+body.dark-theme .order-time-date,
+body.dark-theme .review-date,
+body.dark-theme .snippet-label,
+body.dark-theme .snippet-sub,
+body.dark-theme .summary-line,
+body.dark-theme .brand-subtitle,
+body.dark-theme [class*="subtitle"]:not(.brand-subtitle),
+body.dark-theme [class*="desc"],
+body.dark-theme [class*="-sub"],
+body.dark-theme [class*="sub-"],
 body.dark-theme .price-tag del {
   color: #94a3b8 !important;
+}
+
+body.dark-theme .brand-title {
+  color: #f8fafc !important;
+}
+
+body.dark-theme a:not([class*="btn"]):not([class*="badge"]):not([class*="pill"]) {
+  color: #cbd5e1;
+}
+
+body.dark-theme a:not([class*="btn"]):not([class*="badge"]):not([class*="pill"]):hover {
+  color: #f97316;
+}
+
+body.dark-theme [class*="price"],
+body.dark-theme [class*="total"],
+body.dark-theme [class*="amount"],
+body.dark-theme [class*="token"] {
+  color: #f8fafc;
+}
+
+body.dark-theme .accent-price,
+body.dark-theme .deal-price,
+body.dark-theme .final-total,
+body.dark-theme .cart-bar-total,
+body.dark-theme .total-figure,
+body.dark-theme .fav-price {
+  color: #f97316 !important;
 }

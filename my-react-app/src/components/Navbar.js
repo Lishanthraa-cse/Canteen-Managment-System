@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   FaUtensils,
+  FaHome,
   FaShoppingCart,
   FaHeart,
   FaHistory,
@@ -62,14 +63,14 @@ const Navbar = () => {
             className={`nav-item ${isActive("/usershomepage") ? "active" : ""}`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Home
+            <FaHome className="inline-icon" /> Home
           </Link>
           <Link
             to="/menu"
             className={`nav-item ${isActive("/menu") ? "active" : ""}`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Menu
+            <FaUtensils className="inline-icon" /> Menu
           </Link>
           <Link
             to="/viewmyorder"
