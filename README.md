@@ -15,25 +15,14 @@
 The **Campus Canteen Management System** modernizes campus dining lines into an ultra-responsive, contactless ordering experience. Built with an event-driven architecture powered by **Node.js, Express, MongoDB Atlas, React 19, and Socket.IO**, this platform bridges the gap between students, counter attendants, and kitchen chefs with sub-second order dispatch and live kitchen Kanban orchestration.
 
 ### 🏆 Key Technical Achievements:
-- ⚡ **Bi-Directional Real-Time Event Engine**: Full Socket.IO integration syncing student orders to kitchen staff displays instantly without polling. Real-time notifications and visual alerts.
-- 💳 **Authentic & Interactive UPI Payment Flow**:
-  - Dynamic UPI QR Code generated in-browser matching NPCI UPI standards (`upi://pay?pa=...`).
-  - 1-Click UPI Apps selector supporting **Google Pay, PhonePe, Paytm, and BHIM UPI**.
-  - Direct VPA ID input field with format verification.
-  - Realistic 15-second countdown simulated approval modal with an **Instant 1-Click Approval** bypass for recruiters and testers.
-  - Dual-tone synthesizer payment success chime powered by the native browser **Web Audio API**.
-  - Automatic transition to digital FSSAI-compliant pickup receipt with order token.
-- 🔐 **Pure JWT Authentication**:
-  - Completely self-contained stateless authentication via JSON Web Tokens (JWT) and salted Bcrypt password hashing.
-  - Zero external third-party SDK dependencies (no Firebase required).
-  - 1-Click Demo Login helpers for both Student and Admin roles for immediate evaluation.
-- 🤖 **Voice-Enabled AI Canteen Concierge (CanteenBot)**:
-  - Smart menu assistant answering budget queries (*"What's under ₹50?"*), dietary preferences (*"Pure Veg"*), and daily specials.
-  - In-browser speech synthesis (**Web Speech API**) and voice recognition.
-  - Resilient design: runs with an intelligent in-memory fallback catalog to guarantee zero connection failures even if the network fluctuates.
-- 📋 **Kitchen Kanban Board**: Real-time order pipeline enabling cooks to accept, cook, mark ready, and dispatch meals with single-click status updates reflecting immediately on the student's live 5-step status stepper.
-- 📊 **Executive Analytics & KPI Dashboard**: Real-time sales telemetry, dynamic revenue trend charts (Chart.js), category breakdown donuts, and automated CSV audit logging.
-- 🛡️ **Hardened Backend Infrastructure**: DNS resolver failover for MongoDB Atlas on Windows environments, role-based access control (RBAC), and sanitization middleware.
+
+- ⚡ **Real-Time Event Engine**: Socket.IO syncs student orders to kitchen displays instantly—no polling—with live notifications and alerts.
+- 💳 **Interactive UPI Payment Flow**: NPCI-compliant dynamic QR codes, 1-click support for Google Pay/PhonePe/Paytm/BHIM, VPA input with verification, 15-second simulated approval (with instant bypass), Web Audio success chime, and auto-generated FSSAI pickup receipt with token.
+- 🔐 **Pure JWT Auth**: Stateless JWT + salted Bcrypt hashing, zero third-party SDKs, 1-click demo logins for Student and Admin.
+- 🤖 **Voice AI Concierge (CanteenBot)**: Handles budget, dietary, and specials queries; uses Web Speech API for voice; falls back to in-memory catalog if offline.
+- 📋 **Kitchen Kanban Board**: Real-time order pipeline with single-click accept/cook/ready/dispatch updates reflected on the student's 5-step tracker.
+- 📊 **Analytics Dashboard**: Live sales telemetry, Chart.js revenue trends, category donuts, and automated CSV audit logs.
+- 🛡️ **Hardened Backend**: DNS failover for MongoDB Atlas on Windows, RBAC, and sanitization middleware.
 
 ---
 
@@ -41,47 +30,45 @@ The **Campus Canteen Management System** modernizes campus dining lines into an 
 
 ```mermaid
 flowchart TD
-    subgraph ClientLayer["Frontend Client (React 19)"]
-        UI_Home["Landing Page & Hero"]
+    subgraph ClientLayer["Frontend (React 19)"]
+        UI_Home["Landing & Hero"]
         UI_Student["Student Portal & Menu"]
-        UI_Cart["Smart Tray & Interactive UPI Payment"]
+        UI_Cart["Smart Tray & UPI Payment"]
         UI_Tracker["Live 5-Step Order Stepper"]
-        UI_Bot["AI Voice Concierge (CanteenBot)"]
-        UI_Admin["Admin Operations & Kitchen Kanban"]
+        UI_Bot["AI Voice Concierge"]
+        UI_Admin["Admin & Kitchen Kanban"]
     end
 
-    subgraph TransportLayer["Real-Time Transport & API Layer"]
-        HTTP_REST["RESTful Endpoints (/api/*)"]
-        WS_Socket["Socket.IO WebSocket Bus (req.io)"]
+    subgraph TransportLayer["Real-Time & API Layer"]
+        HTTP_REST["REST Endpoints (/api/*)"]
+        WS_Socket["Socket.IO WebSocket Bus"]
     end
 
-    subgraph ServerLayer["Backend Engine (Node.js & Express)"]
-        AUTH_JWT["Pure JWT & RBAC Middleware"]
-        CTR_Order["Order Controller & Token Dispatch"]
-        CTR_Menu["Menu & Inventory Controller"]
-        CTR_Bot["Menu-Aware Query Parser & Resilient Catalog"]
-        CTR_Stats["Aggregation & Telemetry Engine"]
+    subgraph ServerLayer["Backend (Node.js & Express)"]
+        AUTH_JWT["JWT & RBAC Middleware"]
+        CTR_Order["Order Controller"]
+        CTR_Menu["Menu & Inventory"]
+        CTR_Bot["Query Parser & Catalog"]
+        CTR_Stats["Telemetry Engine"]
     end
 
-    subgraph DataLayer["Persistence & Cloud Services"]
-        MDB[("MongoDB Atlas Cloud Database")]
+    subgraph DataLayer["Persistence"]
+        MDB[("MongoDB Atlas")]
     end
 
-    UI_Student -->|REST Calls| HTTP_REST
-    UI_Cart -->|Place Order POST| HTTP_REST
-    UI_Admin -->|Manage Menu & Patch Status| HTTP_REST
-    UI_Bot -->|NLP Inquiries| HTTP_REST
-    
-    UI_Tracker <-->|Live Status Updates| WS_Socket
-    UI_Admin <-->|newOrder & statusUpdated Events| WS_Socket
-
+    UI_Student --> HTTP_REST
+    UI_Cart --> HTTP_REST
+    UI_Admin --> HTTP_REST
+    UI_Bot --> HTTP_REST
+    UI_Tracker <--> WS_Socket
+    UI_Admin <--> WS_Socket
     HTTP_REST --> AUTH_JWT
     AUTH_JWT --> CTR_Order & CTR_Menu & CTR_Bot & CTR_Stats
     WS_Socket <--> ServerLayer
-
     CTR_Order --> MDB
     CTR_Menu --> MDB
     CTR_Stats --> MDB
+
 ```
 
 ---
