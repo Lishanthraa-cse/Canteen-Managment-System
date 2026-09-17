@@ -246,45 +246,189 @@
    Dark Theme Schedule Order Overrides
    ========================================================================== */
 body.dark-theme .schedule-page-root,
+[data-theme="dark"] .schedule-page-root,
 .schedule-page-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
 }
 
-body.dark-theme .schedule-card-wrapper {
+body.dark-theme .schedule-container .back-link,
+[data-theme="dark"] .schedule-container .back-link,
+.schedule-page-root.dark-theme .schedule-container .back-link {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .schedule-container .back-link:hover,
+[data-theme="dark"] .schedule-container .back-link:hover,
+.schedule-page-root.dark-theme .schedule-container .back-link:hover {
+  color: #ea580c !important;
+}
+
+body.dark-theme .schedule-card-wrapper,
+[data-theme="dark"] .schedule-card-wrapper,
+.schedule-page-root.dark-theme .schedule-card-wrapper {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
-body.dark-theme .schedule-header h1 {
+body.dark-theme .cal-icon-box,
+[data-theme="dark"] .cal-icon-box,
+.schedule-page-root.dark-theme .cal-icon-box {
+  background: rgba(234, 88, 12, 0.2) !important;
+  color: #f97316 !important;
+}
+
+body.dark-theme .schedule-header h1,
+[data-theme="dark"] .schedule-header h1,
+.schedule-page-root.dark-theme .schedule-header h1 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .schedule-header p {
+body.dark-theme .schedule-header p,
+[data-theme="dark"] .schedule-header p,
+.schedule-page-root.dark-theme .schedule-header p {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .order-summary-box {
+/* Selected Dish Pill */
+body.dark-theme .selected-dish-pill,
+[data-theme="dark"] .selected-dish-pill,
+.schedule-page-root.dark-theme .selected-dish-pill {
   background: #1c263d !important;
   border-color: #2a3754 !important;
 }
 
-body.dark-theme .time-slot-btn {
+body.dark-theme .dish-details h4,
+[data-theme="dark"] .dish-details h4,
+.schedule-page-root.dark-theme .dish-details h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .dish-details span,
+[data-theme="dark"] .dish-details span,
+.schedule-page-root.dark-theme .dish-details span {
+  color: #fb923c !important;
+}
+
+body.dark-theme .qty-controls,
+[data-theme="dark"] .qty-controls,
+.schedule-page-root.dark-theme .qty-controls {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+}
+
+body.dark-theme .qty-controls button,
+[data-theme="dark"] .qty-controls button,
+.schedule-page-root.dark-theme .qty-controls button {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .qty-controls button:hover,
+[data-theme="dark"] .qty-controls button:hover,
+.schedule-page-root.dark-theme .qty-controls button:hover {
+  color: #ea580c !important;
+}
+
+body.dark-theme .qty-controls span,
+[data-theme="dark"] .qty-controls span,
+.schedule-page-root.dark-theme .qty-controls span {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .no-item-selected-box,
+[data-theme="dark"] .no-item-selected-box,
+.schedule-page-root.dark-theme .no-item-selected-box {
   background: #1c263d !important;
   border-color: #2a3754 !important;
   color: #94a3b8 !important;
 }
 
-body.dark-theme .time-slot-btn.active {
+body.dark-theme .pick-dish-link,
+[data-theme="dark"] .pick-dish-link,
+.schedule-page-root.dark-theme .pick-dish-link {
+  color: #f97316 !important;
+}
+
+/* Time Slots */
+body.dark-theme .section-label,
+[data-theme="dark"] .section-label,
+.schedule-page-root.dark-theme .section-label {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .slot-chip,
+[data-theme="dark"] .slot-chip,
+.schedule-page-root.dark-theme .slot-chip {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .slot-chip:hover,
+[data-theme="dark"] .slot-chip:hover,
+.schedule-page-root.dark-theme .slot-chip:hover {
+  background: #253352 !important;
+  color: #f8fafc !important;
+  border-color: #3b4d75 !important;
+}
+
+body.dark-theme .slot-chip.active,
+[data-theme="dark"] .slot-chip.active,
+.schedule-page-root.dark-theme .slot-chip.active {
   background: #ea580c !important;
   border-color: #ea580c !important;
   color: #ffffff !important;
 }
 
-body.dark-theme .schedule-total-banner {
+/* Form Inputs */
+body.dark-theme .input-group label,
+[data-theme="dark"] .input-group label,
+.schedule-page-root.dark-theme .input-group label {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .input-group input,
+[data-theme="dark"] .input-group input,
+.schedule-page-root.dark-theme .input-group input {
   background: #1c263d !important;
   border-color: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .input-group input:focus,
+[data-theme="dark"] .input-group input:focus,
+.schedule-page-root.dark-theme .input-group input:focus {
+  border-color: #ea580c !important;
+  background: #253352 !important;
+}
+
+/* Total Banner */
+body.dark-theme .schedule-total-banner,
+[data-theme="dark"] .schedule-total-banner,
+.schedule-page-root.dark-theme .schedule-total-banner {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .schedule-total-banner span,
+[data-theme="dark"] .schedule-total-banner span,
+.schedule-page-root.dark-theme .schedule-total-banner span {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .total-figure,
+[data-theme="dark"] .total-figure,
+.schedule-page-root.dark-theme .total-figure {
+  color: #ea580c !important;
+}
+
+body.dark-theme .confirm-schedule-btn:disabled,
+[data-theme="dark"] .confirm-schedule-btn:disabled,
+.schedule-page-root.dark-theme .confirm-schedule-btn:disabled {
+  background: #334155 !important;
+  color: #64748b !important;
 }
 

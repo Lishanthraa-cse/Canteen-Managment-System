@@ -52,10 +52,26 @@
 .logs-top-nav .sync-btn {
   background: #1e293b;
   border: 1px solid #334155;
+  color: #cbd5e1;
+}
+
+.logs-top-nav .sync-btn:hover {
+  background: #334155;
+  color: #ffffff;
 }
 
 .logs-top-nav .export-btn:hover {
   background: #c2410c;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
 }
 
 .logs-content-container {
@@ -135,44 +151,122 @@
 }
 
 /* ==========================================================================
-   Dark Theme Admin Logs Overrides
+   Comprehensive Dark Theme Overrides for Admin Logs
+   Applies across body.dark-theme, [data-theme="dark"], and .admin-portal-root.dark-theme
    ========================================================================== */
+
+/* Main Root */
 body.dark-theme .admin-logs-root,
+[data-theme="dark"] .admin-logs-root,
 .admin-portal-root.dark-theme .admin-logs-root,
 .admin-logs-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
 }
 
+/* Top Navigation Bar */
 body.dark-theme .logs-top-nav,
+[data-theme="dark"] .logs-top-nav,
 .admin-portal-root.dark-theme .logs-top-nav {
-  background: #151d2f !important;
-  border-bottom: 1px solid #2a3754 !important;
+  background: #111827 !important;
+  border-bottom: 1px solid #1f2937 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
 }
 
-body.dark-theme .table-card,
-.admin-portal-root.dark-theme .table-card {
+body.dark-theme .logs-top-nav h2,
+[data-theme="dark"] .logs-top-nav h2,
+.admin-portal-root.dark-theme .logs-top-nav h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .logs-top-nav .sync-btn,
+[data-theme="dark"] .logs-top-nav .sync-btn,
+.admin-portal-root.dark-theme .logs-top-nav .sync-btn {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #38bdf8 !important;
+}
+
+body.dark-theme .logs-top-nav .sync-btn:hover,
+[data-theme="dark"] .logs-top-nav .sync-btn:hover,
+.admin-portal-root.dark-theme .logs-top-nav .sync-btn:hover {
+  background: #2a3754 !important;
+  color: #60a5fa !important;
+}
+
+/* Logs Card */
+body.dark-theme .logs-card,
+[data-theme="dark"] .logs-card,
+.admin-portal-root.dark-theme .logs-card {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
 }
 
-body.dark-theme .logs-table th,
-.admin-portal-root.dark-theme .logs-table th {
-  background: #1c263d !important;
+body.dark-theme .card-header h3,
+[data-theme="dark"] .card-header h3,
+.admin-portal-root.dark-theme .card-header h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .card-header p,
+[data-theme="dark"] .card-header p,
+.admin-portal-root.dark-theme .card-header p {
   color: #94a3b8 !important;
-  border-color: #2a3754 !important;
+}
+
+/* Table in Dark Mode */
+body.dark-theme .logs-table th,
+[data-theme="dark"] .logs-table th,
+.admin-portal-root.dark-theme .logs-table th {
+  background: #111827 !important;
+  color: #94a3b8 !important;
+  border-bottom: 2px solid #2a3754 !important;
 }
 
 body.dark-theme .logs-table td,
+[data-theme="dark"] .logs-table td,
 .admin-portal-root.dark-theme .logs-table td {
-  border-color: #2a3754 !important;
+  border-bottom: 1px solid #2a3754 !important;
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .logs-table td strong,
+[data-theme="dark"] .logs-table td strong,
+.admin-portal-root.dark-theme .logs-table td strong {
   color: #f8fafc !important;
 }
 
 body.dark-theme .logs-table code,
+[data-theme="dark"] .logs-table code,
 .admin-portal-root.dark-theme .logs-table code {
   background: #1c263d !important;
   color: #38bdf8 !important;
+  border: 1px solid #2a3754 !important;
+}
+
+/* Status Badges in Dark Mode */
+body.dark-theme .status-pill.success,
+[data-theme="dark"] .status-pill.success,
+.admin-portal-root.dark-theme .status-pill.success {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+body.dark-theme .status-pill.failed,
+[data-theme="dark"] .status-pill.failed,
+.admin-portal-root.dark-theme .status-pill.failed {
+  background: rgba(239, 68, 68, 0.18) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+body.dark-theme .status-pill.warning,
+[data-theme="dark"] .status-pill.warning,
+.admin-portal-root.dark-theme .status-pill.warning {
+  background: rgba(245, 158, 11, 0.18) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
 }

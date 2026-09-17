@@ -390,86 +390,261 @@
    Dark Theme Cart Page Overrides
    ========================================================================== */
 body.dark-theme .cart-page-root,
+[data-theme="dark"] .cart-page-root,
 .cart-page-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
 }
 
-body.dark-theme .cart-page-header h1 {
+body.dark-theme .cart-page-header h1,
+[data-theme="dark"] .cart-page-header h1,
+.cart-page-root.dark-theme .cart-page-header h1 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .cart-page-header p {
+body.dark-theme .cart-page-header p,
+[data-theme="dark"] .cart-page-header p,
+.cart-page-root.dark-theme .cart-page-header p {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .empty-cart-card {
+/* Empty Cart */
+body.dark-theme .empty-cart-card,
+[data-theme="dark"] .empty-cart-card,
+.cart-page-root.dark-theme .empty-cart-card {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
 }
 
-body.dark-theme .empty-cart-card h2 {
+body.dark-theme .empty-cart-card h2,
+[data-theme="dark"] .empty-cart-card h2,
+.cart-page-root.dark-theme .empty-cart-card h2 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .cart-items-card,
-body.dark-theme .dining-mode-card,
-body.dark-theme .cart-summary-box {
+body.dark-theme .empty-cart-card p,
+[data-theme="dark"] .empty-cart-card p,
+.cart-page-root.dark-theme .empty-cart-card p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .empty-cart-icon,
+[data-theme="dark"] .empty-cart-icon,
+.cart-page-root.dark-theme .empty-cart-icon {
+  color: #475569 !important;
+}
+
+/* Card Containers */
+body.dark-theme .cart-table-card,
+body.dark-theme .preferences-card,
+body.dark-theme .summary-card,
+[data-theme="dark"] .cart-table-card,
+[data-theme="dark"] .preferences-card,
+[data-theme="dark"] .summary-card,
+.cart-page-root.dark-theme .cart-table-card,
+.cart-page-root.dark-theme .preferences-card,
+.cart-page-root.dark-theme .summary-card {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
 }
 
-body.dark-theme .card-title h2,
-body.dark-theme .cart-summary-box h3 {
+/* Items Card Content */
+body.dark-theme .table-header-bar,
+[data-theme="dark"] .table-header-bar,
+.cart-page-root.dark-theme .table-header-bar {
+  border-bottom-color: #2a3754 !important;
+}
+
+body.dark-theme .table-header-bar h3,
+[data-theme="dark"] .table-header-bar h3,
+.cart-page-root.dark-theme .table-header-bar h3 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .cart-item-row {
-  border-color: #2a3754 !important;
+body.dark-theme .cart-item-row,
+[data-theme="dark"] .cart-item-row,
+.cart-page-root.dark-theme .cart-item-row {
+  border-bottom-color: #2a3754 !important;
 }
 
-body.dark-theme .item-info h4 {
+body.dark-theme .cart-item-details h4,
+[data-theme="dark"] .cart-item-details h4,
+.cart-page-root.dark-theme .cart-item-details h4 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .item-total-col {
-  color: #f8fafc !important;
+body.dark-theme .item-unit-price,
+[data-theme="dark"] .item-unit-price,
+.cart-page-root.dark-theme .item-unit-price {
+  color: #94a3b8 !important;
 }
 
-body.dark-theme .mode-btn {
+body.dark-theme .cart-item-stepper,
+[data-theme="dark"] .cart-item-stepper,
+.cart-page-root.dark-theme .cart-item-stepper {
   background: #1c263d !important;
   border-color: #2a3754 !important;
+}
+
+body.dark-theme .cart-item-stepper button,
+[data-theme="dark"] .cart-item-stepper button,
+.cart-page-root.dark-theme .cart-item-stepper button {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .cart-item-stepper button:hover,
+[data-theme="dark"] .cart-item-stepper button:hover,
+.cart-page-root.dark-theme .cart-item-stepper button:hover {
+  color: #ea580c !important;
+}
+
+body.dark-theme .cart-item-stepper .qty-val,
+[data-theme="dark"] .cart-item-stepper .qty-val,
+.cart-page-root.dark-theme .cart-item-stepper .qty-val {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .cart-item-total,
+[data-theme="dark"] .cart-item-total,
+.cart-page-root.dark-theme .cart-item-total {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .remove-item-btn,
+[data-theme="dark"] .remove-item-btn,
+.cart-page-root.dark-theme .remove-item-btn {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .mode-btn.active {
+body.dark-theme .remove-item-btn:hover,
+[data-theme="dark"] .remove-item-btn:hover,
+.cart-page-root.dark-theme .remove-item-btn:hover {
+  color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+}
+
+body.dark-theme .add-more-footer,
+[data-theme="dark"] .add-more-footer,
+.cart-page-root.dark-theme .add-more-footer {
+  border-top-color: #2a3754 !important;
+}
+
+body.dark-theme .add-more-btn,
+[data-theme="dark"] .add-more-btn,
+.cart-page-root.dark-theme .add-more-btn {
+  background: #1c263d !important;
+  border: 1px solid #2a3754 !important;
+  color: #f97316 !important;
+}
+
+body.dark-theme .add-more-btn:hover,
+[data-theme="dark"] .add-more-btn:hover,
+.cart-page-root.dark-theme .add-more-btn:hover {
+  background: #ea580c !important;
+  color: #ffffff !important;
+  border-color: #ea580c !important;
+}
+
+/* Preferences Card */
+body.dark-theme .preferences-card h3,
+[data-theme="dark"] .preferences-card h3,
+.cart-page-root.dark-theme .preferences-card h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .mode-tab,
+[data-theme="dark"] .mode-tab,
+.cart-page-root.dark-theme .mode-tab {
+  background: #1c263d !important;
+  border: 1px solid #2a3754 !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .mode-tab:hover,
+[data-theme="dark"] .mode-tab:hover,
+.cart-page-root.dark-theme .mode-tab:hover {
+  background: #253352 !important;
+  color: #f8fafc !important;
+  border-color: #3b4d75 !important;
+}
+
+body.dark-theme .mode-tab.active,
+[data-theme="dark"] .mode-tab.active,
+.cart-page-root.dark-theme .mode-tab.active {
   background: #ea580c !important;
   border-color: #ea580c !important;
   color: #ffffff !important;
 }
 
-body.dark-theme .input-with-icon input,
-body.dark-theme .order-instruction-box textarea {
+body.dark-theme .pref-input-group label,
+[data-theme="dark"] .pref-input-group label,
+.cart-page-root.dark-theme .pref-input-group label {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .pref-input-group input,
+[data-theme="dark"] .pref-input-group input,
+.cart-page-root.dark-theme .pref-input-group input {
   background: #1c263d !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
 }
 
-body.dark-theme .input-with-icon .input-icon {
+body.dark-theme .pref-input-group input:focus,
+[data-theme="dark"] .pref-input-group input:focus,
+.cart-page-root.dark-theme .pref-input-group input:focus {
+  border-color: #ea580c !important;
+  background: #253352 !important;
+}
+
+body.dark-theme .pref-input-group input::placeholder,
+[data-theme="dark"] .pref-input-group input::placeholder,
+.cart-page-root.dark-theme .pref-input-group input::placeholder {
+  color: #64748b !important;
+}
+
+/* Summary Card */
+body.dark-theme .summary-card h3,
+[data-theme="dark"] .summary-card h3,
+.cart-page-root.dark-theme .summary-card h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .summary-line,
+[data-theme="dark"] .summary-line,
+.cart-page-root.dark-theme .summary-line {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .summary-line {
-  color: #94a3b8 !important;
+body.dark-theme .summary-line span:last-child,
+[data-theme="dark"] .summary-line span:last-child,
+.cart-page-root.dark-theme .summary-line span:last-child {
+  color: #f8fafc !important;
 }
 
-body.dark-theme .summary-divider {
+body.dark-theme .summary-divider,
+[data-theme="dark"] .summary-divider,
+.cart-page-root.dark-theme .summary-divider {
   border-color: #2a3754 !important;
 }
 
-body.dark-theme .summary-total-line {
+body.dark-theme .summary-total-line,
+[data-theme="dark"] .summary-total-line,
+.cart-page-root.dark-theme .summary-total-line {
   color: #f8fafc !important;
+}
+
+body.dark-theme .total-num,
+[data-theme="dark"] .total-num,
+.cart-page-root.dark-theme .total-num {
+  color: #f97316 !important;
+}
+
+body.dark-theme .summary-security-note,
+[data-theme="dark"] .summary-security-note,
+.cart-page-root.dark-theme .summary-security-note {
+  color: #94a3b8 !important;
 }

@@ -1,9 +1,16 @@
+/* ==========================================================================
+   Kitchen Live Orders Kanban Styles (Light & Dark Theme Optimized)
+   ========================================================================== */
+
 .admin-orders-manager-root {
   min-height: 100vh;
   background: #f1f5f9;
   color: #0f172a;
+  font-family: inherit;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+/* Top Navigation Bar */
 .orders-top-nav {
   background: #0f172a;
   color: white;
@@ -12,6 +19,9 @@
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .back-dashboard-btn {
@@ -22,6 +32,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: color 0.15s ease;
 }
 
 .back-dashboard-btn:hover {
@@ -38,6 +49,7 @@
   font-size: 1.3rem;
   font-weight: 800;
   margin: 0;
+  color: #ffffff;
 }
 
 .live-pulse-badge {
@@ -48,15 +60,48 @@
   padding: 3px 8px;
   border-radius: 9999px;
   letter-spacing: 0.5px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 
+.refresh-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.refresh-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Body Container */
 .manager-body-container {
   max-width: 1320px;
   margin: 0 auto;
   padding: 28px 24px 80px;
 }
 
-/* Filters Bar */
+/* Filters & Search Bar */
 .orders-filters-bar {
   display: flex;
   align-items: center;
@@ -75,6 +120,12 @@
   border-radius: 12px;
   padding: 10px 16px;
   min-width: 320px;
+  transition: all 0.2s ease;
+}
+
+.search-box .icon {
+  color: #94a3b8;
+  font-size: 0.95rem;
 }
 
 .search-box input {
@@ -83,6 +134,16 @@
   width: 100%;
   outline: none;
   font-size: 0.92rem;
+  color: #0f172a;
+}
+
+.search-box input::placeholder {
+  color: #94a3b8;
+}
+
+.search-box:focus-within {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
 }
 
 .status-filter-pills {
@@ -103,7 +164,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
 }
 
 .filter-pill:hover {
@@ -115,6 +176,7 @@
   background: #ea580c;
   color: white;
   border-color: #ea580c;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
 }
 
 .pill-count {
@@ -129,6 +191,27 @@
   color: white;
 }
 
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 20px;
+  color: #64748b;
+  text-align: center;
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid rgba(234, 88, 12, 0.2);
+  border-top-color: #ea580c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+
 /* Empty State */
 .empty-orders-state {
   background: white;
@@ -136,12 +219,27 @@
   padding: 64px 20px;
   text-align: center;
   border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
 }
 
 .empty-icon {
   font-size: 3rem;
   color: #cbd5e1;
   margin-bottom: 12px;
+}
+
+.empty-orders-state h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.empty-orders-state p {
+  color: #64748b;
+  font-size: 0.92rem;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 /* Kanban Grid */
@@ -159,7 +257,8 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  color: #0f172a;
 }
 
 .kanban-card:hover {
@@ -185,9 +284,15 @@
 
 .kanban-card.completed {
   border-left: 6px solid #94a3b8;
+  opacity: 0.85;
+}
+
+.kanban-card.cancelled {
+  border-left: 6px solid #ef4444;
   opacity: 0.8;
 }
 
+/* Card Top Row */
 .card-top-row {
   display: flex;
   align-items: flex-start;
@@ -208,6 +313,7 @@
   color: white;
   padding: 2px 6px;
   border-radius: 4px;
+  letter-spacing: 0.5px;
 }
 
 .token-col h3 {
@@ -230,6 +336,7 @@
   padding: 3px 8px;
   border-radius: 9999px;
   text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .status-badge.pending { background: #fef3c7; color: #b45309; }
@@ -237,6 +344,7 @@
 .status-badge.preparing { background: #ffedd5; color: #ea580c; }
 .status-badge.ready { background: #dcfce7; color: #15803d; }
 .status-badge.completed { background: #f1f5f9; color: #64748b; }
+.status-badge.cancelled { background: #fee2e2; color: #b91c1c; }
 
 .time-ago {
   font-size: 0.75rem;
@@ -249,18 +357,35 @@
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 14px;
+  border: 1px solid #e2e8f0;
 }
 
 .cust-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.95rem;
   margin-bottom: 4px;
+}
+
+.cust-row strong {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.cust-row span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 2px 8px;
+  border-radius: 6px;
 }
 
 .contact-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.8rem;
   color: #64748b;
 }
@@ -269,6 +394,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  color: #475569;
 }
 
 .payment-pill {
@@ -281,6 +407,10 @@
   font-size: 0.8rem;
   color: #ea580c;
   font-weight: 600;
+  background: #fff7ed;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px dashed #fdba74;
 }
 
 /* Dishes List */
@@ -295,6 +425,7 @@
   color: #64748b;
   text-transform: uppercase;
   margin: 0 0 8px;
+  letter-spacing: 0.5px;
 }
 
 .dishes-list-box ul {
@@ -309,22 +440,43 @@
 .dishes-list-box li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.9rem;
   border-bottom: 1px dashed #f1f5f9;
   padding-bottom: 4px;
+  color: #1e293b;
+}
+
+.dish-name {
+  color: #1e293b;
+}
+
+.dish-name strong {
+  color: #ea580c;
+  margin-right: 4px;
+  font-weight: 800;
+}
+
+.dish-price {
+  color: #64748b;
+  font-weight: 600;
 }
 
 .order-total-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.95rem;
+  font-weight: 700;
   border-top: 1px solid #e2e8f0;
   padding-top: 8px;
+  color: #1e293b;
 }
 
 .total-val {
   color: #ea580c;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 900;
 }
 
 /* Status Action Buttons */
@@ -345,7 +497,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
 }
 
 .btn-action.confirm {
@@ -353,9 +505,17 @@
   color: white;
 }
 
+.btn-action.confirm:hover {
+  background: #0369a1;
+}
+
 .btn-action.cook {
   background: #ea580c;
   color: white;
+}
+
+.btn-action.cook:hover {
+  background: #c2410c;
 }
 
 .btn-action.ready {
@@ -363,9 +523,17 @@
   color: white;
 }
 
+.btn-action.ready:hover {
+  background: #059669;
+}
+
 .btn-action.complete {
   background: #0f172a;
   color: white;
+}
+
+.btn-action.complete:hover {
+  background: #1e293b;
 }
 
 .btn-action.cancel {
@@ -375,11 +543,22 @@
   font-size: 0.78rem;
 }
 
+.btn-action.cancel:hover {
+  background: #fecaca;
+}
+
 .btn-action:hover:not(:disabled) {
-  opacity: 0.9;
+  opacity: 0.92;
   transform: translateY(-1px);
 }
 
+.btn-action:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Breakpoints */
 @media (max-width: 1100px) {
   .kanban-orders-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -390,121 +569,434 @@
   .kanban-orders-grid {
     grid-template-columns: 1fr;
   }
+  .orders-top-nav {
+    padding: 14px 18px;
+  }
+  .manager-body-container {
+    padding: 20px 14px 60px;
+  }
+  .search-box {
+    min-width: 100%;
+  }
 }
 
 /* ==========================================================================
-   Dark Theme Order Response / Kitchen Kanban Overrides
+   Comprehensive Dark Theme Overrides for Kitchen Orders Kanban
+   Applies across body.dark-theme, [data-theme="dark"], and .admin-portal-root.dark-theme
    ========================================================================== */
+
+/* Main Root & Viewport */
 body.dark-theme .admin-orders-manager-root,
+[data-theme="dark"] .admin-orders-manager-root,
 .admin-portal-root.dark-theme .admin-orders-manager-root,
 .admin-orders-manager-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
 }
 
+/* Top Navigation Bar */
 body.dark-theme .orders-top-nav,
+[data-theme="dark"] .orders-top-nav,
 .admin-portal-root.dark-theme .orders-top-nav {
-  background: #151d2f !important;
-  border-bottom: 1px solid #2a3754 !important;
+  background: #111827 !important;
+  border-bottom: 1px solid #1f2937 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
 }
 
+body.dark-theme .top-nav-title h2,
+[data-theme="dark"] .top-nav-title h2,
+.admin-portal-root.dark-theme .top-nav-title h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .refresh-btn,
+[data-theme="dark"] .refresh-btn,
+.admin-portal-root.dark-theme .refresh-btn {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #38bdf8 !important;
+}
+
+body.dark-theme .refresh-btn:hover,
+[data-theme="dark"] .refresh-btn:hover,
+.admin-portal-root.dark-theme .refresh-btn:hover {
+  background: #334155 !important;
+  border-color: #60a5fa !important;
+  color: #60a5fa !important;
+}
+
+/* Search Box & Filters */
 body.dark-theme .search-box,
+[data-theme="dark"] .search-box,
 .admin-portal-root.dark-theme .search-box {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.dark-theme .search-box .icon,
+[data-theme="dark"] .search-box .icon,
+.admin-portal-root.dark-theme .search-box .icon {
+  color: #94a3b8 !important;
 }
 
 body.dark-theme .search-box input,
+[data-theme="dark"] .search-box input,
 .admin-portal-root.dark-theme .search-box input {
   color: #f8fafc !important;
 }
 
+body.dark-theme .search-box input::placeholder,
+[data-theme="dark"] .search-box input::placeholder,
+.admin-portal-root.dark-theme .search-box input::placeholder {
+  color: #64748b !important;
+}
+
 body.dark-theme .filter-pill,
+[data-theme="dark"] .filter-pill,
 .admin-portal-root.dark-theme .filter-pill {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #94a3b8 !important;
 }
 
+body.dark-theme .filter-pill:hover,
+[data-theme="dark"] .filter-pill:hover,
+.admin-portal-root.dark-theme .filter-pill:hover {
+  border-color: #ea580c !important;
+  color: #f97316 !important;
+}
+
 body.dark-theme .filter-pill.active,
+[data-theme="dark"] .filter-pill.active,
 .admin-portal-root.dark-theme .filter-pill.active {
   background: #ea580c !important;
   border-color: #ea580c !important;
   color: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.4) !important;
 }
 
-body.dark-theme .kanban-column,
-.admin-portal-root.dark-theme .kanban-column {
-  background: #151d2f !important;
-  border-color: #2a3754 !important;
+body.dark-theme .pill-count,
+[data-theme="dark"] .pill-count,
+.admin-portal-root.dark-theme .pill-count {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #cbd5e1 !important;
 }
 
-body.dark-theme .column-header,
-.admin-portal-root.dark-theme .column-header {
-  border-color: #2a3754 !important;
+body.dark-theme .filter-pill.active .pill-count,
+[data-theme="dark"] .filter-pill.active .pill-count,
+.admin-portal-root.dark-theme .filter-pill.active .pill-count {
+  background: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
 }
 
-body.dark-theme .column-header h3,
-.admin-portal-root.dark-theme .column-header h3 {
-  color: #f8fafc !important;
-}
-
-body.dark-theme .order-card,
-.admin-portal-root.dark-theme .order-card {
-  background: #1c263d !important;
-  border-color: #2a3754 !important;
-  color: #f8fafc !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
-}
-
-body.dark-theme .order-card-header,
-.admin-portal-root.dark-theme .order-card-header {
-  border-color: #2a3754 !important;
-}
-
-body.dark-theme .order-token,
-.admin-portal-root.dark-theme .order-token {
-  color: #f8fafc !important;
-}
-
-body.dark-theme .customer-name,
-.admin-portal-root.dark-theme .customer-name {
-  color: #f8fafc !important;
-}
-
-body.dark-theme .customer-contact,
-body.dark-theme .order-time,
-body.dark-theme .item-qty,
-.admin-portal-root.dark-theme .customer-contact,
-.admin-portal-root.dark-theme .order-time,
-.admin-portal-root.dark-theme .item-qty {
+/* Loading & Empty State in Dark Mode */
+body.dark-theme .loading-state,
+[data-theme="dark"] .loading-state,
+.admin-portal-root.dark-theme .loading-state {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .order-item-row,
-.admin-portal-root.dark-theme .order-item-row {
-  border-color: #2a3754 !important;
-}
-
-body.dark-theme .item-name,
-body.dark-theme .item-price,
-body.dark-theme .order-total-price,
-.admin-portal-root.dark-theme .item-name,
-.admin-portal-root.dark-theme .item-price,
-.admin-portal-root.dark-theme .order-total-price {
-  color: #f8fafc !important;
-}
-
-body.dark-theme .order-notes-box,
-.admin-portal-root.dark-theme .order-notes-box {
-  background: rgba(234, 88, 12, 0.12) !important;
-  color: #fdba74 !important;
-}
-
 body.dark-theme .empty-orders-state,
+[data-theme="dark"] .empty-orders-state,
 .admin-portal-root.dark-theme .empty-orders-state {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .empty-icon,
+[data-theme="dark"] .empty-icon,
+.admin-portal-root.dark-theme .empty-icon {
+  color: #475569 !important;
+}
+
+body.dark-theme .empty-orders-state h3,
+[data-theme="dark"] .empty-orders-state h3,
+.admin-portal-root.dark-theme .empty-orders-state h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .empty-orders-state p,
+[data-theme="dark"] .empty-orders-state p,
+.admin-portal-root.dark-theme .empty-orders-state p {
+  color: #94a3b8 !important;
+}
+
+/* Kanban Cards in Dark Mode */
+body.dark-theme .kanban-card,
+[data-theme="dark"] .kanban-card,
+.admin-portal-root.dark-theme .kanban-card,
+.dark-theme .kanban-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-theme .kanban-card:hover,
+[data-theme="dark"] .kanban-card:hover,
+.admin-portal-root.dark-theme .kanban-card:hover,
+.dark-theme .kanban-card:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55) !important;
+  border-color: #3b4d75 !important;
+}
+
+body.dark-theme .kanban-card.pending,
+[data-theme="dark"] .kanban-card.pending,
+.admin-portal-root.dark-theme .kanban-card.pending {
+  border-left: 6px solid #f59e0b !important;
+}
+
+body.dark-theme .kanban-card.confirmed,
+[data-theme="dark"] .kanban-card.confirmed,
+.admin-portal-root.dark-theme .kanban-card.confirmed {
+  border-left: 6px solid #0284c7 !important;
+}
+
+body.dark-theme .kanban-card.preparing,
+[data-theme="dark"] .kanban-card.preparing,
+.admin-portal-root.dark-theme .kanban-card.preparing {
+  border-left: 6px solid #ea580c !important;
+}
+
+body.dark-theme .kanban-card.ready,
+[data-theme="dark"] .kanban-card.ready,
+.admin-portal-root.dark-theme .kanban-card.ready {
+  border-left: 6px solid #10b981 !important;
+}
+
+body.dark-theme .kanban-card.completed,
+[data-theme="dark"] .kanban-card.completed,
+.admin-portal-root.dark-theme .kanban-card.completed {
+  border-left: 6px solid #64748b !important;
+  opacity: 0.85 !important;
+}
+
+body.dark-theme .kanban-card.cancelled,
+[data-theme="dark"] .kanban-card.cancelled,
+.admin-portal-root.dark-theme .kanban-card.cancelled {
+  border-left: 6px solid #ef4444 !important;
+  opacity: 0.8 !important;
+}
+
+/* Token & Top Row Details in Dark Mode */
+body.dark-theme .token-label,
+[data-theme="dark"] .token-label,
+.admin-portal-root.dark-theme .token-label,
+.dark-theme .token-label {
+  background: #2a3754 !important;
+  color: #f8fafc !important;
+  border: 1px solid #3b4d75 !important;
+}
+
+body.dark-theme .token-col h3,
+[data-theme="dark"] .token-col h3,
+.admin-portal-root.dark-theme .token-col h3,
+.dark-theme .token-col h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .time-ago,
+[data-theme="dark"] .time-ago,
+.admin-portal-root.dark-theme .time-ago,
+.dark-theme .time-ago {
+  color: #94a3b8 !important;
+}
+
+/* High-Contrast Status Badges in Dark Mode */
+body.dark-theme .status-badge.pending,
+[data-theme="dark"] .status-badge.pending,
+.admin-portal-root.dark-theme .status-badge.pending,
+.dark-theme .status-badge.pending {
+  background: rgba(245, 158, 11, 0.18) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+}
+
+body.dark-theme .status-badge.confirmed,
+[data-theme="dark"] .status-badge.confirmed,
+.admin-portal-root.dark-theme .status-badge.confirmed,
+.dark-theme .status-badge.confirmed {
+  background: rgba(2, 132, 199, 0.18) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(2, 132, 199, 0.35) !important;
+}
+
+body.dark-theme .status-badge.preparing,
+[data-theme="dark"] .status-badge.preparing,
+.admin-portal-root.dark-theme .status-badge.preparing,
+.dark-theme .status-badge.preparing {
+  background: rgba(234, 88, 12, 0.18) !important;
+  color: #fb923c !important;
+  border: 1px solid rgba(234, 88, 12, 0.35) !important;
+}
+
+body.dark-theme .status-badge.ready,
+[data-theme="dark"] .status-badge.ready,
+.admin-portal-root.dark-theme .status-badge.ready,
+.dark-theme .status-badge.ready {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+body.dark-theme .status-badge.completed,
+[data-theme="dark"] .status-badge.completed,
+.admin-portal-root.dark-theme .status-badge.completed,
+.dark-theme .status-badge.completed {
+  background: rgba(100, 116, 139, 0.22) !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(100, 116, 139, 0.35) !important;
+}
+
+body.dark-theme .status-badge.cancelled,
+[data-theme="dark"] .status-badge.cancelled,
+.admin-portal-root.dark-theme .status-badge.cancelled,
+.dark-theme .status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.18) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+/* Customer Info Box in Dark Mode */
+body.dark-theme .customer-info-box,
+[data-theme="dark"] .customer-info-box,
+.admin-portal-root.dark-theme .customer-info-box,
+.dark-theme .customer-info-box {
+  background: #0f172a !important;
+  border: 1px solid #2a3754 !important;
+}
+
+body.dark-theme .cust-row strong,
+[data-theme="dark"] .cust-row strong,
+.admin-portal-root.dark-theme .cust-row strong,
+.dark-theme .cust-row strong {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .cust-row span,
+[data-theme="dark"] .cust-row span,
+.admin-portal-root.dark-theme .cust-row span,
+.dark-theme .cust-row span {
+  background: rgba(56, 189, 248, 0.14) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.28) !important;
+}
+
+body.dark-theme .contact-row,
+[data-theme="dark"] .contact-row,
+.admin-portal-root.dark-theme .contact-row,
+.dark-theme .contact-row {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .phone,
+[data-theme="dark"] .phone,
+.admin-portal-root.dark-theme .phone,
+.dark-theme .phone {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .payment-pill,
+[data-theme="dark"] .payment-pill,
+.admin-portal-root.dark-theme .payment-pill,
+.dark-theme .payment-pill {
+  color: #34d399 !important;
+}
+
+body.dark-theme .notes-box,
+[data-theme="dark"] .notes-box,
+.admin-portal-root.dark-theme .notes-box,
+.dark-theme .notes-box {
+  background: rgba(234, 88, 12, 0.14) !important;
+  color: #fdba74 !important;
+  border: 1px dashed rgba(251, 146, 60, 0.4) !important;
+}
+
+/* Dishes List in Dark Mode */
+body.dark-theme .dishes-list-box h4,
+[data-theme="dark"] .dishes-list-box h4,
+.admin-portal-root.dark-theme .dishes-list-box h4,
+.dark-theme .dishes-list-box h4 {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .dishes-list-box li,
+[data-theme="dark"] .dishes-list-box li,
+.admin-portal-root.dark-theme .dishes-list-box li,
+.dark-theme .dishes-list-box li {
+  border-bottom: 1px dashed #2a3754 !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-theme .dish-name,
+[data-theme="dark"] .dish-name,
+.admin-portal-root.dark-theme .dish-name,
+.dark-theme .dish-name {
+  color: #f1f5f9 !important;
+}
+
+body.dark-theme .dish-name strong,
+[data-theme="dark"] .dish-name strong,
+.admin-portal-root.dark-theme .dish-name strong,
+.dark-theme .dish-name strong {
+  color: #f97316 !important;
+}
+
+body.dark-theme .dish-price,
+[data-theme="dark"] .dish-price,
+.admin-portal-root.dark-theme .dish-price,
+.dark-theme .dish-price {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .order-total-row,
+[data-theme="dark"] .order-total-row,
+.admin-portal-root.dark-theme .order-total-row,
+.dark-theme .order-total-row {
+  border-top: 1px solid #2a3754 !important;
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .total-val,
+[data-theme="dark"] .total-val,
+.admin-portal-root.dark-theme .total-val,
+.dark-theme .total-val {
+  color: #fb923c !important;
+}
+
+/* Status Action Buttons in Dark Mode */
+body.dark-theme .btn-action.complete,
+[data-theme="dark"] .btn-action.complete,
+.admin-portal-root.dark-theme .btn-action.complete,
+.dark-theme .btn-action.complete {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3) !important;
+}
+
+body.dark-theme .btn-action.complete:hover,
+[data-theme="dark"] .btn-action.complete:hover,
+.admin-portal-root.dark-theme .btn-action.complete:hover,
+.dark-theme .btn-action.complete:hover {
+  background: #2563eb !important;
+}
+
+body.dark-theme .btn-action.cancel,
+[data-theme="dark"] .btn-action.cancel,
+.admin-portal-root.dark-theme .btn-action.cancel,
+.dark-theme .btn-action.cancel {
+  background: rgba(239, 68, 68, 0.16) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+body.dark-theme .btn-action.cancel:hover,
+[data-theme="dark"] .btn-action.cancel:hover,
+.admin-portal-root.dark-theme .btn-action.cancel:hover,
+.dark-theme .btn-action.cancel:hover {
+  background: rgba(239, 68, 68, 0.25) !important;
 }

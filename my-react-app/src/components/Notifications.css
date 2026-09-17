@@ -292,56 +292,170 @@
 }
 
 /* ==========================================================================
-   Dark Theme Notifications Overrides
+   Comprehensive Dark Theme Overrides for Notifications
+   Applies across body.dark-theme, [data-theme="dark"], and .admin-portal-root.dark-theme
    ========================================================================== */
+
+/* Main Root */
 body.dark-theme .notif-mgmt-root,
+[data-theme="dark"] .notif-mgmt-root,
 .admin-portal-root.dark-theme .notif-mgmt-root,
 .notif-mgmt-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
 }
 
+/* Top Navigation Bar */
 body.dark-theme .notif-top-nav,
+[data-theme="dark"] .notif-top-nav,
 .admin-portal-root.dark-theme .notif-top-nav {
+  background: #111827 !important;
+  border-bottom: 1px solid #1f2937 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark-theme .notif-top-nav h2,
+[data-theme="dark"] .notif-top-nav h2,
+.admin-portal-root.dark-theme .notif-top-nav h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .sync-btn,
+[data-theme="dark"] .sync-btn,
+.admin-portal-root.dark-theme .sync-btn {
+  background: #1c263d !important;
+  border-color: #2a3754 !important;
+  color: #38bdf8 !important;
+}
+
+body.dark-theme .sync-btn:hover,
+[data-theme="dark"] .sync-btn:hover,
+.admin-portal-root.dark-theme .sync-btn:hover {
+  background: #2a3754 !important;
+  color: #60a5fa !important;
+}
+
+/* Loading & Empty State */
+body.dark-theme .loading-state,
+[data-theme="dark"] .loading-state,
+.admin-portal-root.dark-theme .loading-state {
   background: #151d2f !important;
-  border-bottom: 1px solid #2a3754 !important;
+  border-color: #2a3754 !important;
+  color: #94a3b8 !important;
 }
 
 body.dark-theme .empty-notif-box,
+[data-theme="dark"] .empty-notif-box,
 .admin-portal-root.dark-theme .empty-notif-box {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
 }
 
+body.dark-theme .empty-bell,
+[data-theme="dark"] .empty-bell,
+.admin-portal-root.dark-theme .empty-bell {
+  color: #475569 !important;
+}
+
+body.dark-theme .empty-notif-box h3,
+[data-theme="dark"] .empty-notif-box h3,
+.admin-portal-root.dark-theme .empty-notif-box h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .empty-notif-box p,
+[data-theme="dark"] .empty-notif-box p,
+.admin-portal-root.dark-theme .empty-notif-box p {
+  color: #94a3b8 !important;
+}
+
+/* Notification Cards */
 body.dark-theme .notif-card,
+[data-theme="dark"] .notif-card,
 .admin-portal-root.dark-theme .notif-card {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
 }
 
-body.dark-theme .notif-title,
-.admin-portal-root.dark-theme .notif-title {
+body.dark-theme .notif-card:hover,
+[data-theme="dark"] .notif-card:hover,
+.admin-portal-root.dark-theme .notif-card:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55) !important;
+  border-color: #3b4d75 !important;
+}
+
+body.dark-theme .notif-card.unread,
+[data-theme="dark"] .notif-card.unread,
+.admin-portal-root.dark-theme .notif-card.unread {
+  background: linear-gradient(to right, rgba(234, 88, 12, 0.12), #151d2f) !important;
+  border-left: 5px solid #ea580c !important;
+}
+
+body.dark-theme .notif-card.read,
+[data-theme="dark"] .notif-card.read,
+.admin-portal-root.dark-theme .notif-card.read {
+  background: #151d2f !important;
+  border-left: 5px solid #475569 !important;
+  opacity: 0.85 !important;
+}
+
+body.dark-theme .notif-headline h4,
+[data-theme="dark"] .notif-headline h4,
+.admin-portal-root.dark-theme .notif-headline h4 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .notif-desc,
-.admin-portal-root.dark-theme .notif-desc {
+body.dark-theme .notif-time,
+[data-theme="dark"] .notif-time,
+.admin-portal-root.dark-theme .notif-time {
+  background: #1c263d !important;
   color: #94a3b8 !important;
+  border: 1px solid #2a3754 !important;
 }
 
-body.dark-theme .notif-tag,
-.admin-portal-root.dark-theme .notif-tag {
+body.dark-theme .notif-msg,
+[data-theme="dark"] .notif-msg,
+.admin-portal-root.dark-theme .notif-msg {
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .notif-meta-tags span,
+[data-theme="dark"] .notif-meta-tags span,
+.admin-portal-root.dark-theme .notif-meta-tags span {
   background: #1c263d !important;
   border-color: #2a3754 !important;
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
 }
 
 body.dark-theme .btn-read,
+[data-theme="dark"] .btn-read,
 .admin-portal-root.dark-theme .btn-read {
   background: #1c263d !important;
-  border-color: #2a3754 !important;
-  color: #94a3b8 !important;
+  border: 1px solid #2a3754 !important;
+  color: #cbd5e1 !important;
+}
+
+body.dark-theme .btn-read:hover,
+[data-theme="dark"] .btn-read:hover,
+.admin-portal-root.dark-theme .btn-read:hover {
+  background: #2a3754 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .btn-delivered,
+[data-theme="dark"] .btn-delivered,
+.admin-portal-root.dark-theme .btn-delivered {
+  background: #10b981 !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+body.dark-theme .btn-delivered:hover,
+[data-theme="dark"] .btn-delivered:hover,
+.admin-portal-root.dark-theme .btn-delivered:hover {
+  background: #059669 !important;
 }

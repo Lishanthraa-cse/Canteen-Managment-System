@@ -194,44 +194,121 @@
    Dark Theme Favorites Page Overrides
    ========================================================================== */
 body.dark-theme .favorites-page-root,
+[data-theme="dark"] .favorites-page-root,
 .favorites-page-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
 }
 
-body.dark-theme .favorites-header h1 {
-  color: #f8fafc !important;
-}
-
-body.dark-theme .favorites-header p {
+body.dark-theme .favorites-header .back-link,
+[data-theme="dark"] .favorites-header .back-link,
+.favorites-page-root.dark-theme .favorites-header .back-link {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .empty-fav-card {
+body.dark-theme .favorites-header .back-link:hover,
+[data-theme="dark"] .favorites-header .back-link:hover,
+.favorites-page-root.dark-theme .favorites-header .back-link:hover {
+  color: #ea580c !important;
+}
+
+body.dark-theme .favorites-header h1,
+[data-theme="dark"] .favorites-header h1,
+.favorites-page-root.dark-theme .favorites-header h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .favorites-header p,
+[data-theme="dark"] .favorites-header p,
+.favorites-page-root.dark-theme .favorites-header p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .empty-fav-card,
+[data-theme="dark"] .empty-fav-card,
+.favorites-page-root.dark-theme .empty-fav-card {
   background: #151d2f !important;
   border-color: #2a3754 !important;
   color: #f8fafc !important;
 }
 
-body.dark-theme .empty-fav-card h2 {
+body.dark-theme .empty-fav-card h2,
+[data-theme="dark"] .empty-fav-card h2,
+.favorites-page-root.dark-theme .empty-fav-card h2 {
   color: #f8fafc !important;
 }
 
-body.dark-theme .dish-fav-card {
-  background: #151d2f !important;
-  border-color: #2a3754 !important;
-  color: #f8fafc !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
-}
-
-body.dark-theme .fav-card-body h3 {
-  color: #f8fafc !important;
-}
-
-body.dark-theme .fav-card-body p {
+body.dark-theme .empty-fav-card p,
+[data-theme="dark"] .empty-fav-card p,
+.favorites-page-root.dark-theme .empty-fav-card p {
   color: #94a3b8 !important;
 }
 
-body.dark-theme .fav-price {
+body.dark-theme .empty-heart-icon,
+[data-theme="dark"] .empty-heart-icon,
+.favorites-page-root.dark-theme .empty-heart-icon {
+  color: #f43f5e !important;
+}
+
+/* Card item */
+body.dark-theme .fav-item-card,
+[data-theme="dark"] .fav-item-card,
+.favorites-page-root.dark-theme .fav-item-card {
+  background: #151d2f !important;
+  border-color: #2a3754 !important;
   color: #f8fafc !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-theme .fav-item-card:hover,
+[data-theme="dark"] .fav-item-card:hover,
+.favorites-page-root.dark-theme .fav-item-card:hover {
+  border-color: #3b4d75 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark-theme .fav-remove-heart,
+[data-theme="dark"] .fav-remove-heart,
+.favorites-page-root.dark-theme .fav-remove-heart {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border: 1px solid #334155 !important;
+  color: #f87171 !important;
+}
+
+body.dark-theme .fav-remove-heart:hover,
+[data-theme="dark"] .fav-remove-heart:hover,
+.favorites-page-root.dark-theme .fav-remove-heart:hover {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #ef4444 !important;
+}
+
+body.dark-theme .fav-cat,
+[data-theme="dark"] .fav-cat,
+.favorites-page-root.dark-theme .fav-cat {
+  color: #fb923c !important;
+}
+
+body.dark-theme .fav-card-body h3,
+[data-theme="dark"] .fav-card-body h3,
+.favorites-page-root.dark-theme .fav-card-body h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .fav-card-body p,
+[data-theme="dark"] .fav-card-body p,
+.favorites-page-root.dark-theme .fav-card-body p {
+  color: #94a3b8 !important;
+}
+
+body.dark-theme .fav-price,
+[data-theme="dark"] .fav-price,
+.favorites-page-root.dark-theme .fav-price {
+  color: #f8fafc !important;
+}
+
+body.dark-theme .fav-add-cart-btn,
+[data-theme="dark"] .fav-add-cart-btn,
+.favorites-page-root.dark-theme .fav-add-cart-btn {
+  background: #ea580c !important;
+  color: #ffffff !important;
 }
