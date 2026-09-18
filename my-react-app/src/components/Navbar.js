@@ -139,6 +139,13 @@ const Navbar = () => {
                   </div>
                   <hr className="dropdown-divider" />
                   <Link
+                    to="/chatbot"
+                    className="dropdown-link"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    🤖 AI Concierge
+                  </Link>
+                  <Link
                     to="/settings"
                     className="dropdown-link"
                     onClick={() => setDropdownOpen(false)}
