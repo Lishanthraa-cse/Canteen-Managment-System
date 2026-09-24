@@ -14,6 +14,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import campusLogo from "../assets/campuseats-logo.png";
 
 const AdminSidebar = () => {
   const { logoutAdmin, isDarkMode, toggleDarkMode } = useApp();
@@ -46,8 +47,11 @@ const AdminSidebar = () => {
     <aside className={`admin-sidebar ${sidebarOpen ? "open" : "collapsed"}`}>
       <div className="admin-brand-header">
         <div className="brand-logo-cluster">
-          <FaUtensils className="sidebar-logo-icon" />
-          {sidebarOpen && <span>SREC Admin</span>}
+          <img
+            src={campusLogo}
+            alt="CampusEats Logo"
+            className={`sidebar-brand-img ${sidebarOpen ? "" : "collapsed"}`}
+          />
         </div>
         <button
           className="sidebar-collapse-btn"

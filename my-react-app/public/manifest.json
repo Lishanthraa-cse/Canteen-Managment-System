@@ -1,7 +1,12 @@
 {
-  "short_name": "CanteenApp",
-  "name": "College Canteen Management System",
+  "short_name": "CampusEats",
+  "name": "CampusEats - Student Food Solutions",
   "icons": [
+    {
+      "src": "campuseats-logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    },
     {
       "src": "logo192.png",
       "sizes": "192x192",
@@ -15,6 +20,6 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#ffffff",
+  "theme_color": "#ea580c",
   "background_color": "#ffffff"
 }

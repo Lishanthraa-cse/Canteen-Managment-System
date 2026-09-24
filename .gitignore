@@ -27,5 +27,5 @@ backups/
 .DS_Store
 Thumbs.db
 
-# Untracked project documentation
+# Strictly Untracked Local Files
 project_documentation.md

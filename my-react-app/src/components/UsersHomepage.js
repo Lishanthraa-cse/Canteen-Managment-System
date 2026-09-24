@@ -108,7 +108,7 @@ const UsersHomepage = () => {
         {/* Welcome Greeting Banner */}
         <section className="welcome-banner">
           <div className="welcome-text-col">
-            <span className="campus-badge">SREC SMART CAMPUS</span>
+            <span className="campus-badge">CAMPUSEATS SMART DINING</span>
             <h1>
               Welcome back, <span className="highlight-name">{currentUser?.name || "Student"}!</span> 👋
             </h1>

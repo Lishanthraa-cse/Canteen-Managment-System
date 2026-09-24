@@ -16,6 +16,7 @@ import {
   FaRobot,
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import campusLogo from "../assets/campuseats-logo.png";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -37,14 +38,8 @@ const Navbar = () => {
     <header className={`modern-navbar-container ${isDarkMode ? "dark-theme" : ""}`}>
       <nav className="modern-navbar">
         {/* Brand */}
-        <Link to="/usershomepage" className="brand-logo">
-          <div className="logo-icon-wrap">
-            <FaUtensils className="brand-icon" />
-          </div>
-          <div className="brand-text">
-            <span className="brand-title">SREC CANTEEN</span>
-            <span className="brand-subtitle">Smart Food Hub</span>
-          </div>
+        <Link to="/usershomepage" className="brand-logo" aria-label="CampusEats Home">
+          <img src={campusLogo} alt="CampusEats Logo" className="brand-img-logo" />
         </Link>
 
         {/* Live Active Order Stepper Pill */}

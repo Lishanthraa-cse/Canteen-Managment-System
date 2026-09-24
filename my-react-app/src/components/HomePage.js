@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  FaUtensils,
   FaQrcode,
   FaClock,
   FaStar,
@@ -10,6 +9,7 @@ import {
   FaArrowRight,
   FaCheckCircle,
 } from "react-icons/fa";
+import campusLogo from "../assets/campuseats-logo.png";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -17,19 +17,13 @@ const HomePage = () => {
     <div className="landing-page-root">
       {/* Top Banner */}
       <div className="announcement-bar">
-        <span>🎉 Welcome to SREC Smart Canteen! Enjoy zero-wait ordering with instant UPI QR receipts.</span>
+        <span>🎉 Welcome to CampusEats! Enjoy zero-wait ordering with instant UPI QR receipts.</span>
       </div>
 
       {/* Navigation Bar */}
       <nav className="landing-nav">
         <div className="brand-badge">
-          <div className="logo-box">
-            <FaUtensils />
-          </div>
-          <div className="logo-text">
-            <strong>SREC CANTEEN</strong>
-            <span>CAMPUS FOOD PORTAL</span>
-          </div>
+          <img src={campusLogo} alt="CampusEats Logo" className="landing-brand-logo" />
         </div>
 
         <div className="landing-nav-actions">
@@ -117,7 +111,7 @@ const HomePage = () => {
       {/* Feature Highlights */}
       <section className="features-grid-section">
         <div className="section-header text-center">
-          <span className="section-label">WHY SREC CANTEEN?</span>
+          <span className="section-label">WHY CAMPUSEATS?</span>
           <h2>Crafted For Campus Life</h2>
           <p>Designed to save your break time and deliver delicious hot food without queue fatigue.</p>
         </div>
@@ -183,8 +177,8 @@ const HomePage = () => {
       <footer className="landing-footer">
         <div className="footer-inner">
           <div className="footer-col brand">
-            <h4>🍽️ SREC Smart Canteen</h4>
-            <p>Serving happiness, one meal at a time. Built with pride for Sri Ramakrishna Engineering College.</p>
+            <h4>🍽️ CampusEats</h4>
+            <p>Serving happiness, one meal at a time. Smart, swift dining for our campus community.</p>
           </div>
           <div className="footer-col links">
             <h5>Quick Links</h5>
@@ -201,7 +195,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} SREC Smart Canteen Management System. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} CampusEats - Student Food Solutions. All rights reserved.</p>
         </div>
       </footer>
     </div>

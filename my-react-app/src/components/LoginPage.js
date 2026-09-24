@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaEnvelope, FaLock, FaUtensils, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import campusLogo from "../assets/campuseats-logo.png";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -56,7 +57,7 @@ const LoginPage = () => {
           localStorage.removeItem("canteen_saved_pass");
         }
 
-        showToast("🎉 Welcome back to SREC Canteen!", "success");
+        showToast("🎉 Welcome back to CampusEats!", "success");
         navigate("/usershomepage");
       } else {
         showToast(data.message || "Invalid credentials. Please verify your email & password.", "error");
@@ -90,9 +91,7 @@ const LoginPage = () => {
         </Link>
 
         <div className="login-card-header">
-          <div className="header-icon">
-            <FaUtensils />
-          </div>
+          <img src={campusLogo} alt="CampusEats Logo" className="auth-brand-logo" />
           <h1>Student Sign In</h1>
           <p>Access today's menu, live token tracker & favorites.</p>
         </div>

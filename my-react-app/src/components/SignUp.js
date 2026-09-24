@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaUser, FaEnvelope, FaLock, FaPhone, FaArrowLeft, FaUtensils } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaPhone, FaArrowLeft } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import campusLogo from "../assets/campuseats-logo.png";
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -42,7 +43,7 @@ const SignUp = () => {
       const data = await res.json();
       if (res.ok && data.user) {
         setUserSession(data.user, data.token);
-        showToast("🎉 Registration successful! Welcome to SREC Canteen.", "success");
+        showToast("🎉 Registration successful! Welcome to CampusEats.", "success");
         navigate("/usershomepage");
       } else {
         showToast(data.message || "Registration failed. Please try again.", "error");
@@ -62,11 +63,9 @@ const SignUp = () => {
         </Link>
 
         <div className="signup-card-header">
-          <div className="header-icon">
-            <FaUtensils />
-          </div>
+          <img src={campusLogo} alt="CampusEats Logo" className="auth-brand-logo" />
           <h1>Create Student Account</h1>
-          <p>Join SREC Smart Canteen for fast, line-free ordering.</p>
+          <p>Join CampusEats for fast, line-free ordering.</p>
         </div>
 
         <form onSubmit={handleSignUp} className="signup-form-wrap">

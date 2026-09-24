@@ -3,9 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import {
   FaCheckCircle,
   FaPrint,
-  FaUtensils,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
+import campusLogo from "../assets/campuseats-logo.png";
 import "./ReceiptPage.css";
 
 const ReceiptPage = () => {
@@ -59,10 +59,10 @@ const ReceiptPage = () => {
           {/* Header */}
           <div className="invoice-header">
             <div className="invoice-brand">
-              <FaUtensils className="brand-fork" />
+              <img src={campusLogo} alt="CampusEats" className="receipt-brand-logo" />
               <div>
-                <h2>SREC SMART CANTEEN</h2>
-                <p>Sri Ramakrishna Engineering College, Coimbatore</p>
+                <h2>CAMPUSEATS SMART CANTEEN</h2>
+                <p>Express Campus Dining & Real-time Food Delivery</p>
                 <span>FSSAI License: 12421008000192 • GSTIN: 33AAAAA0000A1Z5</span>
               </div>
             </div>
@@ -152,7 +152,7 @@ const ReceiptPage = () => {
 
           {/* Footer message */}
           <div className="invoice-footer">
-            <p className="thank-you-msg">Thank you for dining at SREC Canteen! 🍽️</p>
+            <p className="thank-you-msg">Thank you for dining with CampusEats! 🍽️</p>
             <p className="footer-sub">
               Please present your Token <strong>{receipt.orderNumber}</strong> at the counter window when your order is called.
             </p>

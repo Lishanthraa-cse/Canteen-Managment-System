@@ -32,6 +32,19 @@
   gap: 12px;
 }
 
+.landing-brand-logo {
+  height: 48px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.landing-brand-logo:hover {
+  transform: scale(1.02);
+}
+
 .logo-box {
   width: 44px;
   height: 44px;
@@ -625,6 +638,10 @@
   .footer-inner {
     grid-template-columns: 1fr;
   }
+  .landing-brand-logo {
+    height: 38px;
+    max-width: 140px;
+  }
 }
 
 /* ==========================================================================
@@ -635,6 +652,14 @@ body.dark-theme .landing-page-root,
 .landing-page-root.dark-theme {
   background-color: #0b0f19 !important;
   color: #f8fafc !important;
+}
+
+body.dark-theme .landing-brand-logo,
+[data-theme="dark"] .landing-brand-logo,
+.landing-page-root.dark-theme .landing-brand-logo {
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 8px;
 }
 
 /* Announcement Bar */

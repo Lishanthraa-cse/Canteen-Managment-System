@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaShieldAlt, FaLock, FaEnvelope, FaArrowLeft, FaKey, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaLock, FaEnvelope, FaArrowLeft, FaKey, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
+import campusLogo from "../assets/campuseats-logo.png";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
@@ -60,9 +61,9 @@ const AdminLogin = () => {
 
         <div className="admin-login-header">
           <div className="admin-shield-icon">
-            <FaShieldAlt />
+            <img src={campusLogo} alt="CampusEats Admin" style={{ height: "48px", width: "auto", objectFit: "contain", background: "#ffffff", padding: "4px 8px", borderRadius: "8px" }} />
           </div>
-          <h1>SREC Canteen Admin</h1>
+          <h1>CampusEats Admin Portal</h1>
           <p>Restricted access for canteen staff & cafeteria operations.</p>
         </div>
 

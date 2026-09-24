@@ -34,6 +34,15 @@
   margin-bottom: 24px;
 }
 
+.auth-brand-logo {
+  height: 58px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+  display: block;
+}
+
 .header-icon {
   width: 52px;
   height: 52px;
@@ -257,6 +266,14 @@ body.dark-theme .login-page-root,
 .login-page-root.dark-theme {
   background: #0b0f19 !important;
   color: #f8fafc !important;
+}
+
+body.dark-theme .auth-brand-logo,
+[data-theme="dark"] .auth-brand-logo,
+.login-page-root.dark-theme .auth-brand-logo {
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 10px;
 }
 
 body.dark-theme .login-card-box,

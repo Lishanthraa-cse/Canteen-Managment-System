@@ -38,7 +38,7 @@ const Chatbotpage = () => {
   const [messages, setMessages] = useState([
     {
       from: "bot",
-      text: "👋 Hi! I'm your SREC Canteen AI Concierge.\nHow can I help you eat well today? Ask about live kitchen wait times, ₹80/₹100 combos, calories, or let me surprise you!",
+      text: "👋 Hi! I'm your CampusEats AI Concierge.\nHow can I help you eat well today? Ask about live kitchen wait times, ₹80/₹100 combos, calories, or let me surprise you!",
       suggestions: [
         "🍱 Build ₹80 Combo",
         "⏱️ Kitchen Wait Time",
@@ -395,7 +395,7 @@ const Chatbotpage = () => {
                   <FaRobot />
                 </div>
                 <div>
-                  <h2 className="s-title">SREC AI Concierge</h2>
+                  <h2 className="s-title">CampusEats AI Concierge</h2>
                   <span className="s-badge">Smart Campus Assistant</span>
                 </div>
               </div>
@@ -487,7 +487,7 @@ const Chatbotpage = () => {
                     Canteen AI Concierge {isFullPage && <span className="pro-tag">Terminal</span>}
                   </h3>
                   <span className="bot-status">
-                    <span className="dot"></span> Online • SREC Food Intelligence
+                    <span className="dot"></span> Online • CampusEats Food Intelligence
                   </span>
                 </div>
               </div>
