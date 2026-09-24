@@ -86,6 +86,25 @@ app.post("/", (req, res, next) => {
   chatbotRoutes.handle(req, res, next);
 });
 
+// Forgot Password Endpoint
+app.post(["/forgot-password", "/api/forgot-password"], async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: "Email is required!" });
+    }
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    if (!user) {
+      return res.status(404).json({ message: "User with this email not found!" });
+    }
+    return res.status(200).json({
+      message: "Password reset link sent! Check your email.",
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Error processing password reset", error: error.message });
+  }
+});
+
 // User Authentication Routes
 app.post("/api/register", async (req, res) => {
   try {

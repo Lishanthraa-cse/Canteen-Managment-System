@@ -236,6 +236,19 @@
   text-decoration: none;
 }
 
+@media (max-width: 480px) {
+  .login-page-root {
+    padding: 16px 12px;
+  }
+  .login-card-box {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+  .login-card-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
 /* ==========================================================================
    Dark Theme Login Page Overrides
    ========================================================================== */

@@ -26,3 +26,6 @@ backups/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Untracked project documentation
+project_documentation.md

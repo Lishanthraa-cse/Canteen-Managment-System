@@ -140,6 +140,12 @@
   gap: 8px;
   overflow-x: auto;
   padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.category-chips-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .category-chip {
@@ -608,15 +614,59 @@
 }
 
 @media (max-width: 640px) {
+  .menu-container {
+    padding: 16px 12px 140px;
+  }
+  .menu-header {
+    margin-bottom: 20px;
+  }
+  .menu-header-text h1 {
+    font-size: 1.65rem;
+  }
+  .menu-header-text p {
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
   .menu-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .menu-controls-row {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
+  }
+  .menu-search-box {
+    max-width: 100%;
+    min-width: 100%;
   }
   .filter-sort-group {
     justify-content: space-between;
+    width: 100%;
+  }
+  .category-chips-bar {
+    gap: 6px;
+    padding-bottom: 6px;
+  }
+  .category-chip {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+  }
+  .floating-cart-bar {
+    bottom: 14px;
+    width: calc(100% - 24px);
+    padding: 10px 14px;
+    gap: 10px;
+  }
+  .cart-bar-total {
+    font-size: 1rem;
+  }
+  .cart-bar-title {
+    font-size: 0.78rem;
+  }
+  .view-cart-checkout-btn {
+    padding: 8px 14px;
+    font-size: 0.85rem;
   }
 }
 

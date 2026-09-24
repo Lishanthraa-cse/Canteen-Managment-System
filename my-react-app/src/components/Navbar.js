@@ -13,6 +13,7 @@ import {
   FaTimes,
   FaSun,
   FaMoon,
+  FaRobot,
 } from "react-icons/fa";
 import { useApp } from "../context/AppContext";
 import "./Navbar.css";
@@ -104,7 +105,23 @@ const Navbar = () => {
             <span>Cart</span>
             {cartCount > 0 && <span className="nav-badge cart-badge">{cartCount}</span>}
           </Link>
+          <Link
+            to="/chatbot"
+            className={`nav-item ${isActive("/chatbot") ? "active" : ""}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <FaRobot className="inline-icon" /> AI Concierge
+          </Link>
         </div>
+
+        {/* Mobile menu backdrop overlay */}
+        {mobileMenuOpen && (
+          <div
+            className="mobile-menu-backdrop"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+        )}
 
         {/* Right Section: User Dropdown / Login */}
         {/* Right Section: Theme Toggle & User Dropdown / Login */}

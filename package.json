@@ -1,0 +1,25 @@
+{
+  "name": "srec-canteen-management-system",
+  "version": "1.0.0",
+  "description": "Full-Stack Smart Canteen Management System",
+  "main": "backend/server.js",
+  "scripts": {
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix my-react-app",
+    "build:frontend": "npm run build --prefix my-react-app",
+    "build": "npm run install:backend && npm run install:frontend && npm run build:frontend",
+    "start": "node backend/server.js",
+    "server": "node backend/server.js",
+    "client": "npm start --prefix my-react-app"
+  },
+  "keywords": [
+    "canteen",
+    "management",
+    "react",
+    "express",
+    "mongodb",
+    "socket.io"
+  ],
+  "author": "Lishanthraa",
+  "license": "ISC"
+}

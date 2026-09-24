@@ -110,6 +110,8 @@
   border-radius: 18px;
   padding: 24px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .card-top-info {
@@ -427,6 +429,53 @@
 
 .btn-save:hover {
   background: #c2410c;
+}
+
+@media (max-width: 768px) {
+  .menu-mgmt-top-nav {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .add-new-dish-btn {
+    justify-content: center;
+    width: 100%;
+  }
+  .menu-mgmt-container {
+    padding: 16px 12px 60px;
+  }
+  .mgmt-controls-card {
+    padding: 14px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .mgmt-search-bar {
+    min-width: 100%;
+    width: 100%;
+  }
+  .mgmt-category-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .mgmt-category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-pill {
+    white-space: nowrap;
+  }
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .modal-content-card {
+    width: 95%;
+    margin: 10px auto;
+  }
 }
 
 /* ==========================================================================

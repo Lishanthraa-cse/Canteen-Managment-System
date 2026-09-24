@@ -399,6 +399,47 @@
 }
 
 @media (max-width: 640px) {
+  .orders-tracker-container {
+    padding: 16px 12px 60px;
+  }
+  .orders-page-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .orders-page-top h1 {
+    font-size: 1.65rem;
+  }
+  .orders-tabs-row {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+  }
+  .orders-tabs-row::-webkit-scrollbar {
+    display: none;
+  }
+  .order-tab-btn {
+    white-space: nowrap;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+  }
+  .order-live-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+  .order-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .order-header-right {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
   .stepper-line-track {
     display: none;
   }
@@ -411,6 +452,16 @@
     flex-direction: row;
     width: 100%;
     text-align: left;
+    gap: 12px;
+  }
+  .card-action-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card-action-bar button,
+  .card-action-bar a {
+    width: 100%;
+    justify-content: center;
   }
 }
 
